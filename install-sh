@@ -2,17 +2,39 @@
 echo -e "Welcome to the GQE installation script\n"
 echo -e "We will now begin the installation process\n"
 sleep 1
+
 echo -e "Please grant storage permissions\n"
 echo -e "If already granted, this can be ignored\n"
 termux-setup-storage & sleep 0
 sleep 4
 if [ -e storage ]; then
 echo -e "Failed to check the directory , Please ensure that you have granted storage permissions\n"
+
 echo -e "Updating termux package\n"
 apt-get clean
 apt-get update >/dev/null 2>&1
 apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/null 2>&1
+
 echo -e "Installing necessary\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
-pkg install pulseaudio termux-x11 glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc -y &>/dev/null
-wget 
+pkg install pulseaudio termux-x11 glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc tar xz-utils wget -y &>/dev/null
+wget https://github.com/termux-pacman/releases/download/20221025/gpft-20221025-aarch64.tar.xz
+tar -xJf gpft-20221025-aarch64.tar.xz
+tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
+cp data/data/com.termux/files/usr/glibc/* /data/data/com.termux/files/usr/glibc/
+rm -rf data .BUILDINFO .MTREE .PKGINFO glibc-for termux gpft-20221025-aarch64.tar.xz
+
+echo -e "Downloading Box64...\n"
+wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
+
+echo -e "Unzipping Box64...\n"
+tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f box64.tar.xz
+
+echo -e "Downloading Wine..."
+wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
+
+echo -e "Unzipping Wine...\n"
+tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f winewow64.tar.xz
+

@@ -8,5 +8,5 @@ wget -P $HOME/.gqe-data/drive_c/windows https://github.com/radzikpwnz/tfm/releas
 wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/startmenulink.tar.xz
 wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/startmenu.tar.xz
 tar -xJf startmenu.tar.xz -C /data/data/com.termux/files/usr/opt
-tar -xJf startmenulink.tar.xz -C "$HOME/.gqe-data/drive_c/users/u*/AppData/Roaming/Microsoft/Windows/Start Menu"
+ls -d "$HOME/.gqe-data/drive_c/users/u*" | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu"
 rm -f startmenulink.tar.xz startmenu.tar.xz

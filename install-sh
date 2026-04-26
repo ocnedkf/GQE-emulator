@@ -7,7 +7,7 @@ echo -e "Please grant storage permissions\n"
 echo -e "If already granted, this can be ignored\n"
 termux-setup-storage & sleep 0
 sleep 4
-if [ ! -e storage ]; then
+if [ ! -e $HOME/storage ]; then
 echo -e "Failed to check the directory , Please ensure that you have granted storage permissions\n"
 exit 1
 fi
@@ -25,7 +25,7 @@ wget https://github.com/termux-pacman/releases/download/20221025/gpft-20221025-a
 tar -xJf gpft-20221025-aarch64.tar.xz
 tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
 cp data/data/com.termux/files/usr/glibc/* /data/data/com.termux/files/usr/glibc/
-rm -rf data .BUILDINFO .MTREE .PKGINFO glibc-for termux gpft-20221025-aarch64.tar.xz
+rm -rf data .BUILDINFO .MTREE .PKGINFO glibc-for-termux gpft-20221025-aarch64.tar.xz
 
 echo -e "Downloading Box64...\n"
 wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
@@ -41,8 +41,11 @@ echo -e "Unzipping Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
-echo -e "Configuring Wine...\n"
+echo -e "Initializing Wine...\n"
 rm -r $HOME/.gqe-data
 mkdir -p $HOME/.gqe-data
 WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 box64 wine64 wineboot -u
+
+echo -e "Configuring Wine...\n"
 wget -P $HOME/.gqe-data/drive_c/windows https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe
+wget -P 

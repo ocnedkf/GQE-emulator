@@ -20,6 +20,7 @@ apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/nu
 echo -e "Installing necessary\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install pulseaudio termux-x11 glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc tar xz-utils wget -y &>/dev/null
+cd $HOME
 wget https://github.com/termux-pacman/releases/download/20221025/gpft-20221025-aarch64.tar.xz
 tar -xJf gpft-20221025-aarch64.tar.xz
 tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
@@ -33,10 +34,15 @@ echo -e "Unzipping Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
-echo -e "Downloading Wine..."
+echo -e "Downloading Wine...\n"
 wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo -e "Unzipping Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
+echo -e "Configuring Wine...\n"
+rm -r $HOME/.gqe-data
+mkdir -p $HOME/.gqe-data
+WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 box64 wine64 wineboot -u
+wget -P $HOME/.gqe-data/drive_c/windows https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe

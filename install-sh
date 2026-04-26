@@ -42,10 +42,4 @@ tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
 echo -e "Initializing Wine...\n"
-rm -r $HOME/.gqe-data
-mkdir -p $HOME/.gqe-data
-WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 box64 wine64 wineboot -u
-
-echo -e "Configuring Wine...\n"
-wget -P $HOME/.gqe-data/drive_c/windows https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe
-wget -P 
+wget 

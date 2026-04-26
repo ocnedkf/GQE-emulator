@@ -7,8 +7,10 @@ echo -e "Please grant storage permissions\n"
 echo -e "If already granted, this can be ignored\n"
 termux-setup-storage & sleep 0
 sleep 4
-if [ -e storage ]; then
+if [ ! -e storage ]; then
 echo -e "Failed to check the directory , Please ensure that you have granted storage permissions\n"
+exit 1
+fi
 
 echo -e "Updating termux package\n"
 apt-get clean

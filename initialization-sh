@@ -11,11 +11,11 @@ tar -xJf startmenu.tar.xz -C /data/data/com.termux/files/usr/opt
 ls -d "$HOME/.gqe-data/drive_c/users/u*" | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink.tar.xz startmenu.tar.xz
 
-echo -e "Downloading Gecko(64 bit)..."
+echo -e "Downloading Gecko(64 bit)...\n"
 cd $HOME
 wget https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
 
-echo -e "Installing Gecko(64 bit)..."
+echo -e "Installing Gecko(64 bit)...\n"
 grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86_64.msi
 

@@ -44,4 +44,10 @@ rm -f winewow64.tar.xz
 echo -e "Initializing Wine...\n"
 wget https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
 chmod 755 initialization-sh
-bash initialization-sh
+./initialization-sh
+rm -f initialization-sh
+
+wget -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
+chomd 755 /data/data/com.termux/files/usr/bin/start-gqe
+echo -e "Starting to launch GQE..."
+start-gqe

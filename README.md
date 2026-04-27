@@ -13,3 +13,25 @@ Execute the following command in Termux
 <br>
 
 $ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g && rm g
+
+# Device Requirements:
+An Android ARM device with Android version 7 or above, requiring at least approximately 5.5GB of space.
+
+<br>
+# Third party applications
+
+[Box64](https://github.com/ptitSeb/box64)
+
+[DXVK](https://github.com/doitsujin/dxvk)
+
+[D8VK](https://github.com/AlpyneDreams/d8vk)
+
+[termux-app](https://github.com/termux/termux-app)
+
+[Wine](https://github.com/ocnedkf/wine-custom)
+
+[termux-glibc-packgaes](https://github.com/termux-pacman/glibc-packages)
+
+[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+
+[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)

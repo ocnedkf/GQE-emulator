@@ -21,7 +21,7 @@ apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/nu
 
 echo -e "Installing necessary\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
-pkg install pulseaudio termux-x11 glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc tar xz-utils wget -y &>/dev/null
+pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc tar xz-utils wget -y &>/dev/null
 cd $HOME
 wget https://github.com/termux-pacman/glibc-package/releases/download/20221025/gpft-20221025-aarch64.tar.xz
 tar -xJf gpft-20221025-aarch64.tar.xz

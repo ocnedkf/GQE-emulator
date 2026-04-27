@@ -16,23 +16,26 @@ cd $HOME
 wget https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
 
 echo -e "Installing Gecko(64 bit)..."
-grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/bin/wine msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
+grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86_64.msi
 
 echo -e "Downloading Gecko(32 bit)\n"
 wget https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.msi
 
 echo -e "Installing Gecko(32 bit)\n"
-grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/bin/wine msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
+grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86.msi
 
-echo -e "Downloading Mono..."
+echo -e "Downloading Mono...\n"
 wget https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
 
-echo -e "Installing Mono..."
-grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/bin/wine msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
+echo -e "Installing Mono...\n"
+grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
 rm -f wine-mono-9.4.0-x86.msi
 
-echo -e "Downloading InputBridge..."
+echo -e "Downloading InputBridge...\n"
 wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
 tar -xJf inputbridge.tar.xz /opt
+
+echo -e "Installing InputBridge...\n"
+grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 Z:\opt\InputBridge\install.bat

@@ -11,13 +11,17 @@ tar -xJf startmenu.tar.xz -C /data/data/com.termux/files/usr/opt
 ls -d "$HOME/.gqe-data/drive_c/users/u*" | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink.tar.xz startmenu.tar.xz
 
-echo -e "Installing Gecko..."
+echo -e "Downloading Gecko..."
 cd $HOME
 wget https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
+
+echo -e "Installing Gecko..."
 grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/bin/wine msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86_64.msi
 
-echo -e "Installing Mono..."
+echo -e "Downloading Mono..."
 wget https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
+
+echo -e "Installing Mono..."
 grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/bin/wine msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
 rm -f wine-mono-9.4.0-x86.msi

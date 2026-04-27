@@ -14,12 +14,12 @@ echo -e "Failed to check the directory , Please ensure that you have granted sto
 exit 1
 fi
 
-echo -e "Updating termux package\n"
+echo -e "Updating termux package...\n"
 apt-get clean
 apt-get update >/dev/null 2>&1
 apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/null 2>&1
 
-echo -e "Installing necessary\n"
+echo -e "Installing necessary...\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget -y &>/dev/null
 cd $HOME

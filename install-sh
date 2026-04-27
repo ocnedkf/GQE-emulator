@@ -49,5 +49,7 @@ rm -f initialization-sh
 
 wget -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
 chomd 755 /data/data/com.termux/files/usr/bin/start-gqe
-echo -e "Starting to launch GQE...\n"
+echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'
+sleep 2
 start-gqe
+exit 0

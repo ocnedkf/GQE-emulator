@@ -18,6 +18,7 @@ $ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads
 An Android ARM device with Android version 7 or above, requiring at least approximately 5.5GB of space.
 
 <br>
+
 # Third party applications
 
 [Box64](https://github.com/ptitSeb/box64)

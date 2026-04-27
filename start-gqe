@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-if [ ! -d $HOME/.gqe-data/drive_c" ]; then
+if [ ! -d "$HOME/.gqe-data/drive_c" ]; then
 echo -e "Wine prefix missing,try reinitializing...\n"
 wget https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
 ./initialization-sh

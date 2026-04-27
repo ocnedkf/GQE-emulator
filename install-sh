@@ -23,28 +23,28 @@ echo -e "Installing necessary...\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget -y &>/dev/null
 cd $HOME
-wget --show-progress https://github.com/termux-pacman/glibc-packages/releases/download/20221025/gpft-20221025-aarch64.tar.xz
+wget --quiet --show-progress https://github.com/termux-pacman/glibc-packages/releases/download/20221025/gpft-20221025-aarch64.tar.xz
 tar -xJf gpft-20221025-aarch64.tar.xz
 tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
 cp -r data/data/com.termux/files/usr/glibc/* /data/data/com.termux/files/usr/glibc/
 rm -rf data .BUILDINFO .MTREE .PKGINFO glibc-for-termux gpft-20221025-aarch64.tar.xz
 
 echo -e "Downloading Box64...\n"
-wget --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 
 echo -e "Unzipping Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
 echo -e "Downloading Wine...\n"
-wget --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo -e "Unzipping Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
 echo -e "Initializing Wine...\n"
-wget --show-progress https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
+wget --quiet --show-progress https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
 chmod 755 initialization-sh
 ./initialization-sh
 rm -f initialization-sh
@@ -61,7 +61,7 @@ grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ko_KR $H
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
 
 echo -e "Downloading GQE startup script...\n"
-wget --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 
 echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'

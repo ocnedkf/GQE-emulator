@@ -17,3 +17,7 @@ termux-x11 :13 & >/dev/null 2>&1
 am start -n com.termux.x11/.MainActivity
 
 env BOX64_ASYNC=1 WINEPREFIX=$HOME/.gqe-data LOCPATH=$HOME/.locale PULSE_SERVER=127.0.0.1 DXVK_HUD=1 MESA_NO_ERROR=1 DISPLAY=:13 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 explorer /desktop=shell,1024x768 TFM.exe >/dev/null 2>&1
+
+pkill -f X
+pulseaudio -k >/dev/null 2>&1
+rm -rf $PREFIX/tmp/pulse-*

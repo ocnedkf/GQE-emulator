@@ -32,3 +32,7 @@ wget https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
 echo -e "Installing Mono..."
 grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/bin/wine msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
 rm -f wine-mono-9.4.0-x86.msi
+
+echo -e "Downloading InputBridge..."
+wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
+tar -xJf inputbridge.tar.xz /opt

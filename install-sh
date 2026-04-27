@@ -21,7 +21,7 @@ echo -e "Installing necessary\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install pulseaudio termux-x11 glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc tar xz-utils wget -y &>/dev/null
 cd $HOME
-wget https://github.com/termux-pacman/releases/download/20221025/gpft-20221025-aarch64.tar.xz
+wget https://github.com/termux-pacman/glibc-package/releases/download/20221025/gpft-20221025-aarch64.tar.xz
 tar -xJf gpft-20221025-aarch64.tar.xz
 tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
 cp data/data/com.termux/files/usr/glibc/* /data/data/com.termux/files/usr/glibc/

@@ -35,7 +35,7 @@ rm -f wine-mono-9.4.0-x86.msi
 
 echo -e "Downloading InputBridge...\n"
 wget https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
-tar -xJf inputbridge.tar.xz /opt
+tar -xJf inputbridge.tar.xz /data/data/com.termux/files/usr/opt
 
 echo -e "Installing InputBridge...\n"
 grun /data/data/com.termux/files/usr/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 Z:\opt\InputBridge\install.bat >/dev/null 2>&1

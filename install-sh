@@ -1,4 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
+clear
+
 echo -e "Welcome to the GQE installation script\n"
 echo -e "We will now begin the installation process\n"
 sleep 1

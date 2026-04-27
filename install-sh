@@ -58,8 +58,10 @@ localedef -f UTF-8 -c -i de_DE $HOME/.locale/de_DE.UTF-8
 localedef -f UTF-8 -c -i ko_KR $HOME/.locale/ko_KR.UTF-8
 localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
 
+echo -e "Downloading GQE startup script...\n"
 wget -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
+
 echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'
 sleep 2
 start-gqe

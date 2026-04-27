@@ -47,7 +47,7 @@ chmod 755 initialization-sh
 ./initialization-sh
 rm -f initialization-sh
 
-echo -e "Configuring area files.../n"
+echo -e "Configuring area files...\n"
 mkdir -p .locale
 localedef -f UTF-8 -c -i en_US $HOME/.locale/en_US.UTF-8
 localedef -f UTF-8 -c -i ja_JP $HOME/.locale/ja_JP.UTF-8
@@ -59,7 +59,7 @@ localedef -f UTF-8 -c -i ko_KR $HOME/.locale/ko_KR.UTF-8
 localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
 
 wget -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
-chomd 755 /data/data/com.termux/files/usr/bin/start-gqe
+chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'
 sleep 2
 start-gqe

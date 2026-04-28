@@ -11,10 +11,12 @@ tar -xJf startmenu.tar.xz -C /data/data/com.termux/files/usr/opt
 ls -d $HOME/.gqe-data/drive_c/users/u* | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink.tar.xz startmenu.tar.xz
 
+echo ""
 echo -e "Downloading Gecko(64 bit)...\n"
 cd $HOME
 wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
 
+echo ""
 echo -e "Installing Gecko(64 bit)...\n"
 grun /data/data/com.termux/files/usr/glibc/bin//box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86_64.msi
@@ -22,6 +24,7 @@ rm -f wine-gecko-2.47.4-x86_64.msi
 echo -e "Downloading Gecko(32 bit)...\n"
 wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.msi
 
+echo ""
 echo -e "Installing Gecko(32 bit)...\n"
 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86.msi
@@ -29,6 +32,7 @@ rm -f wine-gecko-2.47.4-x86.msi
 echo -e "Downloading Mono...\n"
 wget --quiet --show-progress https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
 
+echo ""
 echo -e "Installing Mono...\n"
 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
 rm -f wine-mono-9.4.0-x86.msi
@@ -38,9 +42,12 @@ wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/do
 tar -xJf inputbridge.tar.xz -C /data/data/com.termux/files/usr/opt
 rm -f inputbridge.tar.xz
 
+echo ""
 echo -e "Installing InputBridge...\n"
 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 Z:\\usr\\opt\\InputBridge\\install.bat >/dev/null 2>&1
 
 echo -e "Setting drive letter...\n"
 ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data/dosdevices/d:
 ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices/e:
+
+echo -e "Configuration Completed\n"

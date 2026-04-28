@@ -60,6 +60,14 @@ grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i de_DE $H
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ko_KR $HOME/.locale/ko_KR.UTF-8
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
 
+echo -e "Downloading Fonts...\n"
+wget --quiet --show-progress https://raw.github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz
+
+echo -e "Installing Fonts...\n"
+mkdir -p /data/data/com.termux/files/usr/glibc/share/fonts
+tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
+rm -f fonts.tar.xz
+
 echo -e "Downloading GQE startup script...\n"
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe

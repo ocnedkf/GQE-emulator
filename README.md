@@ -27,11 +27,11 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [D8VK](https://github.com/AlpyneDreams/d8vk)
 
-[termux-app](https://github.com/termux/termux-app)
+[Termux-APP](https://github.com/termux/termux-app)
 
 [Wine](https://github.com/ocnedkf/wine-custom)
 
-[termux-glibc-packgaes](https://github.com/termux-pacman/glibc-packages)
+[Termux-Glibc-Packgaes](https://github.com/termux-pacman/glibc-packages)
 
 [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 

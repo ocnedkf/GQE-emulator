@@ -40,3 +40,7 @@ rm -f inputbridge.tar.xz
 
 echo -e "Installing InputBridge...\n"
 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 Z:\\usr\\opt\\InputBridge\\install.bat >/dev/null 2>&1
+
+echo -e "Setting drive letter...\n"
+ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data/dosdevices/d:
+ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices/e:

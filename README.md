@@ -21,7 +21,7 @@ An Android ARM device with Android version 7 or above, requiring at least approx
 
 # Third party applications
 
-[Box64](github.com/Pipetto-crytro/box64)
+[Box64](https://github.com/Pipetto-crytro/box64)
 
 [DXVK](https://github.com/doitsujin/dxvk)
 

@@ -29,20 +29,25 @@ tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
 cp -r data/data/com.termux/files/usr/glibc/* /data/data/com.termux/files/usr/glibc/
 rm -rf data .BUILDINFO .MTREE .PKGINFO glibc-for-termux gpft-20221025-aarch64.tar.xz
 
+echo ""
 echo -e "Downloading Box64...\n"
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 
+echo ""
 echo -e "Unzipping Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
+echo ""
 echo -e "Downloading Wine...\n"
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
+echo ""
 echo -e "Unzipping Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
+echo ""
 echo -e "Initializing Wine...\n"
 wget --quiet --show-progress https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
 chmod 755 initialization-sh
@@ -63,6 +68,7 @@ grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ru_RU $H
 echo -e "Downloading Fonts...\n"
 wget --quiet --show-progress https://raw.github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz
 
+echo ""
 echo -e "Installing Fonts...\n"
 mkdir -p /data/data/com.termux/files/usr/glibc/share/fonts
 tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
@@ -72,6 +78,7 @@ echo -e "Downloading GQE startup script...\n"
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 
+echo ""
 echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'
 sleep 2
 start-gqe

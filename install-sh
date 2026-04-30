@@ -75,5 +75,7 @@ chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 echo ""
 echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'
 sleep 2
+
 start-gqe
-exit 0
+
+rm -rf "$0"

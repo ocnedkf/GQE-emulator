@@ -3,7 +3,6 @@ rm -r $HOME/.gqe-data >/dev/null 2>&1
 mkdir -p $HOME/.gqe-data
 env WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 grun /data/data/com.termux/files/usr/glibc/bin/box64 wine64 wineboot -u >/dev/null 2>&1
 
-echo ""
 echo -e "Configuring Wine...\n"
 wget --quiet --show-progress -P $HOME/.gqe-data/drive_c/windows https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/startmenulink.tar.xz

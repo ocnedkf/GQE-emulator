@@ -5,8 +5,6 @@ This simulator is still in the beta stage, so there may be several bugs that hav
 GQE is an emulator that runs x86_64 on Android ARM64 devices, relying on Termux, Termux-x11, and InputBridge.
 <br>
 
-![Alt text](doc/NFSHP2.jpg)
-<br>
 ![Alt text](doc/Tools.jpg)
 <br>
 

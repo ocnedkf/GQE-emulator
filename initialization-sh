@@ -56,6 +56,7 @@ wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/do
 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg >/dev/null 2>&1
 rm -f dllsetting.reg
 
+echo ""
 echo -e "Configuring startup scripts...\n"
 rm -rf $HOME/storage/shared/.gqe-start
 mkdir -p $HOME/storage/shared/.gqe-start

@@ -31,7 +31,7 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [Wine](https://github.com/ocnedkf/wine-custom)
 
-[Termux-Glibc-Packgaes](https://github.com/termux-pacman/glibc-packages)
+[Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
 [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 

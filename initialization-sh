@@ -52,7 +52,7 @@ ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices
 
 echo -e "Setting DLL overrides...\n"
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
-grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg
+grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg >/dev/null 2>&1
 rm -f dllsetting.reg
 
 echo -e "Configuration Completed\n"

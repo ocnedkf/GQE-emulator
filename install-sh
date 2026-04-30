@@ -41,6 +41,7 @@ echo -e "Unzipping Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
+clear
 echo -e "Initializing Wine...\n"
 wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
 chmod 755 initialization-sh

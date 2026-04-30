@@ -24,6 +24,7 @@ pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget -y &>/dev/null
 
 echo -e "Downloading Box64...\n"
+rm -f box64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 
 echo ""
@@ -36,6 +37,7 @@ wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/do
 
 echo ""
 echo -e "Unzipping Wine...\n"
+rm -f winewow64.tar.xz
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 

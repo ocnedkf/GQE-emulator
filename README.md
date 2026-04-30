@@ -1,7 +1,7 @@
 # WARNING
 This simulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience this may cause and appreciate your understanding.
 # GQE-emulator
-<br>
+
 GQE is an emulator that runs x86_64 on Android ARM64 devices, relying on Termux, Termux-x11, and InputBridge.
 <br>
 
@@ -16,8 +16,6 @@ $ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads
 
 # Device Requirements
 An Android ARM64 device with Android version 7 or above, requiring at least approximately 4.5GB of space.
-
-<br>
 
 # Third party applications
 

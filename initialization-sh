@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 rm -r $HOME/.gqe-data >/dev/null 2>&1
 mkdir -p $HOME/.gqe-data
-env WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 grun /data/data/com.termux/files/usr/glibc/bin/box64 wine64 wineboot -u >/dev/null 2>&1
+env WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 /data/data/com.termux/files/usr/glibc/bin/wineboot -u >/dev/null 2>&1
 
 echo -e "Configuring Wine...\n"
 rm -rf /data/data/com.termux/files/usr/opt/{InputBridge,startmenu}

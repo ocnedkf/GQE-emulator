@@ -29,7 +29,6 @@ tar -xJf glibc-for-termux/zlib-glibc-1:1.2.12-0-any.pkg.tar.xz
 cp -r data/data/com.termux/files/usr/glibc/* /data/data/com.termux/files/usr/glibc/
 rm -rf data .BUILDINFO .MTREE .PKGINFO glibc-for-termux gpft-20221025-aarch64.tar.xz
 
-echo ""
 echo -e "Downloading Box64...\n"
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 

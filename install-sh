@@ -33,11 +33,11 @@ tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
 echo -e "Downloading Wine...\n"
+rm -f winewow64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo ""
 echo -e "Unzipping Wine...\n"
-rm -f winewow64.tar.xz
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 

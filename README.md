@@ -15,7 +15,7 @@ Execute the following command in Termux
 $ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g && rm g
 
 # Device Requirements
-An Android ARM64 device with Android version 7 or above, requiring at least approximately 5.5GB of space.
+An Android ARM64 device with Android version 7 or above, requiring at least approximately 4.5GB of space.
 
 <br>
 

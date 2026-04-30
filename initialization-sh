@@ -15,6 +15,7 @@ rm -f startmenulink.tar.xz startmenu.tar.xz
 echo ""
 echo -e "Downloading Gecko(64 bit)...\n"
 cd $HOME
+rm -f wine-gecko-2.47.4-x86_64.msi
 wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
 
 echo ""
@@ -23,6 +24,7 @@ env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin//b
 rm -f wine-gecko-2.47.4-x86_64.msi
 
 echo -e "Downloading Gecko(32 bit)...\n"
+rm -f wine-gecko-2.47.4-x86.msi
 wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.msi
 
 echo ""
@@ -31,6 +33,7 @@ env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/bo
 rm -f wine-gecko-2.47.4-x86.msi
 
 echo -e "Downloading Mono...\n"
+rm -f wine-mono-9.4.0-x86.msi
 wget --quiet --show-progress https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
 
 echo ""
@@ -39,6 +42,7 @@ env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/bo
 rm -f wine-mono-9.4.0-x86.msi
 
 echo -e "Downloading InputBridge...\n"
+rm -f inputbridge.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
 tar -xJf inputbridge.tar.xz -C /data/data/com.termux/files/usr/opt
 rm -f inputbridge.tar.xz
@@ -52,6 +56,7 @@ ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data/dosdevi
 ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices/e:
 
 echo -e "Setting DLL overrides...\n"
+rm -f dllsetting.reg
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
 env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg >/dev/null 2>&1
 rm -f dllsetting.reg

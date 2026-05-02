@@ -1,5 +1,5 @@
 # 警告
-本模拟器仍处于beta阶段，因此可能会有若干尚未发现的bug，对此造成的不便尽请谅解
+本模拟器尚处于测试阶段，不排除存在未知问题。对因此造成的不便，敬请谅解
 # GQE-模拟器
 GQE是一个在Android ARM64设备上运行windows x86_64程序的模拟器，依赖Termux，Termux-X11，和InputBridge
 <br>

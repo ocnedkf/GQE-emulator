@@ -1,0 +1,72 @@
+#!/data/data/com.termux/files/usr/bin/bash
+rm -r $HOME/.gqe-data >/dev/null 2>&1
+mkdir -p $HOME/.gqe-data
+env WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data WINEARCH=win64 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 /data/data/com.termux/files/usr/glibc/bin/wineboot -u >/dev/null 2>&1
+
+echo -e "正在配置 Wine...\n"
+rm -rf /data/data/com.termux/files/usr/opt/{InputBridge,startmenu} startmenulink.tar.xz startmenu.tar.xz
+wget --quiet --show-progress -P $HOME/.gqe-data/drive_c/windows https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/startmenulink.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/startmenu.tar.xz
+tar -xJf startmenu.tar.xz -C /data/data/com.termux/files/usr/opt
+ls -d $HOME/.gqe-data/drive_c/users/u* | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
+rm -f startmenulink.tar.xz startmenu.tar.xz
+
+echo ""
+echo -e "正在下载 Gecko(64位)...\n"
+cd $HOME
+rm -f wine-gecko-2.47.4-x86_64.msi
+wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
+
+echo ""
+echo -e "正在安装 Gecko(64位)...\n"
+env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin//box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
+rm -f wine-gecko-2.47.4-x86_64.msi
+
+echo -e "正在下载 Gecko(32位)...\n"
+rm -f wine-gecko-2.47.4-x86.msi
+wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.msi
+
+echo ""
+echo -e "正在安装 Gecko(32位)...\n"
+env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
+rm -f wine-gecko-2.47.4-x86.msi
+
+echo -e "正在下载 Mono...\n"
+rm -f wine-mono-9.4.0-x86.msi
+wget --quiet --show-progress https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
+
+echo ""
+echo -e "正在安装 Mono...\n"
+env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
+rm -f wine-mono-9.4.0-x86.msi
+
+echo -e "正在下载 InputBridge...\n"
+rm -f inputbridge.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
+tar -xJf inputbridge.tar.xz -C /data/data/com.termux/files/usr/opt
+rm -f inputbridge.tar.xz
+
+echo ""
+echo -e "正在安装 InputBridge...\n"
+env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 Z:\\usr\\opt\\InputBridge\\install.bat >/dev/null 2>&1
+
+echo -e "正在设置盘符...\n"
+ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data/dosdevices/d:
+ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices/e:
+
+echo -e "正在设置DLL覆盖...\n"
+rm -f dllsetting.reg
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
+env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg >/dev/null 2>&1
+rm -f dllsetting.reg
+
+echo ""
+echo -e "正在配置启动脚本...\n"
+rm -rf $HOME/storage/shared/.gqe-start
+mkdir -p $HOME/storage/shared/.gqe-start
+touch $HOME/storage/shared/.gqe-start/start-gqe.bat
+echo "start /min Z:\\usr\\opt\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-start/start-gqe.bat
+echo "start TFM.exe C:\" >> $HOME/storage/shared/.gqe-start/start-gqe.bat
+
+echo -e "配置完成\n"

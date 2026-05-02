@@ -69,7 +69,7 @@ tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo -e "正在下载GQE的启动脚本...\n"
-wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 
 echo ""

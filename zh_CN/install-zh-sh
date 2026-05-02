@@ -23,26 +23,26 @@ echo -e "安装依赖项...\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget -y &>/dev/null
 
-echo -e "正在下载Box64...\n"
+echo -e "正在下载 Box64...\n"
 rm -f box64.tar.xz
 wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 
 echo ""
-echo -e "正在解压Box64...\n"
+echo -e "正在解压 Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
-echo -e "正在下载Wine...\n"
+echo -e "正在下载 Wine...\n"
 rm -f winewow64.tar.xz
 wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo ""
-echo -e "正在解压Wine...\n"
+echo -e "正在解压 Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
 clear
-echo -e "正在初始化Wine...\n"
+echo -e "正在初始化 Wine...\n"
 wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/initializayion-zh-sh
 chmod 755 initialization-sh
 ./initialization-sh

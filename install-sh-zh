@@ -1,0 +1,81 @@
+#!/data/data/com.termux/files/usr/bin/bash
+clear
+
+echo -e "欢迎使用GQE安装脚本\n"
+echo -e "现在开始进行安装\n"
+sleep 1
+
+echo -e "请授予存储权限\n"
+echo -e "若已授权可忽略\n"
+termux-setup-storage & sleep 0
+sleep 10
+if [ ! -e $HOME/storage ]; then
+echo -e "找不到目录，确认你是否已授权\n"
+exit 1
+fi
+
+echo -e "更新Termux包...\n"
+apt-get clean
+apt-get update >/dev/null 2>&1
+apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/null 2>&1
+
+echo -e "安装依赖项...\n"
+pkg install x11-repo glibc-repo -y &>/dev/null
+pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget -y &>/dev/null
+
+echo -e "正在下载Box64...\n"
+rm -f box64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
+
+echo ""
+echo -e "正在解压Box64...\n"
+tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f box64.tar.xz
+
+echo -e "正在下载Wine...\n"
+rm -f winewow64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
+
+echo ""
+echo -e "正在解压Wine...\n"
+tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f winewow64.tar.xz
+
+clear
+echo -e "正在初始化Wine...\n"
+wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
+chmod 755 initialization-sh
+./initialization-sh
+rm -f initialization-sh
+
+echo -e "正在配置区文件...\n"
+mkdir -p $HOME/.locale
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i en_US $HOME/.locale/en_US.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ja_JP $HOME/.locale/ja_JP.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i zh_CN $HOME/.locale/zh_CN.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i zh_TW $HOME/.locale/zh_TW.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i C $HOME/.locale/C.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i de_DE $HOME/.locale/de_DE.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ko_KR $HOME/.locale/ko_KR.UTF-8
+grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
+
+echo -e "正在下载字体文件...\n"
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz
+
+echo ""
+echo -e "正在解压字体文件...\n"
+mkdir -p /data/data/com.termux/files/usr/glibc/share/fonts
+tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
+rm -f fonts.tar.xz
+
+echo -e "正在下载GQE的启动脚本...\n"
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
+chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
+
+echo ""
+echo -e '开始运行GQE，下次执行start-gqe以启动\n'
+sleep 2
+
+start-gqe
+
+rm -rf "$0"

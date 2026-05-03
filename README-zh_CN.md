@@ -20,8 +20,12 @@ $ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQ
 
 [Termux-APP](https://github.com/termux/termux-app)
 
-[Wine](https://github.com/ocnedkf/wine-custom)
-
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
 [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+
+[Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
+
+[Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
+
+[Wine](https://github.com/ocnedkf/wine-custom)

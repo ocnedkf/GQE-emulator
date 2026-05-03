@@ -37,3 +37,7 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 [DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
 
 [Mesa Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+
+[Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
+
+[Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)

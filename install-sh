@@ -49,7 +49,7 @@ chmod 755 initialization-sh
 rm -f initialization-sh
 
 echo -e "Configuring area files...\n"
-rm -f $HOME/.locale
+rm -rf $HOME/.locale
 mkdir -p $HOME/.locale
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i en_US $HOME/.locale/en_US.UTF-8
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ja_JP $HOME/.locale/ja_JP.UTF-8

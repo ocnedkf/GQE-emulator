@@ -57,7 +57,7 @@ ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices
 
 echo -e "正在设置DLL覆盖...\n"
 rm -f dllsetting.reg
-wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
 env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg >/dev/null 2>&1
 rm -f dllsetting.reg
 

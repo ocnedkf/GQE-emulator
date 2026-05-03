@@ -16,7 +16,7 @@ echo ""
 echo -e "正在下载 Gecko(64位)...\n"
 cd $HOME
 rm -f wine-gecko-2.47.4-x86_64.msi
-wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86_64.msi
 
 echo ""
 echo -e "正在安装 Gecko(64位)...\n"
@@ -25,7 +25,7 @@ rm -f wine-gecko-2.47.4-x86_64.msi
 
 echo -e "正在下载 Gecko(32位)...\n"
 rm -f wine-gecko-2.47.4-x86.msi
-wget --quiet --show-progress https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.msi
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86.msi
 
 echo ""
 echo -e "正在安装 Gecko(32位)...\n"
@@ -34,7 +34,7 @@ rm -f wine-gecko-2.47.4-x86.msi
 
 echo -e "正在下载 Mono...\n"
 rm -f wine-mono-9.4.0-x86.msi
-wget --quiet --show-progress https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-mono-9.4.0-x86.msi
 
 echo ""
 echo -e "正在安装 Mono...\n"

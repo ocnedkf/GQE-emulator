@@ -67,6 +67,6 @@ rm -rf $HOME/storage/shared/.gqe-start
 mkdir -p $HOME/storage/shared/.gqe-start
 touch $HOME/storage/shared/.gqe-start/start-gqe.bat
 echo "start /min Z:\\usr\\opt\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-start/start-gqe.bat
-echo "start TFM.exe C:\" >> $HOME/storage/shared/.gqe-start/start-gqe.bat
+echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe.bat
 
 echo -e "配置完成\n"

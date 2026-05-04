@@ -27,7 +27,7 @@ echo -e "下载额外的依赖项...\n"
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
 
 echo -e "解压依赖项包...\n"
-tar -xvJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
+tar -xJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
 rm -f lib.tar.xz
 
 echo -e "正在下载 Box64...\n"

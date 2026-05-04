@@ -24,6 +24,8 @@ $ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQ
 
 [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 
+[Mesa Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+
 [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
 
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)

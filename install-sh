@@ -27,7 +27,7 @@ echo -e "Downloading additional dependencies..."
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
 
 echo "Unpacking dependency packages...\n"
-tar -xvJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
+tar -xJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
 rm -f lib.tar.xz
 
 echo -e "Downloading Box64...\n"

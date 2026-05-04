@@ -27,6 +27,7 @@ echo -e "Downloading additional dependencies..."
 rm -f lib.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
 
+echo ""
 echo "Unpacking dependency packages...\n"
 tar -xJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
 rm -f lib.tar.xz

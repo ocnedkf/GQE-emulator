@@ -25,13 +25,15 @@ pkg install pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-g
 
 echo -e "Downloading additional dependencies..."
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
+
+echo "Unpacking dependency packages...\n"
 tar -xvJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
+rm -f lib.tar.xz
 
 echo -e "Downloading Box64...\n"
 rm -f box64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 
-echo ""
 echo -e "Unzipping Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz

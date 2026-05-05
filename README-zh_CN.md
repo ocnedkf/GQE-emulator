@@ -20,9 +20,12 @@ $ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQ
 
 [Termux-APP](https://github.com/termux/termux-app)
 
+[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+
+[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
+
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
-[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 
 [Mesa Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
 

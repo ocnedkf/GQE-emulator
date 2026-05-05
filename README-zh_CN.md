@@ -31,3 +31,5 @@ $ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQ
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
 [Wine](https://github.com/ocnedkf/wine-custom)
+
+[Ubuntu-Packages](https://packages.ubuntu.com/noble/)

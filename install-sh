@@ -52,7 +52,7 @@ rm -f winewow64.tar.xz
 clear
 echo -e "Initializing Wine...\n"
 wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
-chmod 755 initialization-sh
+chmod +x initialization-sh
 ./initialization-sh
 rm -f initialization-sh
 

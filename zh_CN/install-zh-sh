@@ -53,7 +53,7 @@ rm -f winewow64.tar.xz
 clear
 echo -e "正在初始化 Wine...\n"
 wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/initialization-zh-sh
-chmod 755 initialization-zh-sh
+chmod +x initialization-zh-sh
 ./initialization-zh-sh
 rm -f initialization-zh-sh
 

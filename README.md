@@ -13,7 +13,10 @@ GQE is an emulator that runs Windows x86_64 programs on Android ARM64 devices, n
 Execute the following command in Termux (ensure that the 64-bit version is used)
 <br>
 
-  $ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g
+
+```bash
+curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g
+```
 
 # Device Requirements
 An Android ARM64 device with Android version 7 or above, requiring at least approximately 5GB of space

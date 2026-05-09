@@ -26,7 +26,6 @@ $ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQ
 
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
-
 [Mesa Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
 
 [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
@@ -36,3 +35,5 @@ $ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQ
 [Wine](https://github.com/ocnedkf/wine-custom)
 
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
+
+[InputBridge](https://inputbridge.net/)

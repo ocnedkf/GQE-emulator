@@ -43,3 +43,5 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 [Wine](https://github.com/ocnedkf/wine-custom)
 
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
+
+[InputBridge](https://inputbridge.net/)

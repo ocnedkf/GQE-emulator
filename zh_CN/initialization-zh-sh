@@ -55,6 +55,9 @@ echo -e "正在设置盘符...\n"
 ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data/dosdevices/d:
 ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices/e:
 
+echo -e "下载 DLL 文件..."
+wget --quiet --show-progress -P $HOME/.gqe-data/drive_c/windows/syswow64 https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/mfc42.dll
+
 echo -e "正在设置DLL覆盖...\n"
 rm -f dllsetting.reg
 wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg

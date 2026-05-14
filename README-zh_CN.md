@@ -18,7 +18,7 @@ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 不要在未安装GQE的情况下尝试执行！！！
 <br>
 ```bash
-wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/uninstall-gqe && chmod +x uninstall-gqe && ./uninstall-gqe
+curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/uninstall-gqe && chmod +x u && ./u
 ```
 
 # 设备要求

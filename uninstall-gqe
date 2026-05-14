@@ -1,4 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
+clear
 echo -e "The uninstallation script will proceed in 15 seconds, which will result in the complete loss of GQE and its data\n"
 echo -e "To cancel, please immediately press CTRL+C to terminate the process\n"
 sleep 1

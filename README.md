@@ -23,7 +23,7 @@ Execute the following command
 Warning: This will delete GQE along with all data stored within it.
 <br>
 ```bash
-wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/uninstall-gqe && chmod +x uninstall-gqe && ./uninstall-gqe
+curl -s https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/uninstall-gqe && chmod +x uninstall-gqe && ./uninstall-gqe
 ```
 
 # Device Requirements

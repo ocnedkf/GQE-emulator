@@ -15,6 +15,8 @@ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 <br>
 警告：这会删除GQE及其内的所有数据
 <br>
+不要在未安装GQE的情况下尝试执行！！！
+<br>
 ```bash
 wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/uninstall-gqe && chmod +x uninstall-gqe && ./uninstall-gqe
 ```

@@ -20,7 +20,7 @@ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/m
 # Uninstallation
 Execute the following command
 <br>
-Warning: This will delete GQE along with all data stored within it.
+Warning: This will delete GQE along with all data stored within it
 <br>
 ```bash
 curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/uninstall-gqe && chmod +x u && ./u

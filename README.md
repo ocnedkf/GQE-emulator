@@ -13,9 +13,17 @@ GQE is an emulator that runs Windows x86_64 programs on Android ARM64 devices, n
 Execute the following command in Termux (ensure that the 64-bit version is used)
 <br>
 
-
 ```bash
 curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g
+```
+
+# Uninstall
+Execute the following command
+<br>
+Warning: This will delete GQE along with all data stored within it.
+<br>
+```bash
+wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/uninstall-gqe && chmod +x uninstall-gqe && ./uninstall-gqe
 ```
 
 # Device Requirements

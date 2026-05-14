@@ -17,7 +17,7 @@ Execute the following command in Termux (ensure that the 64-bit version is used)
 curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g
 ```
 
-# Uninstall
+# Uninstallation
 Execute the following command
 <br>
 Warning: This will delete GQE along with all data stored within it.

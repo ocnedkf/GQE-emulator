@@ -7,6 +7,11 @@ wget --show-progress --quiet https://gh-proxy.org/https://raw.githubusercontent.
 rm -f initialization-sh
 fi
 
+if [ ! -d "$HOME/storage" ]; then
+echo -e "找不到外部存储！检查你的存储权限"
+exit 1
+fi
+
 pkill -f virgl
 virgl_test_server --use-gles --use-egl-surfaceless &
 

@@ -6,6 +6,11 @@ wget --show-progress --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emula
 rm -f initialization-sh
 fi
 
+if [ ! -d "$HOME/storage" ]; then
+echo -e "External storage not found! Please check your storage permissions"
+exit 1
+fi
+
 rm -rf $PREFIX/tmp/pulse-*
 pulseaudio -k >/dev/null 2>&1
 pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1

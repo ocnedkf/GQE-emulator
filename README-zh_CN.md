@@ -29,6 +29,8 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 
 [DXVK](https://github.com/doitsujin/dxvk)
 
+[VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
+
 [D8VK](https://github.com/AlpyneDreams/d8vk)
 
 [Termux-APP](https://github.com/termux/termux-app)

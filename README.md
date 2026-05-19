@@ -60,3 +60,5 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
 [InputBridge](https://inputbridge.net/)
+
+[Tiny File Manager](https://github.com/radzikpwnz/tfm)

@@ -17,7 +17,7 @@ Execute the following command in Termux (ensure that the 64-bit version is used)
 curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/install-sh && chmod +x g && ./g
 ``` 
 
-# Launch the emulator
+# Launch the GQE
 Execute the following command
 ```bash
 start-gqe

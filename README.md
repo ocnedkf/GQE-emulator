@@ -21,7 +21,7 @@ curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/m
 Execute the following command
 ```bash
 start-gqe
-、、、
+```
 
 # Uninstallation
 Execute the following command

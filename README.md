@@ -32,7 +32,7 @@ Do not attempt to execute without GQE installation!!!
 <br>
 ```bash
 curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/uninstall-gqe && chmod +x u && ./u
-```
+``` 
 
 # Device Requirements
 An Android ARM64 device with Android version 7 or above, requiring at least approximately 5GB of space

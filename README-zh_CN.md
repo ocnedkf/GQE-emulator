@@ -52,3 +52,5 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
 [InputBridge](https://inputbridge.net/)
+
+[Tiny File Manager-zh](https://github.com/ocnedkf/tfm)

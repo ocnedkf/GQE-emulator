@@ -50,7 +50,7 @@ rm -f inputbridge.tar.xz
 echo ""
 echo -e "Installing InputBridge...\n"
 touch install-ib.bat
-echo "cd Z:\usr\opt\InputBridge\" > install-ib.bat
+echo "cd Z:\\usr\\opt\\InputBridge\\" > install-ib.bat
 echo ".\install.bat" >> install-ib.bat
 echo "exit" >> install-ib.bat
 env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1

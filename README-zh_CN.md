@@ -48,7 +48,11 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
-[Mesa Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+[Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
+
+[Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+
+[Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
 
 [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
 

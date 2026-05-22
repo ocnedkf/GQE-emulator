@@ -42,13 +42,13 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 
 [Termux-APP](https://github.com/termux/termux-app)
 
-[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
-
-[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
-
 [Termux-Packages](https://github.com/termux/termux-packages)
 
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
+
+[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+
+[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
 
 [Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
 

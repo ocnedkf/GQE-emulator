@@ -2,6 +2,7 @@
 if [ ! -d "$HOME/.gqe-data/drive_c" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
+rm -f initialization-sh
 wget --show-progress --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
 chmod +x initialization-sh
 ./initialization-sh

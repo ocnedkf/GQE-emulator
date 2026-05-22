@@ -57,7 +57,9 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
 
-[Mesa Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+[Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+
+[Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
 
 [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
 

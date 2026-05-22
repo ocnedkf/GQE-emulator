@@ -49,6 +49,8 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [Termux-APP](https://github.com/termux/termux-app)
 
+[Termux-Packages](https://github.com/termux/termux-packages)
+
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
 [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)

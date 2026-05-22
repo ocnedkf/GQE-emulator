@@ -61,11 +61,11 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
 
+[Wine](https://github.com/ocnedkf/wine-custom)
+
 [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
 
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
-
-[Wine](https://github.com/ocnedkf/wine-custom)
 
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 

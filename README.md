@@ -69,6 +69,8 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
+[WineD3D](https://downloads.fdossena.com/Projects/WineD3D/Builds/)
+
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
 [InputBridge](https://inputbridge.net/)

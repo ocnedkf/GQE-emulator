@@ -80,5 +80,7 @@ echo "start /min Z:\\usr\\opt\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-
 echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe.bat
 
 touch $HOME/storage/shared/.gqe-start/mesa_var.txt
+touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
+touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt
 
 echo -e "Configuration Completed\n"

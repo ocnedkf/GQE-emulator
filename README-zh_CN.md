@@ -62,6 +62,8 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
+[WineD3D](https://downloads.fdossena.com/Projects/WineD3D/Builds/)
+
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
 [InputBridge](https://inputbridge.net/)

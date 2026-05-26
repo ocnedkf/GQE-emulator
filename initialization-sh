@@ -62,7 +62,7 @@ ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data/dosdevices
 
 
 echo -e "Downloading DLL file...\n"
-wget --quiet --show-progress -P $HOME/.gqe-data/drive_c/windows/syswow64 https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/mfc42.dll
+wget --quiet --show-progress -P $HOME/.gqe-data/drive_c/windows/syswow64 https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/mfc42.dll
 
 echo ""
 echo -e "Setting DLL overrides...\n"

@@ -14,6 +14,8 @@ echo -e "External storage not found! Please check your storage permissions"
 exit 1
 fi
 
+grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 /data/data/com.termux/files/usr/glibc/bin/wineboot -k >/dev/null 2>&1
+
 rm -rf $PREFIX/tmp/pulse-*
 pulseaudio -k >/dev/null 2>&1
 pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1

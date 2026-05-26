@@ -51,7 +51,7 @@ rm -f winewow64.tar.xz
 
 clear
 echo -e "Initializing Wine...\n"
-wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
+wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.1-beta/initialization-sh
 chmod +x initialization-sh
 ./initialization-sh
 rm -f initialization-sh
@@ -78,7 +78,7 @@ tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo -e "Downloading GQE startup script...\n"
-wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/start-gqe
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.1-beta/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 
 echo ""

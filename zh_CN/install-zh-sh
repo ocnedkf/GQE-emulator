@@ -25,7 +25,7 @@ pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner freetype-gl
 
 echo -e "下载额外的依赖项...\n"
 rm -f lib.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
 
 echo ""
 echo -e "解压依赖项包...\n"
@@ -34,7 +34,7 @@ rm -f lib.tar.xz
 
 echo -e "正在下载 Box64...\n"
 rm -f box64.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/box64.tar.xz
 
 echo ""
 echo -e "正在解压 Box64...\n"
@@ -43,7 +43,7 @@ rm -f box64.tar.xz
 
 echo -e "正在下载 Wine...\n"
 rm -f winewow64.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/winewow64.tar.xz
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo ""
 echo -e "正在解压 Wine...\n"
@@ -52,7 +52,7 @@ rm -f winewow64.tar.xz
 
 clear
 echo -e "正在初始化 Wine...\n"
-wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
+wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/initialization-zh-sh
 chmod +x initialization-zh-sh
 ./initialization-zh-sh
 rm -f initialization-zh-sh

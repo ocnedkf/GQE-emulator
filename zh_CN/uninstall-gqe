@@ -39,6 +39,8 @@ echo -e "开始卸载 GQE..."
 
 apt autoremove -y pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc x11-repo glibc-repo
 
+rm -rf $PREFIX/opt/{startmenu,startmenu-v0.2,InputBridge}
+
 rm -rf /data/data/com.termux/files/usr/bin/start-gqe
 
 rm -rf $HOME/.gqe-data

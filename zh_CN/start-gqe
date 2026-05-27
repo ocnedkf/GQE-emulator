@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-if [ ! -d "$HOME/.gqe-data/drive_c" ]; then
+if [ ! -d "$HOME/.gqe-data-2/drive_c" ]; then
 clear
 echo -e "Wine前缀损坏！尝试重新初始化...\n"
 rm -f initialization-zh-sh

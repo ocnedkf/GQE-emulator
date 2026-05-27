@@ -43,7 +43,7 @@ rm -rf $PREFIX/opt/{startmenu,startmenu-v0.2,InputBridge}
 
 rm -rf /data/data/com.termux/files/usr/bin/start-gqe
 
-rm -rf $HOME/.gqe-data
+rm -rf $HOME/{.gqe-data,.gqe-data-2}
 
 rm -f $PREFIX/glibc/bin/{box64,box64-bash}
 

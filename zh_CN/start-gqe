@@ -4,7 +4,7 @@ if [ ! -d "$HOME/.gqe-data/drive_c" ]; then
 clear
 echo -e "Wine前缀损坏！尝试重新初始化...\n"
 rm -f initialization-zh-sh
-wget --show-progress --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.1-beta/zh_CN/initialization-zh-sh
+wget --show-progress --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
 chmod +x initialization-zh-sh
 ./initialization-zh-sh
 rm -f initialization-sh

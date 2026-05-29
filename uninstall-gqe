@@ -41,7 +41,7 @@ apt autoremove -y pulseaudio termux-x11-nightly glibc-runner freetype-glibc libp
 
 rm -rf /data/data/com.termux/files/usr/bin/start-gqe
 
-rm -rf $HOME/.gqe-data
+rm -rf $HOME/.gqe-data-v0.2
 
 rm -rf $HOME/storage/shared/.gqe-start
 

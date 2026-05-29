@@ -51,7 +51,7 @@ rm -rf $PREFIX/glibc/lib/wine
 
 rm -rf $PREFIX/glibc/lib/box64-x86_64-linux-gnu
 
-rm -f $PREFIX/{wine64,wine64-preloader,winegcc,notepad}
+rm -f $PREFIX/{wine,regsvr32,regedit,msiexec,msidb,widl,winecpp,winedbg,winedump,winefile,wineg++,winemine,winepath,wineserver,winemaker,wmc,wrc,function_grep.plwineconsole,winegcc,notepad}
 
 rm -rf $PREFIX/glibc/share/wine
 

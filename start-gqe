@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-if [ ! -d "$HOME/.gqe-data/drive_c" ]; then
+if [ ! -d "$HOME/.gqe-data-v0.2/drive_c" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 rm -f initialization-sh

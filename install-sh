@@ -42,7 +42,7 @@ rm -f box64.tar.xz
 
 echo -e "Downloading Wine...\n"
 rm -f winewow64.tar.xz
-wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
 
 echo ""
 echo -e "Unzipping Wine...\n"
@@ -78,6 +78,7 @@ tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo -e "Downloading GQE startup script...\n"
+mv /data/data/com.termux/files/usr/bin/start-gqe /data/data/com.termux/files/usr/bin/start-gqe.bak
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 

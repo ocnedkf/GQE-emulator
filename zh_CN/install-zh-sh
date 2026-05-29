@@ -43,12 +43,12 @@ rm -f box64.tar.xz
 
 echo -e "正在下载 Wine...\n"
 rm -f protonwow64.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/protonwow64.tar.xz
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
 
 echo ""
 echo -e "正在解压 Wine...\n"
-tar -xJf protonwow64.tar.xz -C /data/data/com.termux/files/usr/glibc
-rm -f protonwow64.tar.xz
+tar -xJf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f proton-wine-11.0-wow64.tar.xz
 
 clear
 echo -e "正在初始化 Wine...\n"

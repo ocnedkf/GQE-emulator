@@ -46,9 +46,8 @@ wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/do
 
 echo ""
 echo -e "Unzipping Wine...\n"
-tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
-rm -f winewow64.tar.xz
-
+tar -xJf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f proton-wine-11.0-wow64.tar.xz
 clear
 echo -e "Initializing Wine...\n"
 wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-sh

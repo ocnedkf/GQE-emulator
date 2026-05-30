@@ -28,6 +28,7 @@ env WINEPREFIX=$HOME/.gqe-data-v0.2 grun /data/data/com.termux/files/usr/glibc/b
 rm install-ib.bat
 
 echo -e "正在设置盘符...\n"
+rm -f $HOME/.gqe-data-v0.2/dosdevices/{d:,e:}
 ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data-v0.2/dosdevices/d:
 ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data-v0.2/dosdevices/e:
 

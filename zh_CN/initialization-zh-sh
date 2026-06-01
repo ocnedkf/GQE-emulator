@@ -27,11 +27,6 @@ echo "exit" >> install-ib.bat
 env WINEPREFIX=$HOME/.gqe-data-v0.2 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
 rm install-ib.bat
 
-echo -e "正在设置盘符...\n"
-rm -f $HOME/.gqe-data-v0.2/dosdevices/{d:,e:}
-ln -s /data/data/com.termux/files/home/storage/downloads $HOME/.gqe-data-v0.2/dosdevices/d:
-ln -s /data/data/com.termux/files/home/storage/shared $HOME/.gqe-data-v0.2/dosdevices/e:
-
 echo -e "下载 DLL 文件...\n"
 wget --quiet --show-progress -P $HOME/.gqe-data-v0.2/drive_c/windows/syswow64 https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/mfc42.dll
 

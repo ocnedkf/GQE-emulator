@@ -46,6 +46,7 @@ wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/do
 
 echo ""
 echo -e "Unzipping Wine...\n"
+rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
 tar -xJf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f proton-wine-11.0-wow64.tar.xz
 clear

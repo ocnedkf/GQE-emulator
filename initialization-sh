@@ -3,7 +3,7 @@ rm -r $HOME/.gqe-data-v0.2 >/dev/null 2>&1
 mkdir -p $HOME/.gqe-data-v0.2
 pkill -f termux-x11
 termux-x11 :13 & >/dev/null 2>&1
-env WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data-v0.2 WINEARCH=win64 DISPLAY=:13 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine /data/data/com.termux/files/usr/glibc/bin/wineboot -u >/dev/null 2>&1
+env WINEDLLOVERRIDES="mscoree=" WINEPREFIX=$HOME/.gqe-data-v0.2 WINEARCH=win64 DISPLAY=:13 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine /data/data/com.termux/files/usr/glibc/bin/wineboot -i >/dev/null 2>&1
 pkill termux-x11
 
 echo -e "Configuring Wine...\n"

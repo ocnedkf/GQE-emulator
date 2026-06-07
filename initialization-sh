@@ -57,5 +57,6 @@ echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.2.bat
 touch $HOME/storage/shared/.gqe-start/mesa_var.txt
 touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
 touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt
+echo "virpipe" > $HOME/storage/shared/.gqe-start/mesa_var.txt
 
 echo -e "Configuration Completed\n"

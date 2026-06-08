@@ -88,4 +88,5 @@ sleep 2
 
 start-gqe
 
+clear
 rm -rf "$0"

@@ -14,7 +14,9 @@ echo -e "External storage not found! Please check your storage permissions"
 exit 1
 fi
 
+if ps a | grep -q '[w]ine'; then
 env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 /data/data/com.termux/files/usr/glibc/bin/wineboot -k >/dev/null 2>&1
+fi
 
 rm -rf $PREFIX/tmp/pulse-*
 pulseaudio -k >/dev/null 2>&1

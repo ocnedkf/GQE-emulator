@@ -26,7 +26,7 @@ pkill -f virgl
 virgl_test_server --use-gles --use-egl-surfaceless &
 
 pkill -f termux-x11
-termux-x11 :13 & >/dev/null 2>&1
+termux-x11 :13 >/dev/null 2>&1 &
 
 am start -n com.termux.x11/.MainActivity
 

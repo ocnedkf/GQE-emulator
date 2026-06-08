@@ -15,7 +15,9 @@ echo -e "找不到外部存储！检查你的存储权限"
 exit 1
 fi
 
+if ps a | grep -q '[w]ine'; then
 env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine64 /data/data/com.termux/files/usr/glibc/bin/wineboot -k >/dev/null 2>&1
+fi
 
 pkill -f virgl
 virgl_test_server --use-gles --use-egl-surfaceless &

@@ -41,21 +41,66 @@ echo -e "Unzipping Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
+
+echo ""
+
+while true; do
+
+echo "Choose Wine version... (Input number then press Enter)"
+echo ""
+echo -e "1) Wine-9.16-custom (Old Version)\n"
+echo -e "2) Proton-Wine-11.0 (Testing)\n"
+
+read gqe
+
+if [ "$gqe" = "1" ]; then
 echo -e "Downloading Wine...\n"
 rm -f winewow64.tar.xz
-wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
+echo ""
+echo -e "Unzipping Wine...\n"
+rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
+tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+rm -f winewow64.tar.xz
+clear
+echo -e "Initializing Wine...\n"
+wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
+chmod +x initialization-sh
+./initialization-sh
+rm -f initialization-sh
+echo -e "Downloading GQE startup script ...\n"
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/start-gqe
+chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
+break
+
+elif [ "$gqe" = "2" ]; then
+echo -e "Downloading Wine...\n"
+rm -f proton-wine-11.0-wow64.tar.xz
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
 
 echo ""
 echo -e "Unzipping Wine...\n"
 rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
 tar -xJf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f proton-wine-11.0-wow64.tar.xz
+
 clear
 echo -e "Initializing Wine...\n"
-wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-sh
-chmod +x initialization-sh
-./initialization-sh
-rm -f initialization-sh
+wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
+chmod +x initialization-zh-sh
+./initialization-zh-sh
+rm -f initialization-zh-sh
+echo -e "Downloading GQE startup script...\n"
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/start-gqe
+chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
+break
+
+else
+clear
+echo "Wrong input, choose again..."
+
+fi
+done
 
 echo -e "Configuring area files...\n"
 rm -rf $HOME/.locale
@@ -70,7 +115,7 @@ grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ko_KR $H
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
 
 echo -e "Downloading Fonts...\n"
-wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz
+wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/fonts.tar.xz
 
 echo ""
 echo -e "Installing Fonts...\n"
@@ -78,13 +123,8 @@ mkdir -p /data/data/com.termux/files/usr/glibc/share/fonts
 tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
-echo -e "Downloading GQE startup script...\n"
-mv /data/data/com.termux/files/usr/bin/start-gqe /data/data/com.termux/files/usr/bin/start-gqe.bak
-wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/start-gqe
-chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
-
 echo ""
-echo -e 'Starting to launch GQE, Next time use "start-gqe" commad to run it\n'
+echo -e 'Starting to launch GQE, Next time use "start-gqe" commnad to run it\n'
 sleep 2
 
 start-gqe

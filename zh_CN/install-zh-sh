@@ -75,7 +75,7 @@ break
 
 elif [ "$gqe" = "2" ]; then
 echo -e "正在下载 Wine...\n"
-rm -f protonwow64.tar.xz
+rm -f proton-wine-11.0-wow64.tar.xz
 wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
 
 echo ""

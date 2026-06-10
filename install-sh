@@ -124,7 +124,7 @@ tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo ""
-echo -e 'Starting to launch GQE, Next time use "start-gqe" commnad to run it\n'
+echo -e 'Starting to launch GQE, Next time use "start-gqe" command to run it\n'
 sleep 2
 
 start-gqe

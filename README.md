@@ -1,6 +1,6 @@
 [中文](https://github.com/ocnedkf/GQE-emulator/blob/main/README-zh_CN.md)
-## WARNING
-This emulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience this may cause and appreciate your understanding
+> [!WARNING]
+> This emulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience this may cause and appreciate your understanding
 # GQE-emulator
 
 GQE is an emulator that runs Windows x86_64 programs on Android ARM64 devices, no root, relying on [Termux](https://github.com/termux/termux-app), [Termux-X11](https://github.com/termux/termux-x11), and [InputBridge](https://inputbridge.net/)

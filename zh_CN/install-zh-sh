@@ -131,7 +131,7 @@ tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo ""
-echo -e "正在下载终止脚本…\n"
+echo -e "正在下载终止脚本...\n"
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe
 
 echo ""

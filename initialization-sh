@@ -40,13 +40,6 @@ wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/do
 env WINEPREFIX=$HOME/.gqe-data-v0.2 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine /data/data/com.termux/files/usr/glibc/bin/regedit "$(realpath dllsetting.reg)" >/dev/null 2>&1 
 rm -f dllsetting.reg
 
-echo ""
-echo -e "Initializing visual environment...\n"
-rm -f wallpaper.bmp
-wget --quiet -P $HOME/.gqe-data/drive_c https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp
-wget --quiet https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg
-env WINEPREFIX=$HOME/.gqe-data-v0.2 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine /data/data/com.termux/files/usr/glibc/bin/regedit "$(realpath wallpapersetting.reg)" >/dev/null 2>&1
-
 echo -e "Configuring startup scripts...\n"
 rm -rf $HOME/storage/shared/.gqe-start
 mkdir -p $HOME/storage/shared/.gqe-start

@@ -65,7 +65,6 @@ tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
 clear
-
 echo -e "Initializing Wine...\n"
 wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-v0.1-sh
 chmod +x initialization-v0.1-sh
@@ -102,6 +101,7 @@ chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 break
 
 else
+
 clear
 echo "Wrong input, choose again..."
 

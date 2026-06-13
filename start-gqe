@@ -2,11 +2,22 @@
 if [ ! -d "$HOME/.gqe-data-v0.2/drive_c" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
+
+if [ -f "/data/data/com.termux/files/usr/bin/wine64" ]; then
+rm -f initialization-v0.1-sh
+wget --show-progress --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-v0.1-sh
+chmod +x initialization-v0.1-sh
+./initialization-v0.1-sh
+rm -f initialization-v0.1-sh
+else
 rm -f initialization-sh
 wget --show-progress --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-sh
 chmod +x initialization-sh
 ./initialization-sh
 rm -f initialization-sh
+
+fi
+
 fi
 
 if [ ! -d "$HOME/storage" ]; then

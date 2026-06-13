@@ -10,7 +10,7 @@ chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
 rm -f initialization-v0.1-sh
 else
-rm -f initialization-sh
+rm -f initialization-zh-sh
 wget --show-progress --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
 chmod +x initialization-zh-sh
 ./initialization-zh-sh

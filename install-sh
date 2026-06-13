@@ -131,6 +131,10 @@ tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo ""
+echo -e "Downloading termination script…"
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe
+
+echo ""
 echo -e 'Starting to launch GQE, Next time use "start-gqe" command to run it\n'
 sleep 2
 

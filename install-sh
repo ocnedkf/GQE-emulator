@@ -57,20 +57,26 @@ if [ "$gqe" = "1" ]; then
 echo -e "Downloading Wine...\n"
 rm -f winewow64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
+
 echo ""
 echo -e "Unzipping Wine...\n"
 rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
+
 clear
+
 echo -e "Initializing Wine...\n"
-wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/initialization-sh
-chmod +x initialization-sh
-./initialization-sh
-rm -f initialization-sh
+
+wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-v0.1-sh
+chmod +x initialization-v0.1-sh
+./initialization-v0.1-sh
+rm -f initialization-v0.1-sh
+
 echo -e "Downloading GQE startup script ...\n"
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
+
 break
 
 elif [ "$gqe" = "2" ]; then
@@ -86,12 +92,12 @@ rm -f proton-wine-11.0-wow64.tar.xz
 
 clear
 echo -e "Initializing Wine...\n"
-wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
-chmod +x initialization-zh-sh
-./initialization-zh-sh
-rm -f initialization-zh-sh
+wget --quiet https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-sh
+chmod +x initialization-sh
+./initialization-sh
+rm -f initialization-sh
 echo -e "Downloading GQE startup script...\n"
-wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/start-gqe
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 break
 

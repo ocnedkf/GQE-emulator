@@ -66,10 +66,10 @@ rm -f winewow64.tar.xz
 
 clear
 echo -e "正在初始化 Wine...\n"
-wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-v0.1-sh
-chmod +x initialization-v0.1-sh
-./initialization-v0.1-sh
-rm -f initialization-v0.1-sh
+wget --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-v0.1-zh-sh
+chmod +x initialization-v0.1-zh-sh
+./initialization-v0.1-zh-sh
+rm -f initialization-v0.1-zh-sh
 
 echo -e "正在下载GQE的启动脚本...\n"
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/start-gqe

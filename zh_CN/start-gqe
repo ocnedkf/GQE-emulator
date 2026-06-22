@@ -42,6 +42,7 @@ pkill -f termux-x11
 termux-x11 :13 >/dev/null 2>&1 &
 
 if am start -n com.termux.x11/.MainActivity; then
+sleep 0.8
 termux-x11-preference displayResolutionMode:exact displayResolutionExact:1280x768 || echo "更改分辨率失败，可能需要自行设置"
 else
 echo "自动跳转Termux-x11失败，需确保已安装"

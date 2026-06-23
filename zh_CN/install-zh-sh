@@ -71,6 +71,7 @@ chmod +x initialization-v0.1-zh-sh
 ./initialization-v0.1-zh-sh
 rm -f initialization-v0.1-zh-sh
 
+echo ""
 echo -e "正在下载GQE的启动脚本...\n"
 wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/main/zh_CN/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe

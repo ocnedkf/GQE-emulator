@@ -29,10 +29,11 @@ rm -f lib.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
 
 echo ""
-echo "Unpacking dependency packages...\n"
+echo -e "Unpacking dependency packages...\n"
 tar -xJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
 rm -f lib.tar.xz
 
+echo ""
 echo -e "Downloading Box64...\n"
 rm -f box64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz
@@ -108,6 +109,7 @@ echo "Wrong input, choose again..."
 fi
 done
 
+echo ""
 echo -e "Configuring area files...\n"
 rm -rf $HOME/.locale
 mkdir -p $HOME/.locale

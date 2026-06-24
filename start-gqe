@@ -43,7 +43,7 @@ termux-x11 :13 >/dev/null 2>&1 &
 
 if am start -n com.termux.x11/.MainActivity; then
 sleep 0.8
-termux-x11-preference displayResolutionMode:exact displayResolutionExact:1280x768 || echo "Failed to set display resolution"
+termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "Failed to set display resolution"
 else
 echo "Failed to start Termux:X11. Please ensure it is installed"
 fi

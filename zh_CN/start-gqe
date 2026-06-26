@@ -1,4 +1,42 @@
 #!/data/data/com.termux/files/usr/bin/bash
+
+show_info() {
+cat << EOF
+==================== 介绍 ====================
+
+GQE-emulator by ocnedkf
+
+GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
+
+详情请见 : https://github.com/ocnedkf/GQE-emulator
+EOF
+}
+
+show_help() {
+cat << EOF
+==================== 使用说明 ====================
+
+usage : start-gqe [参数]
+        start-gqe 正常启动GQE
+        start-gqe --help/-h 打印帮助信息与介绍并退出
+EOF
+}
+
+for cs in "$@"
+do
+    if [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
+        show_info
+        show_help
+        exit 0
+    fi
+done
+
+if [ $# -gt 0 ]; then
+    echo -e "不支持的参数\n"
+    show_help
+    exit 1
+fi
+
 if [ ! -d "$HOME/.gqe-data-v0.2/drive_c" ]; then
 clear
 echo -e "Wine前缀损坏！尝试重新初始化...\n"

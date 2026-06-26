@@ -90,7 +90,7 @@ break
 elif [ "$gqe" = "2" ]; then
 echo -e "Downloading Wine...\n"
 rm -f proton-wine-11.0-wow64.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
 
 echo ""
 echo -e "Unzipping Wine...\n"
@@ -140,7 +140,7 @@ grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ko_KR $H
 grun /data/data/com.termux/files/usr/glibc/bin/localedef -f UTF-8 -c -i ru_RU $HOME/.locale/ru_RU.UTF-8
 
 echo -e "Downloading Fonts...\n"
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/fonts.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/fonts.tar.xz
 
 echo ""
 echo -e "Installing Fonts...\n"

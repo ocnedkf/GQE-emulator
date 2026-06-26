@@ -1,4 +1,42 @@
 #!/data/data/com.termux/files/usr/bin/bash
+
+show_info() {
+cat << EOF
+==================== Introduction ====================
+
+GQE-emulator by ocnedkf
+
+GQE-emulator is an emulator capable of running Windows x86_64 applications.
+
+More details: https://github.com/ocnedkf/GQE-emulator
+EOF
+}
+
+show_help() {
+cat << EOF
+==================== Usage ====================
+
+usage : start-gqe [option]
+        start-gqe            Launch GQE normally
+        start-gqe --help/-h  Print introduction and help info then exit
+EOF
+}
+
+for cs in "$@"
+do
+    if [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
+        show_info
+        show_help
+        exit 0
+    fi
+done
+
+if [ $# -gt 0 ]; then
+    echo -e "Unsupported argument\n"
+    show_help
+    exit 1
+fi
+
 if [ ! -d "$HOME/.gqe-data/drive_c" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"

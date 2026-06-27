@@ -90,3 +90,5 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 [InputBridge](https://inputbridge.net/)
 
 [Tiny File Manager](https://github.com/radzikpwnz/tfm)
+
+[7-Zip](https://7-zip.org/)

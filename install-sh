@@ -39,7 +39,7 @@ rm -f box64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz
 
 echo ""
-echo -e "Unzipping Box64...\n"
+echo -e "Unpacking Box64...\n"
 tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 

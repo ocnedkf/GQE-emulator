@@ -82,3 +82,5 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 [InputBridge](https://inputbridge.net/)
 
 [Tiny File Manager-zh](https://github.com/ocnedkf/tfm)
+
+[7-Zip](https://7-zip.org/)

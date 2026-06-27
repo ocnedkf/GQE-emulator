@@ -15,6 +15,7 @@ tar -xJf startmenu-v0.2.tar.xz -C /data/data/com.termux/files/usr/opt
 tar -xJf startmenulink.tar.xz -C "$HOME/.gqe-data-v0.2/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink.tar.xz startmenu-v0.2.tar.xz
 
+echo ""
 echo -e "Downloading InputBridge...\n"
 rm -f inputbridge.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz

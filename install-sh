@@ -61,7 +61,7 @@ rm -f winewow64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo ""
-echo -e "Unzipping Wine...\n"
+echo -e "Unpacking Wine...\n"
 rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
@@ -86,7 +86,7 @@ rm -f proton-wine-11.0-wow64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz
 
 echo ""
-echo -e "Unzipping Wine...\n"
+echo -e "Unpacking Wine...\n"
 rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
 tar -xJf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f proton-wine-11.0-wow64.tar.xz

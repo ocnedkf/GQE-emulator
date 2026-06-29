@@ -46,7 +46,7 @@ rm -f winewow64.tar.xz
 wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz
 
 echo ""
-echo -e "Unzipping Wine...\n"
+echo -e "Unpacking Wine...\n"
 tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 

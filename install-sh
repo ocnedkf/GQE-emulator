@@ -84,7 +84,7 @@ wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 
 echo ""
-echo -e 'Starting to launch GQE, Next time use "start-gqe" command to run it\n'
+echo 'Starting to launch GQE, Next time use "start-gqe" command to run it'
 sleep 2
 
 start-gqe

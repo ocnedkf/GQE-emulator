@@ -84,7 +84,7 @@ wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-p
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 
 echo ""
-echo -e '开始运行GQE，下次执行"start-gqe"以启动\n'
+echo '开始运行GQE，下次执行"start-gqe"以启动'
 sleep 2
 
 start-gqe

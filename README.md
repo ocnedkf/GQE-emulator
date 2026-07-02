@@ -2,7 +2,7 @@
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](README.md)
 
 > [!NOTE]
-> You are currently in the v0.1-beta channel
+> You are currently in the v0.1-beta (main) channel
 
 > [!WARNING]
 > This emulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience this may cause and appreciate your understanding

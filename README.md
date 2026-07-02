@@ -1,5 +1,9 @@
 [![中文](https://img.shields.io/badge/lang-中文-red.svg)](https://github.com/ocnedkf/GQE-emulator/blob/main/README-zh_CN.md)
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](README.md)
+
+> [!NOTE]
+> You are currently in the v0.2-beta channel
+
 > [!WARNING]
 > This emulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience this may cause and appreciate your understanding
 # GQE-emulator

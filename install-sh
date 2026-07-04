@@ -26,7 +26,7 @@ pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-gl
 echo -e "Downloading additional dependencies...\n"
 cd $HOME
 rm -f lib.tar.xz
-wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/lib.tar.xz
+wget --quiet --show-progress https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz
 
 echo ""
 echo -e "Unpacking dependency packages...\n"

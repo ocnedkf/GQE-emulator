@@ -48,6 +48,14 @@ touch $HOME/storage/shared/.gqe-start/start-gqe-v0.2.bat
 echo 'start /min Z:\\usr\\opt\\InputBridge\\ib.exe' > $HOME/storage/shared/.gqe-start/start-gqe-v0.2.bat
 echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.2.bat
 
+echo ""
+echo -e "正在初始化视觉环境...\n"
+wget --quiet -P $HOME/.gqe-data-v0.2/drive_c https://gh-proxy.org/github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp
+wget --quiet https://gh-proxy.org/github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg
+env WINEPREFIX=$HOME/.gqe-data-v0.2 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine /data/data/com.termux/files/usr/glibc/bin/regedit "$(realpath wallpapersetting.reg)" >/dev/null 2>&1
+rm -f wallpapersetting.reg
+
+
 touch $HOME/storage/shared/.gqe-start/mesa_var.txt
 touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
 touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt

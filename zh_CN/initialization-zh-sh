@@ -49,6 +49,11 @@ echo 'start /min Z:\\usr\\opt\\InputBridge\\ib.exe' > $HOME/storage/shared/.gqe-
 echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.2.bat
 
 echo ""
+echo -e "下载终止脚本中...\n"
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe
+chmod +x /data/data/com.termux/files/usr/bin/kill-gqe
+
+echo ""
 echo -e "正在初始化视觉环境...\n"
 wget --quiet -P $HOME/.gqe-data-v0.2/drive_c https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp
 wget --quiet https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg

@@ -80,7 +80,7 @@ echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe.bat
 
 echo ""
 echo -e "Downloading termination script...\n"
-wget --quiet --show-progress -O /data/data/com.termux/files/usr/bin/kill-gqe https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe
+wget --quiet --show-progress -O /data/data/com.termux/files/usr/bin/kill-gqe https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe-v0.1
 chmod +x /data/data/com.termux/files/usr/bin/kill-gqe
 
 echo ""

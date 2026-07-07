@@ -100,7 +100,7 @@ rm -f initialization-sh
 
 echo ""
 echo -e "Downloading GQE startup script...\n"
-wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/start-gqe
+wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin /https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/start-gqe
 chmod 755 /data/data/com.termux/files/usr/bin/start-gqe
 break
 

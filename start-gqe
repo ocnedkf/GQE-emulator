@@ -42,7 +42,7 @@ extract_file() {
 
 if [ ! -d "/data/data/com.termux/files/home/.gqe-start" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "c28e9e63e5f5feefc0f8ec4113c4aefb509a4c2b5c17c9f26a29baece8f8baa6" "initialization-sh" "Initialization Script"
 mv /data/data/com.termux/files/usr/tmp/initialization-v0.1-sh .
 sed -n '91,122p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
@@ -99,7 +99,7 @@ do
     fi
 
     if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "c28e9e63e5f5feefc0f8ec4113c4aefb509a4c2b5c17c9f26a29baece8f8baa6" "initialization-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -129,7 +129,7 @@ if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "c28e9e63e5f5feefc0f8ec4113c4aefb509a4c2b5c17c9f26a29baece8f8baa6" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh

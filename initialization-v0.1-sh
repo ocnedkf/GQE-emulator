@@ -99,6 +99,7 @@ touch $HOME/storage/shared/.gqe-start/all_var.txt
 var_all(){
 cat << 'EOF'
 # GQE-emulator environment variables
+# GQE-emulator environment variables
 export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
 export PULSE_LATENCY_MSEC=20
 export WINEPREFIX="$HOME/.gqe-data-v0.3/.wine"
@@ -112,6 +113,11 @@ export PULSE_SERVER=127.0.0.1
 export MESA_NO_ERROR=1
 export DISPLAY=:13
 export MESA_DEBUG=1
+export HOME=/data/data/com.termux/files/home
+export BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
+export BOX64_LD_LIBRARY_PATH=$HOME/.gqe-data-v0.3/wine/lib:$HOME/.gqe-data-v0.3/lib
+export PREFIX=/data/data/com.termux/files/usr
+export BOX64=$HOME/.gqe-data-v0.3/box64/bin/box64
 EOF
 }
 

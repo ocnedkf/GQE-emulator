@@ -1,0 +1,53 @@
+#!/data/data/com.termux/files/usr/bin/bash
+clear
+echo -e "The uninstallation script will proceed in 15 seconds, which will result in the complete loss of GQE and its data\n"
+echo -e "To cancel, please immediately press CTRL+C to terminate the process\n"
+sleep 1
+
+echo -e "\033[31m15\033[0m"
+sleep 1
+echo -e "\033[31m14\033[0m"
+sleep 1
+echo -e "\033[31m13\033[0m"
+sleep 1
+echo -e "\033[31m12\033[0m"
+sleep 1
+echo -e "\033[31m11\033[0m"
+sleep 1
+echo -e "\033[31m10\033[0m"
+sleep 1
+echo -e "\033[31m9\033[0m"
+sleep 1
+echo -e "\033[31m8\033[0m"
+sleep 1
+echo -e "\033[31m7\033[0m"
+sleep 1
+echo -e "\033[31m6\033[0m"
+sleep 1
+echo -e "\033[31m5\033[0m"
+sleep 1
+echo -e "\033[31m4\033[0m"
+sleep 1
+echo -e "\033[31m3\033[0m"
+sleep 1
+echo -e "\033[31m2\033[0m"
+sleep 1
+echo -e "\033[31m1\033[0m"
+sleep 2
+clear
+echo -e "Starting to uninstall GQE..."
+
+rm -rf /data/data/com.termux/files/usr/bin/{start-gqe,kill-gqe}
+
+rm -rf $HOME/.gqe-data-v0.3
+
+rm -rf $HOME/storage/shared/.gqe-start
+
+clear
+
+echo -e "Uninstallation has been completed, but for the sake of environmental integrity, the following dependencies were not uninstalled"
+echo -e "Please decide for yourself and manually execute apt to uninstall them\n"
+
+echo "pulseaudio termux-x11-nightly glibc-runner freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc x11-repo glibc-repo"
+
+rm -rf "$0"

@@ -1,0 +1,124 @@
+#!$PREFIX/bin/bash
+
+rm -rf $HOME/.gqe-data-v0.3/.wine 2>&1
+mkdir $HOME/.gqe-data-v0.3/.wine
+env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
+
+echo -e "Configuring Wine...\n"
+download_file https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "TFM"
+mv $PREFIX/tmp/TFM.exe $WINEPREFIX/drive_c/windows/TFM.exe
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "dba34c7a7efef73e1f3973ce80876372297ac36b670d3cf75faf73de40d5289a" "startmenu-v0.3.tar.xz" "Start Menu File" 
+extract_file "Start Menu Files" "startmenu-v0.3.tar.xz" 
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink.tar.xz "0553f26bbba9ab0102daa58beff81af080b8e221eb8e5ff3354d5e3028dc9952" "startmenulink.tar.xz" "Start Menu Link File"
+mv $PREFIX/tmp/startmenulink.tar.xz .
+ls -d $WINEPREFIX/drive_c/users/u* | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
+rm -f startmenulink.tar.xz 
+
+# download gecko 64-bit
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86_64.msi "e590b7d988a32d6aa4cf1d8aa3aa3d33766fdd4cf4c89c2dcc2095ecb28d066f" wine-gecko-2.47.4-x86_64.msi "Gecko(64 bit)"
+
+echo ""
+echo -e "Installing Gecko(64 bit)...\n"
+mv $PREFIX/tmp/wine-gecko-2.47.4-x86_64.msi .
+grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
+rm -f wine-gecko-2.47.4-x86_64.msi
+
+# download Gecko 32-bit
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86.msi "26cecc47706b091908f7f814bddb074c61beb8063318e9efc5a7f789857793d6" "wine-gecko-2.47.4-x86.msi" "Gecko(32 bit)"
+
+echo ""
+echo -e "Installing Gecko(32 bit)...\n"
+mv $PREFIX/tmp/wine-gecko-2.47.4-x86.msi .
+grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
+rm -f wine-gecko-2.47.4-x86.msi
+
+# download mono
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-mono-9.4.0-x86.msi "cf6173ae94b79e9de13d9a74cdb2560a886fc3d271f9489acb1cfdbd961cacb2" "wine-mono-9.4.0-x86.msi" "Mono"
+
+echo ""
+echo -e "Installing Mono...\n"
+mv $PREFIX/tmp/wine-mono-9.4.0-x86.msi .
+grun $BOX64 wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
+rm -f wine-mono-9.4.0-x86.msi
+
+# download inputbridge
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
+extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA/InputBridge"
+
+echo ""
+echo -e "Installing InputBridge...\n"
+touch install-ib.bat
+echo "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\" > install-ib.bat
+echo ".\install.bat" >> install-ib.bat
+echo "exit" >> install-ib.bat
+grun $BOX64 wine64 cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
+rm install-ib.bat
+
+echo -e "Setting drive letter...\n"
+ln -s $HOME/storage/downloads $WINEPREFIX/dosdevices/d:
+ln -s $HOME/storage/shared $WINEPREFIX/dosdevices/e:
+
+# download mfc42.dll
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/mfc42.dll "40e83003f7d136276cd76fde17639f8cec04c3bc85d108446fa511aab1df0506" "mfc42.dll" "DLL File"
+mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64
+
+echo ""
+echo -e "Setting DLL overrides...\n"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "DLL Setting REG File"
+mv $PREFIX/tmp/dllsetting.reg .
+grun $BOX64 $HOME/box64/bin/box64-bash /data/data/com.termux/files/usr/glibc/bin/regedit dllsetting.reg >/dev/null 2>&1
+rm -f dllsetting.reg
+
+echo ""
+echo -e "Configuring startup scripts...\n"
+rm -rf $HOME/storage/shared/.gqe-start
+mkdir -p $HOME/storage/shared/.gqe-start
+touch $HOME/storage/shared/.gqe-start/start-gqe.bat
+echo "start /min Z:\\usr\\opt\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-start/start-gqe.bat
+echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe.bat
+
+echo ""
+echo -e "Initializing visual environment...\n"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
+mv $PREFIX/opt/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg "1b7e003f5a3f2ee82241ff2ae841cbedadd53eb5186edf374d4239297bd7261f" "wallpapersetting.reg" "Wallpaper Setting REG File"
+mv $PREFIX/opt/wallpapersetting.reg .
+touch set.bat
+echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
+grun $BOX64 wine Z://home//set.bat >/dev/null 2>&1
+rm -f wallpapersetting.reg set.bat
+
+echo -e "Creating configuration files...\n"
+touch $HOME/storage/shared/.gqe-start/log.txt
+touch $HOME/storage/shared/.gqe-start/mesa_var.txt
+touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
+touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt
+touch $HOME/storage/shared/.gqe-start/dxvk_settings.ini
+touch $HOME/storage/shared/.gqe-start/all_var.txt
+
+var_all(){
+cat << 'EOF'
+# GQE-emulator environment variables
+export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
+export PULSE_LATENCY_MSEC=20
+export WINEPREFIX="$HOME/.gqe-data-v0.3/.wine"
+export DXVK_ASYNC=1
+export BOX64_ASYNC=1
+export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
+export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
+export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
+export LOCPATH="$HOME/.gqe-data-v0.3/locale"
+export PULSE_SERVER=127.0.0.1
+export MESA_NO_ERROR=1
+export DISPLAY=:13
+export MESA_DEBUG=1
+EOF
+}
+
+var_all > $HOME/storage/shared/.gqe-start/all_var.txt
+echo "dxvk.hud = 1" > $HOME/storage/shared/.gqe-start/dxvk_settings.ini
+echo "virpipe" > $HOME/storage/shared/.gqe-start/mesa_var.txt
+
+echo -e "Configuration Completed\n"
+echo -e "Initialization completed\n"
+rm -rf "$0"

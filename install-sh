@@ -1,0 +1,176 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+if [ "$(uname -m)" != "aarch64" ]; then
+echo "The GQE-emulator only supports the ARM64 architecture"
+echo "Please ensure that your device meets the requirements of Termux"
+exit 1
+fi
+
+FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
+if [ "$FREE_KB" -lt 5767168 ]; then
+echo "Insufficient storage space, at least 5.5GB of free space is required"
+exit 1
+fi
+
+download_file() {
+    url="$1"
+    hash_value="$2"
+    file_name="$3"
+    echo_file_name="$4"
+    echo -e "Downloading $echo_file_name...\n"
+    rm -f "$PREFIX/tmp/$file_name"
+    
+    if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
+    echo -e "ERROR: Failed to download $echo_file_name, check network!\n"
+    exit 1
+    fi
+
+    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
+    if [ $? -ne 0 ]; then
+    echo -e "Hash verification failed for $file_name. Please check the file integrity.\n"
+    rm -f "$PREFIX/tmp/$file_name"
+    exit 1
+    fi
+}
+
+extract_file() {
+    echo_file_name="$1"
+    file_name="$2"
+    dest_dir="$3"
+    echo -e "Unpacking $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xvJf $PREFIX/tmp/$file_name -C "$dest_dir"; then
+    rm -f "$PREFIX/tmp/$file_name"
+    else
+    echo -e "Failed to unpack $file_name. Please try again.\n"
+    exit 1
+    fi
+}
+
+clear
+
+echo -e "Welcome to the GQE installation script\n"
+echo -e "We will now begin the installation process\n"
+sleep 1
+
+echo -e "Please grant storage permissions\n"
+echo -e "If already granted, this can be ignored\n"
+termux-setup-storage & sleep 0
+sleep 10
+if [ ! -e "$HOME/storage" ]; then
+echo -e "Failed to check the directory , Please ensure that you have granted storage permissions\n"
+exit 1
+fi
+
+echo -e "Updating termux package...\n"
+apt-get clean
+apt-get update >/dev/null 2>&1
+apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/null 2>&1
+
+echo -e "Installing necessary...\n"
+pkg install x11-repo glibc-repo -y &>/dev/null
+pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-glibc freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc -y &>/dev/null
+
+export HOME="/data/data/com.termux/files/home"
+export GQE_DATA="$HOME/.gqe-data-v0.3"
+export WINEPREFIX="GQE_DATA/.wine"
+export WINEARCH=win64
+export BOX64_PATH="GQE_DATA/wine/bin"
+export BOX64_LD_LIBRARY_PATH="GQE_DATA/wine/lib:GQE_DATA/lib"
+export PREFIX="/data/data/com.termux/files/usr"
+export BOX64="$HOME/box64/bin/box64"
+
+# download and extract necessary files
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"
+extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
+
+# download and extract box64
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz "6ff2d48380f5a76e2f03c4023e71e1a1d4e5b84ca1948e59cb6f8b76fdd165a9" "box64.tar.xz" "Box64"
+extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
+
+echo ""
+while true; do
+
+echo -e "Choose Wine version... (Input number then press Enter)\n"
+echo -e "1) Wine-9.16-custom (Old Version)\n"
+echo -e "2) Proton-Wine-11.0 (Testing)\n"
+
+read gqe
+
+if [ "$gqe" = "1" ]; then
+
+# download and extract wine
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/winewow64.tar.xz "761fd6a5e3cd30a0522814c80150effccd26803c44a79a9bb22aea748859dde3" "winewow64.tar.xz" "Wine"
+extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
+
+clear
+echo -e "Initializing Wine...\n"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "dd44a201ec7546ceb25ad8a8cab609a49821357e248d392fdc8bbe6a32ce7d3d" "initialization-sh" "Initialization Script"
+mv $PREFIX/opt/initialization-v0.1-sh .
+chmod +x initialization-v0.1-sh
+./initialization-v0.1-sh
+
+# download and set up GQE startup script
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe-old "0eb2b3590499c0c71ca270ea840c57c7565f15e42e6219459e0b3d11953cb3aa" "start-gqe" "GQE Startup Script"
+mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
+chmod +x $PREFIX/bin/start-gqe
+
+break
+
+elif [ "$gqe" = "2" ]; then
+
+# download and extract proton-wine
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/proton-wine-11.0-wow64.tar.xz "your_hash_value_here" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
+extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
+
+clear
+echo -e "Initializing Wine...\n"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+mv $PREFIX/opt/"initialization-sh" .
+chmod +x initialization-sh
+./initialization-sh
+
+# download and set up GQE startup script
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "d856f395f7202320eb0fd2c13d00e2be9de9cc61d32a96a8f168f5bac7db9ed1" "start-gqe" "GQE Startup Script"
+mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
+chmod +x $PREFIX/bin/start-gqe
+break
+
+else
+
+clear
+echo "Wrong input, choose again..."
+
+fi
+done
+
+echo ""
+echo -e "Configuring area files...\n"
+rm -rf "$GQE_DATA/locale"
+mkdir -p "$GQE_DATA/locale"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i en_US "$GQE_DATA/locale/en_US.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i ja_JP "$GQE_DATA/locale/ja_JP.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i zh_CN "$GQE_DATA/locale/zh_CN.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i zh_TW "$GQE_DATA/locale/zh_TW.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i C "$GQE_DATA/locale/C.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i de_DE "$GQE_DATA/locale/de_DE.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i ko_KR "$GQE_DATA/locale/ko_KR.UTF-8"
+grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i ru_RU "$GQE_DATA/locale/ru_RU.UTF-8"
+
+# download and extract fonts
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz "c51a887f91f3b64cc218d417bdcaef84c93061c4451df79cff4ce9f631413254" "Fonts"
+extract_file "Fonts" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
+
+# download and set up GQE termination script
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/kill-gqe "635b1e0aa257f323ac9623fed6c5158e0b32d56c39f721dbaef088a88be6ef3a" "kill-gqe" "Termination Script"
+mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
+chmod +x $PREFIX/bin/kill-gqe
+
+echo ""
+echo 'Starting to launch GQE, Next time use "start-gqe" command to run it'
+sleep 2
+
+start-gqe
+
+clear
+rm -rf "$0"

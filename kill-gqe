@@ -1,0 +1,25 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+export $HOME=/data/data/com.termux/files/home
+export $PREFIX=/data/data/com.termux/files/usr
+export BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
+export BOX64_LD_LIBRARY_PATH=$HOME/.gqe-data-v0.3/wine/lib:$HOME/.gqe-data-v0.3/lib 
+export WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
+
+if ls $HOME/.gqe-data-v0.3/wine/bin/wine; then
+grun $HOME/box64/bin/box64 wine wineboot -k
+else
+grun $HOME/box64/bin/box64 wine64 wineboot -k
+fi
+
+if ps a | grep -q '[w]ine'; then
+grun $HOME/box64/bin/box64 -k
+elif ps a | grep -q '[w]ine64'; then
+grun $HOME/box64/bin/box64 -k
+fi
+
+rm -rf $PREFIX/tmp/pulse-*
+pulseaudio -k >/dev/null 2>&1
+
+pkill -f virgl
+pkill -f termux-x11

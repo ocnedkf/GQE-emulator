@@ -1,0 +1,168 @@
+#!data/data/com.termux/files/usr/bin/bash
+
+if [ ! -d "$HOME/storage" ]; then
+echo -e "External storage not found! Please check your storage permissions"
+exit 1
+fi
+
+download_file() {
+    url="$1"
+    hash_value="$2"
+    file_name="$3"
+    echo_file_name="$4"
+    echo -e "Downloading $echo_file_name...\n"
+    
+    rm -f "$PREFIX/tmp/$file_name"
+    if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
+    echo -e "ERROR: Failed to download $echo_file_name, check network!\n"
+    exit 1
+    fi
+
+    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
+    if [ $? -ne 0 ]; then
+    echo -e "Hash verification failed for $file_name. Please check the file integrity.\n"
+    rm -f "$PREFIX/tmp/$file_name"
+    exit 1
+    fi
+}
+
+extract_file() {
+    echo_file_name="$1"
+    file_name="$2"
+    dest_dir="$3"
+    echo -e "Unpacking $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xvJf $PREFIX/tmp/$file_name -C "$dest_dir"; then
+    rm -f "$PREFIX/tmp/$file_name"
+    else
+    echo -e "Failed to unpack $file_name. Please try again.\n"
+    exit 1
+    fi
+}
+
+if [ ! -d "/data/data/com.termux/files/home/.gqe-start" ]; then
+echo "The configuration file is corrupted. Attempting to reconfigure..."
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+mv /data/data/com.termux/files/usr/tmp/initialization-v0.1-sh .
+sed -n '91,122p' initialization-v0.1-sh | bash
+rm -f initialization-v0.1-sh
+fi
+
+if ! source /data/data/com.termux/files/storage/shared/.gqe-start/all_var.txt; then
+echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
+fi
+
+show_info() {
+cat << EOF
+==================== Introduction ====================
+
+GQE-emulator by ocnedkf
+
+GQE-emulator is an emulator capable of running Windows x86_64 applications.
+
+More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3-beta
+EOF
+}
+
+show_version() {
+echo "v0.3-beta"
+}
+
+show_help() {
+cat << EOF
+==================== Usage ====================
+
+usage : start-gqe [option]
+
+        start-gqe               Launch GQE normally
+        start-gqe -v/--version  Print version info then exit
+        start-gqe -h/--help     Print introduction and help info then exit
+        start-gqe -f/--fix      Attempt to repair the Wine prefix
+EOF
+}
+
+for cs in "$@"
+do
+    if [ "$cs" = "--version" ] || [ "$cs" = "-v" ]; then
+        show_version
+        exit 0
+    elif [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
+        show_info
+        show_help
+        exit 0
+    elif [ "$cs" = "-f" ] || [ "$cs" = "--fix" ]; then
+    echo "Are you sure you want to attempt to repair the Wine prefix? [y/n]"
+    read -r response
+    if [ "$response" != "y" ]; then
+        echo "exit"
+        exit 1
+    fi
+
+    if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+     mv $PREFIX/tmp/initialization-sh .
+     chmod +x initialization-sh
+     ./initialization-sh
+     rm -f initialization-sh
+    fi
+    rm -rf $HOME/.wine
+    env WINEPREFIX=.gqe-wine grun $BOX64 wine wineboot -i >/dev/null 2>&1
+    cp -r $HOME/.gqe-wine/drive_c $HOME/.gqe-data-v0.3/.wine/drive_c 2>&1
+    rm -rf $HOME/.gqe-wine
+    echo "done"
+    exit 0
+    fi
+done
+
+if [ $# -gt 0 ]; then
+    echo -e "Unsupported argument\n"
+    show_help
+    exit 1
+fi
+
+FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
+if [ "$FREE_KB" -lt 1048576 ]; then
+echo "Low free storage detected — GQE may lag or malfunction"
+fi
+
+if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+clear
+echo -e "Wine prefix missing! try reinitializing...\n"
+
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+mv $PREFIX/tmp/initialization-sh .
+chmod +x initialization-sh
+./initialization-sh
+rm -f initialization-sh
+
+fi
+
+if ps a | grep -q '[w]ine'; then
+grun $PREFIX/box64/bin/box64 wine wineboot -k >/dev/null 2>&1
+fi
+
+rm -rf $PREFIX/tmp/pulse-*
+pulseaudio -k >/dev/null 2>&1
+pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+
+if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
+pkill -f virgl
+virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
+fi
+
+pkill -f termux-x11
+termux-x11 :13 >/dev/null 2>&1 &
+
+if am start -n com.termux.x11/.MainActivity; then
+sleep 0.8
+termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "Failed to set display resolution"
+else
+echo "Failed to start Termux:X11 App. Please ensure it is installed"
+fi
+
+grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
+
+pkill -f termux-x11
+pulseaudio -k >/dev/null 2>&1
+rm -rf $PREFIX/tmp/pulse-*
+pkill -f virgl

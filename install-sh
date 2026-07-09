@@ -105,13 +105,13 @@ extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "dd44a201ec7546ceb25ad8a8cab609a49821357e248d392fdc8bbe6a32ce7d3d" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "544b5d2414c48774077219221552999248f2b52a74819fd34891e0b3bd770b46" "initialization-sh" "Initialization Script"
 mv $PREFIX/opt/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe-old "0eb2b3590499c0c71ca270ea840c57c7565f15e42e6219459e0b3d11953cb3aa" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe-old "88889d665a71912d0dc05a7ad167c4de53cb9ca1f5a18a3740a33fc4ce670fa7" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 
@@ -125,13 +125,13 @@ extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "1ff63a99000bd32d5c140c5a1a057fc85f9886572f3820c32dfbdc2aac8a7ac0" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "c28e9e63e5f5feefc0f8ec4113c4aefb509a4c2b5c17c9f26a29baece8f8baa6" "initialization-sh" "Initialization Script"
 mv $PREFIX/opt/"initialization-sh" .
 chmod +x initialization-sh
 ./initialization-sh
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "d856f395f7202320eb0fd2c13d00e2be9de9cc61d32a96a8f168f5bac7db9ed1" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "b8d5eacb32d74dd10fd1ce3aa3648f513ee033a4d609bfc7b42c3daccd470c81" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

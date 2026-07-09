@@ -17,7 +17,7 @@ extract_file "Start Menu Files" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"
 # download and extract InputBridge
 rm -rf $HOME/.gqe-data-v0.3/InputBridge
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
-extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA/InputBridge"
+extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 
 echo ""
 echo -e "Installing InputBridge...\n"

@@ -43,7 +43,7 @@ extract_file() {
 
 if [ ! -d "/data/data/com.termux/files/home/.gqe-start" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "544b5d2414c48774077219221552999248f2b52a74819fd34891e0b3bd770b46" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "abb5f6b6e7e6ccad927f6b7377cf0204f6f095c6c3f07b8a82a8a6150a6400b4" "initialization-sh" "Initialization Script"
 mv /data/data/com.termux/files/usr/tmp/initialization-v0.1-sh .
 sed -n '91,122p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
@@ -100,7 +100,7 @@ do
     fi
 
     if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "544b5d2414c48774077219221552999248f2b52a74819fd34891e0b3bd770b46" "initialization-sh" "Initialization Script"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "abb5f6b6e7e6ccad927f6b7377cf0204f6f095c6c3f07b8a82a8a6150a6400b4" "initialization-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-v0.1-sh .
      chmod +x initialization-v0.1-sh
      ./initialization-v0.1-sh
@@ -130,7 +130,7 @@ if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "544b5d2414c48774077219221552999248f2b52a74819fd34891e0b3bd770b46" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "abb5f6b6e7e6ccad927f6b7377cf0204f6f095c6c3f07b8a82a8a6150a6400b4" "initialization-sh" "Initialization Script"
 mv $PREFIX/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh

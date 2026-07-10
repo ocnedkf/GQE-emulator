@@ -44,8 +44,8 @@ extract_file() {
     fi
 }
 
-rm -rf $HOME/.gqe-data-v0.3/.wine 2>&1
-mkdir $HOME/.gqe-data-v0.3/.wine
+rm -rf $WINEPREFIX 2>&1
+mkdir $WINEPREFIX
 env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
 
 echo -e "Configuring Wine...\n"

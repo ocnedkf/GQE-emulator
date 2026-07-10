@@ -158,7 +158,7 @@ grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i ko_KR "$GQE_DATA/locale/ko_KR.UT
 grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i ru_RU "$GQE_DATA/locale/ru_RU.UTF-8"
 
 # download and extract fonts
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz "c51a887f91f3b64cc218d417bdcaef84c93061c4451df79cff4ce9f631413254" "Fonts"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz "c51a887f91f3b64cc218d417bdcaef84c93061c4451df79cff4ce9f631413254" "fonts.tar.xz" "Fonts"
 extract_file "Fonts" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
 
 # download and set up GQE termination script

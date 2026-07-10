@@ -1,4 +1,4 @@
-#!$PREFIX/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 rm -rf $HOME/.gqe-data-v0.3/.wine 2>&1
 mkdir $HOME/.gqe-data-v0.3/.wine

@@ -89,7 +89,7 @@ rm -rf $HOME/storage/shared/.gqe-start
 mkdir -p $HOME/storage/shared/.gqe-start
 touch $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 echo 'start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe' > $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
-echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
+echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 
 echo ""
 echo -e "Initializing visual environment...\n"

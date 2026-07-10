@@ -105,7 +105,7 @@ extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "cc17726f27f3abfb441cb6086a36b9aeaaac523c4a15a8a15546bc9347243966" "initialization-v0.1-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "808934ea5e103e12a0ed1b255c020992ace7e6e8ba61a1e6fc8474d868ca49fa" "initialization-v0.1-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh

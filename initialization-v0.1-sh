@@ -49,7 +49,7 @@ env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
 
 echo -e "Configuring Wine...\n"
 download_file https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "TFM"
-mv $PREFIX/tmp/TFM.exe $WINEPREFIX/drive_c/windows/tfm.exe
+mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "dba34c7a7efef73e1f3973ce80876372297ac36b670d3cf75faf73de40d5289a" "startmenu-v0.3.tar.xz" "Start Menu File" 
 extract_file "Start Menu Files" "startmenu-v0.3.tar.xz" "$HOME/.gqe-data-v0.3"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink.tar.xz "0553f26bbba9ab0102daa58beff81af080b8e221eb8e5ff3354d5e3028dc9952" "startmenulink.tar.xz" "Start Menu Link File"

@@ -120,7 +120,7 @@ break
 elif [ "$gqe" = "2" ]; then
 
 # download and extract proton-wine
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/proton-wine-11.0-wow64.tar.xz "your_hash_value_here" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/proton-wine-11.0-wow64.tar.xz "46386011360c9ca521f6b5d1250aa2abea989f6baf75fac5d3dc378fc408b40d" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
 extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
 clear

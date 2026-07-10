@@ -1,5 +1,40 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+download_file() {
+    url="$1"
+    hash_value="$2"
+    file_name="$3"
+    echo_file_name="$4"
+    echo -e "Downloading $echo_file_name...\n"
+    rm -f "$PREFIX/tmp/$file_name"
+
+    if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
+    echo -e "ERROR: Failed to download $echo_file_name, check network!\n"
+    exit 1
+    fi
+
+    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
+    if [ $? -ne 0 ]; then
+    echo -e "Hash verification failed for $file_name. Please check the file integrity.\n"
+    rm -f "$PREFIX/tmp/$file_name"
+    exit 1
+    fi
+}
+
+extract_file() {
+    echo_file_name="$1"
+    file_name="$2"
+    dest_dir="$3"
+    echo -e "Unpacking $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xvJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
+    rm -f "$PREFIX/tmp/$file_name"
+    else
+    echo -e "Failed to unpack $file_name. Please try again.\n"
+    exit 1
+    fi
+}
+
 rm -rf $HOME/.gqe-data-v0.3/.wine 2>&1
 mkdir $HOME/.gqe-data-v0.3/.wine
 env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1

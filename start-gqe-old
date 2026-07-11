@@ -41,7 +41,7 @@ extract_file() {
     fi
 }
 
-if [ ! -d "/data/data/com.termux/files/home/.gqe-start" ]; then
+if [ ! -d "/data/data/com.termux/files/home/.gqe-start/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "b5baced5c146c757f69d1c913565512d927a4dc75e9780f06397c19b0f4ae879" "initialization-sh" "Initialization Script"
 mv /data/data/com.termux/files/usr/tmp/initialization-v0.1-sh .

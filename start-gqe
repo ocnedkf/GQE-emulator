@@ -10,17 +10,20 @@ download_file() {
     hash_value="$2"
     file_name="$3"
     echo_file_name="$4"
+    echo ""
     echo -e "Downloading $echo_file_name...\n"
-    
     rm -f "$PREFIX/tmp/$file_name"
+
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo -e "ERROR: Failed to download $echo_file_name, check network!\n"
+    echo ""
+    echo -e "\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
     exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo -e "Hash verification failed for $file_name. Please check the file integrity.\n"
+    echo ""
+    echo -e "\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
     rm -f "$PREFIX/tmp/$file_name"
     exit 1
     fi
@@ -30,12 +33,14 @@ extract_file() {
     echo_file_name="$1"
     file_name="$2"
     dest_dir="$3"
+    echo ""
     echo -e "Unpacking $echo_file_name...\n"
     mkdir -p "$dest_dir"
-    if tar -xvJf $PREFIX/tmp/$file_name -C "$dest_dir"; then
+    if tar -xvJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
-    echo -e "Failed to unpack $file_name. Please try again.\n"
+    echo ""
+    echo -e "\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
     exit 1
     fi
 }
@@ -43,9 +48,9 @@ extract_file() {
 if [ ! -d "/data/data/com.termux/files/home/.gqe-start" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "8b0fdb4f160235bbf302092434781cdb03367d72a2b1ddecbe1437ac5f6bf6e6" "initialization-sh" "Initialization Script"
-mv /data/data/com.termux/files/usr/tmp/initialization-v0.1-sh .
-sed -n '91,122p' initialization-v0.1-sh | bash
-rm -f initialization-v0.1-sh
+mv /data/data/com.termux/files/usr/tmp/initialization-sh .
+sed -n '151,168p' initialization-sh | bash
+rm -f initialization-sh
 fi
 
 if ! source /data/data/com.termux/files/storage/shared/.gqe-start/all_var.txt; then

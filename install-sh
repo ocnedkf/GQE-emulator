@@ -78,7 +78,7 @@ export WINEARCH=win64
 export BOX64_PATH="GQE_DATA/wine/bin"
 export BOX64_LD_LIBRARY_PATH="GQE_DATA/wine/lib:GQE_DATA/lib"
 export PREFIX="/data/data/com.termux/files/usr"
-export BOX64="$HOME/box64/bin/box64"
+export BOX64="$GQE_DATA/box64/bin/box64"
 
 # download and extract necessary files
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"

@@ -7,7 +7,7 @@ export WINEARCH=win64
 export BOX64_PATH="GQE_DATA/wine/bin"
 export BOX64_LD_LIBRARY_PATH="GQE_DATA/wine/lib:GQE_DATA/lib"
 export PREFIX="/data/data/com.termux/files/usr"
-export BOX64="$HOME/box64/bin/box64"
+export BOX64="$GQE_DATA/box64/bin/box64"
 
 download_file() {
     url="$1"

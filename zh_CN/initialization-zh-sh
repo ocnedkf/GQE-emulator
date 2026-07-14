@@ -8,16 +8,16 @@ pkill -f termux-x11
 
 echo -e "正在配置 Wine...\n"
 rm -rf /data/data/com.termux/files/usr/opt/{InputBridge,startmenu} startmenulink.tar.xz startmenu-v0.2.tar.xz
-wget --quiet --show-progress -P $HOME/.gqe-data-v0.2/drive_c/windows https://gh-proxy.org/https://github.com/ocnedkf/tfm/releases/download/v1.0.1-zh_cn/TFM.exe
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/startmenulink-zh.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/startmenu-v0.2.tar.xz
+wget --quiet --show-progress -P $HOME/.gqe-data-v0.2/drive_c/windows https://v6.gh-proxy.org/https://github.com/ocnedkf/tfm/releases/download/v1.0.1-zh_cn/TFM.exe
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/startmenulink-zh.tar.xz
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/startmenu-v0.2.tar.xz
 tar -xJf startmenu-v0.2.tar.xz -C /data/data/com.termux/files/usr/opt
 tar -xJf startmenulink-zh.tar.xz -C "$HOME/.gqe-data-v0.2/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink-zh.tar.xz startmenu-v0.2.tar.xz
 
 echo -e "正在下载 InputBridge...\n"
 rm -f inputbridge.tar.xz
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz
 tar -xJf inputbridge.tar.xz -C /data/data/com.termux/files/usr/opt
 rm -f inputbridge.tar.xz
 
@@ -36,7 +36,7 @@ wget --quiet --show-progress -P $HOME/.gqe-data-v0.2/drive_c/windows/syswow64 ht
 echo ""
 echo -e "正在设置DLL覆盖...\n"
 rm -f dllsetting.reg
-wget --quiet --show-progress https://gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg
 env WINEPREFIX=$HOME/.gqe-data-v0.2 grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine /data/data/com.termux/files/usr/glibc/bin/regedit "$(realpath dllsetting.reg)" >/dev/null 2>&1
 rm -f dllsetting.reg
 

@@ -43,7 +43,7 @@ echo -e "Wine前缀损坏！尝试重新初始化...\n"
 
 if [ -f "/data/data/com.termux/files/usr/bin/wine64" ]; then
 rm -f initialization-v0.1-sh
-wget --show-progress --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-v0.1-sh
+wget --show-progress --quiet https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/initialization-v0.1-sh
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
 rm -f initialization-v0.1-sh
@@ -51,7 +51,7 @@ rm -f initialization-v0.1-sh
 else
 
 rm -f initialization-zh-sh
-wget --show-progress --quiet https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
+wget --show-progress --quiet https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/zh_CN/initialization-zh-sh
 chmod +x initialization-zh-sh
 ./initialization-zh-sh
 rm -f initialization-zh-sh

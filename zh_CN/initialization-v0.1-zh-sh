@@ -16,7 +16,7 @@ echo ""
 echo -e "正在下载 Gecko(64 bit)...\n"
 cd $HOME
 rm -f wine-gecko-2.47.4-x86_64.msi
-wget --quiet --show-progress https://v6.gh-proxy.org/https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86_64.msi
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86_64.msi
 
 echo ""
 echo -e "正在安装 Gecko(64 bit)...\n"
@@ -25,7 +25,7 @@ rm -f wine-gecko-2.47.4-x86_64.msi
 
 echo -e "正在下载 Gecko(32 bit)...\n"
 rm -f wine-gecko-2.47.4-x86.msi
-wget --quiet --show-progress https://v6.gh-proxy.org/https://dl.winehq.org/wine/wine-gecko/2.47.4/wine-gecko-2.47.4-x86.msi
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86.msi
 
 echo ""
 echo -e "正在安装 Gecko(32 bit)...\n"
@@ -34,7 +34,7 @@ rm -f wine-gecko-2.47.4-x86.msi
 
 echo -e "正在下载 Mono...\n"
 rm -f wine-mono-9.4.0-x86.msi
-wget --quiet --show-progress https://v6.gh-proxy.org/https://dl.winehq.org/wine/wine-mono/9.4.0/wine-mono-9.4.0-x86.msi
+wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-mono-9.4.0-x86.msi
 
 echo ""
 echo -e "正在安装 Mono...\n"
@@ -85,8 +85,8 @@ chmod +x /data/data/com.termux/files/usr/bin/kill-gqe
 
 echo ""
 echo -e "正在初始化视觉环境...\n"
-wget --quiet -P $HOME/.gqe-data/drive_c https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp
-wget --quiet https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg
+wget --quiet -P $HOME/.gqe-data/drive_c https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp
+wget --quiet https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg
 touch set.bat
 echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
 env WINEPREFIX=$HOME/.gqe-data grun /data/data/com.termux/files/usr/glibc/bin/box64 /data/data/com.termux/files/usr/glibc/bin/wine Z://home//set.bat >/dev/null 2>&1

@@ -109,6 +109,7 @@ echo "输入错误，重新选择..."
 fi
 done
 
+echo ""
 echo -e "正在配置区文件...\n"
 rm -rf $HOME/.locale
 mkdir -p $HOME/.locale
@@ -129,11 +130,6 @@ echo -e "正在解压字体文件...\n"
 mkdir -p /data/data/com.termux/files/usr/glibc/share/fonts
 tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
-
-echo ""
-echo -e "正在下载终止脚本...\n"
-wget --quiet --show-progress -P /data/data/com.termux/files/usr/bin https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe
-chmod +x /data/data/com.termux/files/usr/bin/kill-gqe
 
 echo ""
 echo '开始运行GQE，下次执行"start-gqe"以启动'

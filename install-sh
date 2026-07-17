@@ -87,6 +87,7 @@ extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 # download and extract box64
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz "6ff2d48380f5a76e2f03c4023e71e1a1d4e5b84ca1948e59cb6f8b76fdd165a9" "box64.tar.xz" "Box64"
 extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
+mv $GQE_DATA/box64/lib/* $PREFIX/glibc/lib
 
 echo ""
 while true; do

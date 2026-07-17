@@ -100,7 +100,7 @@ read gqe
 if [ "$gqe" = "1" ]; then
 
 # download and extract wine
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
 extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 rm -rf $PREFIX/glibc/share/wine
 mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/

@@ -100,8 +100,10 @@ read gqe
 if [ "$gqe" = "1" ]; then
 
 # download and extract wine
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/winewow64.tar.xz "0cd6319a82fc58a08d7a7e84c3795e74f1715d70ad4c08243d3d21969b16f8c5" "winewow64.tar.xz" "Wine"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
 extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
+rm -rf $PREFIX/glibc/share/wine
+mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/
 
 clear
 echo -e "Initializing Wine...\n"
@@ -120,8 +122,10 @@ break
 elif [ "$gqe" = "2" ]; then
 
 # download and extract proton-wine
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/proton-wine-11.0-wow64.tar.xz "46386011360c9ca521f6b5d1250aa2abea989f6baf75fac5d3dc378fc408b40d" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz "a937c76416c261bcbdbd9b5b6c3dd8142fdaed7060b171e2cb65bc4188d4a1ef" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
 extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
+rm -rf $PREFIX/glibc/share/wine
+mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/
 
 clear
 echo -e "Initializing Wine...\n"

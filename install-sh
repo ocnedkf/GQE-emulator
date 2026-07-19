@@ -107,7 +107,7 @@ mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "8dba32c6f0428a6af79a937f1daf6ab56f9203a236bf8605f551ee861bd0f169" "initialization-v0.1-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "08d8b9db305f015ee03329306b671668f77638625687f21a992ce8ecf5f843f1" "initialization-v0.1-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh

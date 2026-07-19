@@ -2,10 +2,10 @@
 
 export HOME="/data/data/com.termux/files/home"
 export GQE_DATA="$HOME/.gqe-data-v0.3"
-export WINEPREFIX="GQE_DATA/.wine"
+export WINEPREFIX="$GQE_DATA/.wine"
 export WINEARCH=win64
 export BOX64_PATH="$GQE_DATA/wine/bin"
-export BOX64_LD_LIBRARY_PATH="GQE_DATA/wine/lib:GQE_DATA/lib"
+export BOX64_LD_LIBRARY_PATH="$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
 export PREFIX="/data/data/com.termux/files/usr"
 export BOX64="$GQE_DATA/box64/bin/box64"
 

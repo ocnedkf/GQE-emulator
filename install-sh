@@ -73,10 +73,10 @@ pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-gl
 
 export HOME="/data/data/com.termux/files/home"
 export GQE_DATA="$HOME/.gqe-data-v0.3"
-export WINEPREFIX="GQE_DATA/.wine"
+export WINEPREFIX="$GQE_DATA/.wine"
 export WINEARCH=win64
-export BOX64_PATH="GQE_DATA/wine/bin"
-export BOX64_LD_LIBRARY_PATH="GQE_DATA/wine/lib:GQE_DATA/lib"
+export BOX64_PATH="$GQE_DATA/wine/bin"
+export BOX64_LD_LIBRARY_PATH="$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
 export PREFIX="/data/data/com.termux/files/usr"
 export BOX64="$GQE_DATA/box64/bin/box64"
 
@@ -87,7 +87,6 @@ extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 # download and extract box64
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz "6ff2d48380f5a76e2f03c4023e71e1a1d4e5b84ca1948e59cb6f8b76fdd165a9" "box64.tar.xz" "Box64"
 extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
-mv $GQE_DATA/box64/lib/* $PREFIX/glibc/lib
 
 echo ""
 while true; do

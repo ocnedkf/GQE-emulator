@@ -133,7 +133,7 @@ chmod +x initialization-sh
 ./initialization-sh
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "4196c893996daac9d2ca8c581ddb244753660d64cbf85cfadc2fee2d51f1124f" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "6bf2ad150a65a5e25dd432131b17025213d4819e5d1ce1ba6b69be1392f1f7d8" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

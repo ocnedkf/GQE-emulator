@@ -137,6 +137,7 @@ export BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
 export BOX64_LD_LIBRARY_PATH=$HOME/.gqe-data-v0.3/wine/lib:$HOME/.gqe-data-v0.3/lib
 export PREFIX=/data/data/com.termux/files/usr
 export BOX64=$GQE_DATA/box64/bin/box64
+export GALLIUM_HUD=simple,fps
 EOF
 }
 

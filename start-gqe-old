@@ -53,7 +53,7 @@ sed -n '149,169p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
 fi
 
-if ! source /data/data/com.termux/files/storage/shared/.gqe-start/all_var.txt; then
+if ! source /data/data/com.termux/files/home/storage/shared/.gqe-start/all_var.txt; then
 echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
 fi
 

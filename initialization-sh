@@ -61,6 +61,7 @@ mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink.tar.xz "0553f26bbba9ab0102daa58beff81af080b8e221eb8e5ff3354d5e3028dc9952" "startmenulink.tar.xz" "Start Menu Link"
 extract_file "Start Menu Link" "startmenulink.tar.xz" "$WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "761fd6a5e3cd30a0522814c80150effccd26803c44a79a9bb22aea748859dde3" "startmenu-v0.3.tar.xz" "Start Menu"
+mkdir $GQE_DATA/STARTMENU
 extract_file "Start Menu Files" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"
 
 # download and extract InputBridge

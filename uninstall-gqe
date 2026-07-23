@@ -37,8 +37,8 @@ sleep 2
 clear
 echo -e "Starting to uninstall GQE..."
 
-export $PREFIX="/data/data/com.termux/files/usr"
-export $HOME="$PREFIX/../home"
+export PREFIX="/data/data/com.termux/files/usr"
+export HOME="$PREFIX/../home"
 export GQE_DATA=$HOME/.gqe-data-v0.3
 
 rm -rf $PREFIX/bin/{start-gqe,kill-gqe}

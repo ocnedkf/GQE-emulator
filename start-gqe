@@ -153,6 +153,7 @@ pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth
 if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
 pkill -f virgl
 virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
+export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
 pkill -f termux-x11

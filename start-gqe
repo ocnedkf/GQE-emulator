@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-if [ ! -d "$HOME/storage" ]; then
+if [ ! -d "/data/data/com.termux/files/home/storage" ]; then
 echo -e "External storage not found! Please check your storage permissions"
 exit 1
 fi

@@ -128,9 +128,9 @@ echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe.bat
 echo ""
 echo -e "Initializing visual environment...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
-mv $PREFIX/opt/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
+mv $PREFIX/tmp/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg "1b7e003f5a3f2ee82241ff2ae841cbedadd53eb5186edf374d4239297bd7261f" "wallpapersetting.reg" "Wallpaper Setting REG File"
-mv $PREFIX/opt/wallpapersetting.reg .
+mv $PREFIX/tmp/wallpapersetting.reg .
 touch set.bat
 echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
 grun $BOX64 wine Z://home//set.bat >/dev/null 2>&1

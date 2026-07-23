@@ -108,7 +108,7 @@ ln -s $HOME/storage/shared $WINEPREFIX/dosdevices/e:
 
 # download mfc42.dll
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/mfc42.dll "40e83003f7d136276cd76fde17639f8cec04c3bc85d108446fa511aab1df0506" "mfc42.dll" "DLL File"
-mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64
+mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/system32
 
 echo ""
 echo -e "Setting DLL overrides...\n"

@@ -50,7 +50,7 @@ extract_file() {
 }
 
 rm -rf $WINEPREFIX 2>&1
-env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine wineboot -i >/dev/null 2>&1
+env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
 
 echo -e "Configuring Wine...\n"
 download_file https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "TFM"
@@ -68,7 +68,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 echo ""
 echo -e "Installing Gecko(64 bit)...\n"
 mv $PREFIX/tmp/wine-gecko-2.47.4-x86_64.msi .
-grun $BOX64 wine msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
+grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86_64.msi
 
 # download Gecko 32-bit
@@ -77,7 +77,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 echo ""
 echo -e "Installing Gecko(32 bit)...\n"
 mv $PREFIX/tmp/wine-gecko-2.47.4-x86.msi .
-grun $BOX64 wine msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
+grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86.msi
 
 # download mono
@@ -86,7 +86,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 echo ""
 echo -e "Installing Mono...\n"
 mv $PREFIX/tmp/wine-mono-9.4.0-x86.msi .
-grun $BOX64 wine msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
+grun $BOX64 wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
 rm -f wine-mono-9.4.0-x86.msi
 
 # download inputbridge
@@ -99,7 +99,7 @@ touch install-ib.bat
 echo "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\" > install-ib.bat
 echo ".\install.bat" >> install-ib.bat
 echo "exit" >> install-ib.bat
-grun $BOX64 wine cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
+grun $BOX64 wine64 cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
 rm install-ib.bat
 
 echo -e "Setting drive letter...\n"
@@ -133,7 +133,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-bet
 mv $PREFIX/tmp/wallpapersetting.reg .
 touch set.bat
 echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
-grun $BOX64 wine Z://home//set.bat >/dev/null 2>&1
+grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f wallpapersetting.reg set.bat
 
 echo -e "Creating configuration files...\n"

@@ -47,6 +47,8 @@ rm -rf $GQE_DATA
 
 rm -rf $HOME/storage/shared/.gqe-start
 
+rm -rf $PREFIX/glibc/share/wine
+
 clear
 
 echo -e "Uninstallation has been completed, but for the sake of environmental integrity, the following dependencies were not uninstalled"

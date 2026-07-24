@@ -111,7 +111,7 @@ do
      rm -f initialization-v0.1-sh
     fi
     rm -rf $HOME/.wine
-    grun $BOX64 wine wineboot -i >/dev/null 2>&1
+    grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
     cp -r $HOME/.wine/drive_c $HOME/.gqe-data-v0.3/.wine/drive_c 2>&1
     rm -rf $HOME/.wine
     echo "done"
@@ -143,7 +143,7 @@ rm -f initialization-v0.1-sh
 fi
 
 if ps a | grep -q '[w]ine64'; then
-grun $PREFIX/box64/bin/box64 wine wineboot -k >/dev/null 2>&1
+grun $PREFIX/box64/bin/box64 wine64 wineboot -k >/dev/null 2>&1
 fi
 
 rm -rf $PREFIX/tmp/pulse-*
@@ -166,7 +166,7 @@ else
 echo "Failed to start Termux:X11 App. Please ensure it is installed"
 fi
 
-grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
+grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
 
 pkill -f termux-x11
 pulseaudio -k >/dev/null 2>&1

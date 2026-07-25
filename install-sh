@@ -71,13 +71,13 @@ echo -e "Installing necessary...\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-glibc freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc -y &>/dev/null
 
+export PREFIX="/data/data/com.termux/files/usr"
 export HOME="/data/data/com.termux/files/home"
 export GQE_DATA="$HOME/.gqe-data-v0.3"
 export WINEPREFIX="$GQE_DATA/.wine"
 export WINEARCH=win64
-export BOX64_PATH="$GQE_DATA/wine/bin"
+export BOX64_PATH="$GQE_DATA/wine/bin:$GQE_DATA/box64/bin:$PREFIX/glibc/bin"
 export BOX64_LD_LIBRARY_PATH="$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
-export PREFIX="/data/data/com.termux/files/usr"
 export BOX64="$GQE_DATA/box64/bin/box64"
 
 # download and extract necessary files

@@ -80,6 +80,8 @@ export BOX64_PATH="$GQE_DATA/wine/bin:$GQE_DATA/box64/bin:$PREFIX/glibc/bin"
 export BOX64_LD_LIBRARY_PATH="$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
 export BOX64="$GQE_DATA/box64/bin/box64"
 
+cd $HOME
+
 # download and extract necessary files
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"
 extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"

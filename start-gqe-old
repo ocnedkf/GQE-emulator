@@ -36,7 +36,7 @@ extract_file() {
     echo ""
     echo -e "Unpacking $echo_file_name...\n"
     mkdir -p "$dest_dir"
-    if tar -xvJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
+    if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
     echo ""

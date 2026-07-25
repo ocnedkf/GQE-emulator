@@ -109,7 +109,6 @@ do
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
-     rm -f initialization-sh
     fi
     rm -rf $HOME/.gqe-wine
     env WINEPREFIX=.gqe-wine grun $BOX64 wine wineboot -i >/dev/null 2>&1

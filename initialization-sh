@@ -147,4 +147,4 @@ echo "virpipe" > $HOME/storage/shared/.gqe-start/mesa_var.txt
 
 echo -e "Configuration Completed\n"
 echo -e "Initialization completed\n"
-rm -rf "$0"
+rm -f "$0"

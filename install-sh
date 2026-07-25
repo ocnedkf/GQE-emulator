@@ -179,4 +179,4 @@ sleep 2
 start-gqe
 
 clear
-rm -rf "$0"
+rm -f "$0"

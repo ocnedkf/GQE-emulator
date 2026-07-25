@@ -112,7 +112,7 @@ do
     fi
     rm -rf $HOME/.gqe-wine
     grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
-    cp -r $HOME/.wine/drive_c $HOME/.gqe-data-v0.3/.wine/drive_c 2>&1
+    cp -r $HOME/.wine/drive_c $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
     rm -rf $HOME/.wine
     echo "done"
     exit 0
@@ -135,7 +135,7 @@ clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "cc15ffdc541e0c30a432f3b4ddfb150016fddcd061d8c61c84c54e2a5d7e1745" "initialization-sh" "Initialization Script"
-mv $PREFIX/initialization-v0.1-sh .
+mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
 rm -f initialization-v0.1-sh
@@ -143,7 +143,7 @@ rm -f initialization-v0.1-sh
 fi
 
 if ps a | grep -q '[w]ine64'; then
-grun $PREFIX/box64/bin/box64 wine64 wineboot -k >/dev/null 2>&1
+grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
 fi
 
 rm -rf $PREFIX/tmp/pulse-*

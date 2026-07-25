@@ -55,6 +55,7 @@ fi
 
 if ! source /data/data/com.termux/files/home/storage/shared/.gqe-start/all_var.txt; then
 echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
+exit 1
 fi
 
 show_info() {

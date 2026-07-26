@@ -49,7 +49,7 @@ extract_file() {
     fi
 }
 
-rm -rf $WINEPREFIX 2>&1
+rm -rf $WINEPREFIX
 env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
 
 echo -e "Configuring Wine...\n"

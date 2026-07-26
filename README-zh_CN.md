@@ -7,6 +7,8 @@
 GQE是一个在Android ARM64设备上运行windows x86_64程序的模拟器，无需root，依赖[Termux](https://github.com/termux/termux-app)，[Termux-X11](https://github.com/termux/termux-x11)，和[InputBridge](https://inputbridge.net/)
 <br>
 ![Alt text](doc/Tools.jpg)
+<br>
+有改进想法？请提交拉取请求 — 我们接受建设性贡献
 # 安装
 在Termux中执行以下命令
 <br>

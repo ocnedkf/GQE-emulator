@@ -109,7 +109,7 @@ mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "dea18a43574c8476cec9d31e47b3cd8bb88d74fc31f941f94d7976905c91f9b6" "initialization-v0.1-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "a4af381b87d624e00b144b5fb248827e45044924d3a17117f7751b70dba0759b" "initialization-v0.1-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
@@ -131,7 +131,7 @@ mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "628abf9ccded49577c6d05a1e2400096ea1a6f4b76835c351ec9c3c588ff11e4" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "82c27787b36275914b7ad350e2de68590d378f1a694849e7c7e0125d3173519d" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh

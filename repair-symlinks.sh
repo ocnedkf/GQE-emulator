@@ -1,4 +1,4 @@
-export $HOME=/data/data/com.termux/files/home
+export HOME=/data/data/com.termux/files/home
 
 cd $HOME/.gqe-data-v0.3/lib/
 find . -type l -delete

@@ -49,7 +49,7 @@ if [ ! -f "/data/data/com.termux/files/home/storage/shared/.gqe-start/all_var.tx
 echo "The configuration file is corrupted. Attempting to reconfigure..."
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "82c27787b36275914b7ad350e2de68590d378f1a694849e7c7e0125d3173519d" "initialization-sh" "Initialization Script"
 mv /data/data/com.termux/files/usr/tmp/initialization-sh .
-sed -n '118,144p' initialization-sh | bash
+sed -n '121,142p' initialization-sh | bash
 rm -f initialization-sh
 fi
 

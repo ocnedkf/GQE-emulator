@@ -89,7 +89,7 @@ extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 # fix symlinks
 echo ""
 echo -e "Repairing the symbolic link...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "" "repair-symlinks.sh" "Fix Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "b1962bb84b3603e0726a313b4c5c058e9cb458ed15666a90cdb048a6d73a5579" "repair-symlinks.sh" "Fix Script"
 mv $PREFIX/tmp/repair-symlinks.sh .
 ./repair-symlinks.sh
 

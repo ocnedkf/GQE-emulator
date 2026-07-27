@@ -45,3 +45,5 @@ ln -sf $HOME/.gqe-data-v0.3/lib/libselinux.so.1 libselinux.so.1
 ln -sf libselinux.so.1 libselinux.so
 ln -sf $HOME/.gqe-data-v0.3/lib/libatspi.so.0 libatspi.so.0
 ln -sf libatspi.so.0 libatspi.so
+
+rm -f "$0"

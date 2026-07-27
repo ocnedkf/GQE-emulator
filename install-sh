@@ -86,6 +86,11 @@ cd $HOME
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"
 extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 
+# fix symlinks
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "" "repair-symlinks.sh" "Fix Script"
+mv $PREFIX/tmp/repair-symlinks.sh .
+./repair-symlinks.sh
+
 # download and extract box64
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz "6ff2d48380f5a76e2f03c4023e71e1a1d4e5b84ca1948e59cb6f8b76fdd165a9" "box64.tar.xz" "Box64"
 extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"

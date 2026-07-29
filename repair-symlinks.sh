@@ -1,10 +1,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-export HOME=/data/data/com.termux/files/home
+export HOME="/data/data/com.termux/files/home"
+export PREFIX="/data/data/com.termux/files/usr"
 
 cd $HOME/.gqe-data-v0.3/lib/
 find . -type l -delete
-grun ldconfig -n .
+grun $PREFIX/glibc/bin/ldconfig -n .
 
 cd /data/data/com.termux/files/usr/glibc/lib
 ln -sf $HOME/.gqe-data-v0.3/lib/libgstvideo-1.0.so.0 libgstvideo-1.0.so

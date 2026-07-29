@@ -12,6 +12,7 @@ GQE is an emulator that runs Windows x86_64 programs on Android ARM64 devices, n
 
 ![Alt text](doc/Tools.jpg)
 <br>
+<br>
 Have an improvement? Please submit a pull request — we accept constructive contributions.
 
 # Installation

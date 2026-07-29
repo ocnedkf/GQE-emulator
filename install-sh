@@ -17,6 +17,7 @@ download_file() {
     hash_value="$2"
     file_name="$3"
     echo_file_name="$4"
+    echo ""
     echo -e "Downloading $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
     

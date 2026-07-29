@@ -53,5 +53,9 @@ ln -sf $HOME/.gqe-data-v0.3/lib/libSDL2-2.0.so.0 libSDL2-2.0.so.0
 ln -sf $HOME/.gqe-data-v0.3/lib/libsamplerate.so.0 libsamplerate.so.0
 ln -sf $HOME/.gqe-data-v0.3/lib/libXss.so.1 libXss.so.1
 ln -sf $HOME/.gqe-data-v0.3/lib/libdecor-0.so.0 libdecor-0.so.0
+ln -sf $HOME/.gqe-data-v0.3/lib/libgstgl-1.0.so.0.2402.0 $HOME/.gqe-data-v0.3/lib/libgstgl-1.0.so.0
+ln -sf $HOME/.gqe-data-v0.3/lib/libgstgl-1.0.so.0 libgstgl-1.0.so.0
+ln -sf libgstgl-1.0.so.0 libgstgl-1.0.so
+
 
 rm -f "$0"

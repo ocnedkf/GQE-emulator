@@ -47,7 +47,7 @@ extract_file() {
 
 if [ ! -f "/data/data/com.termux/files/home/storage/shared/.gqe-start/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "82c27787b36275914b7ad350e2de68590d378f1a694849e7c7e0125d3173519d" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "57a305a13575e020a3e12efb5f21dc9cad9f3b800745b558e4a8678c74fd9944" "initialization-sh" "Initialization Script"
 mv /data/data/com.termux/files/usr/tmp/initialization-sh .
 sed -n '119,146p' initialization-sh | bash
 rm -f initialization-sh
@@ -105,7 +105,7 @@ do
     fi
 
     if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "82c27787b36275914b7ad350e2de68590d378f1a694849e7c7e0125d3173519d" "initialization-sh" "Initialization Script"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "57a305a13575e020a3e12efb5f21dc9cad9f3b800745b558e4a8678c74fd9944" "initialization-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -134,7 +134,7 @@ if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "82c27787b36275914b7ad350e2de68590d378f1a694849e7c7e0125d3173519d" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "57a305a13575e020a3e12efb5f21dc9cad9f3b800745b558e4a8678c74fd9944" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh

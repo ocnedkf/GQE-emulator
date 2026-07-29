@@ -38,6 +38,7 @@ extract_file() {
     echo_file_name="$1"
     file_name="$2"
     dest_dir="$3"
+    echo ""
     echo -e "Unpacking $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
@@ -87,7 +88,6 @@ cd $HOME
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"
 extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 
-echo ""
 echo -e "Repairing the symbolic link...\n"
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "ad15d49a2291db116d5029d9ecea611e58c74f0e119157b6fc70c5f17ea79479" "repair-symlinks.sh" "Fix Script"
 mv $PREFIX/tmp/repair-symlinks.sh .

@@ -48,5 +48,10 @@ ln -sf $HOME/.gqe-data-v0.3/lib/libselinux.so.1 libselinux.so.1
 ln -sf libselinux.so.1 libselinux.so
 ln -sf $HOME/.gqe-data-v0.3/lib/libatspi.so.0 libatspi.so.0
 ln -sf libatspi.so.0 libatspi.so
+# Additionally for proton-wine
+ln -sf $HOME/.gqe-data-v0.3/lib/libSDL2-2.0.so.0 libSDL2-2.0.so.0
+ln -sf $HOME/.gqe-data-v0.3/lib/libsamplerate.so.0 libsamplerate.so.0
+ln -sf $HOME/.gqe-data-v0.3/lib/libXss.so.1 libXss.so.1
+ln -sf $HOME/.gqe-data-v0.3/lib/libdecor-0.so.0 libdecor-0.so.0
 
 rm -f "$0"

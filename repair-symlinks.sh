@@ -1,3 +1,5 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
 export HOME=/data/data/com.termux/files/home
 
 cd $HOME/.gqe-data-v0.3/lib/

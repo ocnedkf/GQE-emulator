@@ -6,6 +6,8 @@ echo "Please ensure that your device meets the requirements of Termux"
 exit 1
 fi
 
+export HOME="/data/data/com.termux/files/home"
+
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 5767168 ]; then
 echo "Insufficient storage space, at least 5.5GB of free space is required"
@@ -74,7 +76,6 @@ pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-glibc freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc -y &>/dev/null
 
 export PREFIX="/data/data/com.termux/files/usr"
-export HOME="/data/data/com.termux/files/home"
 export GQE_DATA="$HOME/.gqe-data-v0.3"
 export WINEPREFIX="$GQE_DATA/.wine"
 export WINEARCH=win64

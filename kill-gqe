@@ -7,7 +7,7 @@ export BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
 export BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
 export WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
 
-if ls $HOME/.gqe-data-v0.3/wine/bin/wine; then
+if [ -x "$HOME/.gqe-data-v0.3/wine/bin/wine" ]; then
 
 if grun $HOME/box64/bin/box64 wine wineboot -k >/dev/null 2>&1; then
 echo "Process terminated successfully!"

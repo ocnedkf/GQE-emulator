@@ -14,6 +14,8 @@ echo "Insufficient storage space, at least 5.5GB of free space is required"
 exit 1
 fi
 
+export PREFIX="/data/data/com.termux/files/usr"
+
 download_file() {
     url="$1"
     hash_value="$2"
@@ -75,7 +77,6 @@ echo -e "Installing necessary...\n"
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-glibc freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc -y &>/dev/null
 
-export PREFIX="/data/data/com.termux/files/usr"
 export GQE_DATA="$HOME/.gqe-data-v0.3"
 export WINEPREFIX="$GQE_DATA/.wine"
 export WINEARCH=win64
@@ -175,7 +176,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 extract_file "Fonts" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
 
 # download and set up GQE termination script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/kill-gqe "f4a1ff226b8c8807131a0417820d82ff413992124085aa2af14babd639289e95" "kill-gqe" "Termination Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/kill-gqe "fed4880f7a508d9da477445c0c16c1bbdbf518fb6a10e2c5dd8cc8573f2bad56" "kill-gqe" "Termination Script"
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 

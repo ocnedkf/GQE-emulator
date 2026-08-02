@@ -1,4 +1,102 @@
-**NOTICE — v0.3‑beta is under active development and bug fixes. Forcing installation may lead to irreversible changes to Termux/home directory (including environment pollution). This version is likely unable to install and run properly at present. Non-advanced users are recommended to stay on v0.2 or other stable branches.**
+> [!NOTE]
+> You are currently in the v0.3-beta channel
+
+> [!WARNING]
+> This emulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience this may cause and appreciate your understanding
+# GQE-emulator
+
+GQE is an emulator that runs Windows x86_64 programs on Android ARM64 devices, no root, relying on [Termux](https://github.com/termux/termux-app), [Termux-X11](https://github.com/termux/termux-x11), and [InputBridge](https://inputbridge.net/)
+<br>
+
+![Alt text](doc/Tools.jpg)
 <br>
 <br>
-**注意 — v0.3‑beta 仍在积极开发与修复中，若强制安装可能对 Termux / 用户主目录产生不可逆改动（包括环境污染）。该版本当前大概率无法正常安装使用，非高级用户请继续使用 v0.2 或其它稳定分支。**
+Have an improvement? Please submit a pull request — we accept constructive contributions.
+
+# Installation
+Execute the following command in Termux (ensure that the 64-bit version is used)
+<br>
+
+```bash
+curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/install-sh && chmod +x g && ./g
+``` 
+
+# Launch the GQE
+Execute the following command
+```bash
+start-gqe
+```
+
+# Terminate GQE
+Close all windows or run the command below
+```bash
+kill-gqe
+```
+
+# Fix GQE
+Try `start-gqe -f` to repair the Wine prefix or reinitialize it
+> [!Tip]
+> If you only want to perform reinitialization, delete the Wine prefix before executing the command
+> 
+> The directory path is `$HOME/.gqe-data-v0.3/.wine`
+
+
+# Uninstallation
+Execute the following command
+<br>
+Warning: This will delete GQE along with all data stored within it
+<br>
+Do not attempt to execute without GQE installation!!!
+<br>
+```bash
+curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/uninstall-gqe && chmod +x u && ./u
+``` 
+
+# Device Requirements
+An Android ARM64 device with Android version 7 or above, requiring at least approximately 5GB of space
+
+# Third party applications
+
+[Box64](https://github.com/Pipetto-crypto/box64)
+
+[DXVK](https://github.com/doitsujin/dxvk)
+
+[VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
+
+[D8VK](https://github.com/AlpyneDreams/d8vk)
+
+[D7VK](https://github.com/WinterSnowfall/d7vk)
+
+[Termux-APP](https://github.com/termux/termux-app)
+
+[Termux-Packages](https://github.com/termux/termux-packages)
+
+[Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
+
+[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+
+[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
+
+[Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
+
+[Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+
+[Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
+
+[Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
+
+[Wine](https://github.com/ocnedkf/wine-custom)
+
+[Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
+
+[Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
+
+[WineD3D](https://downloads.fdossena.com/Projects/WineD3D/Builds/)
+
+[Ubuntu-Packages](https://packages.ubuntu.com/noble/)
+
+[InputBridge](https://inputbridge.net/)
+
+[Tiny File Manager](https://github.com/radzikpwnz/tfm)
+
+[7-Zip](https://7-zip.org/)

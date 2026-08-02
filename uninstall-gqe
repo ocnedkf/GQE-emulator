@@ -47,6 +47,8 @@ rm -rf $GQE_DATA
 
 rm -rf $HOME/storage/shared/.gqe-start
 
+find $PREFIX/glibc/lib/ -type l ! -exec test -e {} \; -delete
+
 clear
 
 echo -e "Uninstallation has been completed, but for the sake of environmental integrity, the following dependencies were not uninstalled"

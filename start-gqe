@@ -115,7 +115,7 @@ do
     fi
     rm -rf $HOME/.gqe-wine
     env WINEPREFIX=$HOME/.gqe-wine grun $BOX64 wine wineboot -i >/dev/null 2>&1
-    cp -r $HOME/.gqe-wine/drive_c $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
+    cp -r $HOME/.gqe-wine/drive_c/* $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
     rm -rf $HOME/.gqe-wine
     echo "done"
     exit 0

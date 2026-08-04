@@ -1,0 +1,40 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+export HOME=/data/data/com.termux/files/home
+export GQE_DATA=$HOME/.gqe-data-v0.3
+export PREFIX=/data/data/com.termux/files/usr
+export BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
+export BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
+export WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
+
+if [ -x "$HOME/.gqe-data-v0.3/wine/bin/wine" ]; then
+
+if grun $HOME/box64/bin/box64 wine wineboot -k >/dev/null 2>&1; then
+echo "进程结束成功!"
+else
+echo "结束进程失败! GQE可能未在运行"
+fi
+
+else
+
+if grun $HOME/box64/bin/box64 wine64 wineboot -k >/dev/null 2>&1; then
+echo "进程结束成功!"
+else
+echo "结束进程失败! GQE可能未在运行"
+fi
+
+fi
+
+if ps a | grep -q '[w]ine'; then
+grun $HOME/box64/bin/box64 -k >/dev/null 2>&1
+elif ps a | grep -q '[w]ine64'; then
+grun $HOME/box64/bin/box64 -k >/dev/null 2>&1
+else
+pkill -f 'wine'
+fi
+
+rm -rf $PREFIX/tmp/pulse-*
+pulseaudio -k >/dev/null 2>&1
+
+pkill -f virgl
+pkill -f termux-x11

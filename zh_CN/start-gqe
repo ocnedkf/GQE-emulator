@@ -1,0 +1,177 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+export HOME=/data/data/com.termux/files/home
+if [ ! -d "$HOME/storage" ]; then
+echo -e "找不到外部存储！检查你的存储权限"
+exit 1
+fi
+
+export PREFIX="/data/data/com.termux/files/usr"
+
+download_file() {
+    url="$1"
+    hash_value="$2"
+    file_name="$3"
+    echo_file_name="$4"
+    echo ""
+    echo -e "正在下载 $echo_file_name...\n"
+    rm -f "$PREFIX/tmp/$file_name"
+
+    if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
+    echo ""
+    echo -e "\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
+    exit 1
+    fi
+
+    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
+    if [ $? -ne 0 ]; then
+    echo ""
+    echo -e "\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
+    rm -f "$PREFIX/tmp/$file_name"
+    exit 1
+    fi
+}
+
+extract_file() {
+    echo_file_name="$1"
+    file_name="$2"
+    dest_dir="$3"
+    echo ""
+    echo -e "正在解压 $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
+    rm -f "$PREFIX/tmp/$file_name"
+    else
+    echo ""
+    echo -e "\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
+    exit 1
+    fi
+}
+
+if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+echo "配置文件不存在! 尝试重新配置..."
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "a610089b7bcc2d328e35f8b334794e859737a7e11c178f8a3e927cefed88ee59" "initialization-sh" "Initialization Script"
+mv $PREFIX/tmp/initialization-sh .
+sed -n '118,145p' initialization-sh | bash
+rm -f initialization-sh
+fi
+
+if ! source "$HOME/storage/shared/.gqe-start/all_var.txt"; then
+echo "导入环境变量失败! 请检查文件 /storage/emulated/0/.gqe-start/all_var.txt 是否存在"
+exit 1
+fi
+
+show_info() {
+cat << EOF
+==================== 介绍 ====================
+
+GQE-emulator by ocnedkf
+
+GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
+
+详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3-beta
+EOF
+}
+
+show_version() {
+echo "v0.3-beta"
+}
+
+show_help() {
+cat << EOF
+==================== 使用说明 ====================
+
+usage : start-gqe [参数]
+
+        start-gqe               正常启动GQE
+        start-gqe -v/--version  打印版本信息并推出
+        start-gqe -h/--help     打印帮助与介绍信息并退出
+        start-gqe -f/--fix      尝试修复 Wine前缀
+EOF
+}
+
+for cs in "$@"
+do
+    if [ "$cs" = "--version" ] || [ "$cs" = "-v" ]; then
+        show_version
+        exit 0
+    elif [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
+        show_info
+        show_help
+        exit 0
+    elif [ "$cs" = "-f" ] || [ "$cs" = "--fix" ]; then
+    echo "你确定要尝试修复 Wine前缀? [y/n]"
+    read -r response
+    if [ "$response" != "y" ]; then
+        echo "exit"
+        exit 1
+    fi
+
+    if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "a610089b7bcc2d328e35f8b334794e859737a7e11c178f8a3e927cefed88ee59" "initialization-sh" "Initialization Script"
+     mv $PREFIX/tmp/initialization-sh .
+     chmod +x initialization-sh
+     ./initialization-sh
+    fi
+    rm -rf $HOME/.gqe-wine
+    env WINEPREFIX=$HOME/.gqe-wine grun $BOX64 wine wineboot -i >/dev/null 2>&1
+    cp -r $HOME/.gqe-wine/drive_c/* $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
+    rm -rf $HOME/.gqe-wine
+    echo "完成"
+    exit 0
+    fi
+done
+
+if [ $# -gt 0 ]; then
+    echo -e "不支持的参数\n"
+    show_help
+    exit 1
+fi
+
+FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
+if [ "$FREE_KB" -lt 1048576 ]; then
+echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
+fi
+
+if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+clear
+echo -e "Wine前缀损坏! 尝试重新初始化...\n"
+
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "a610089b7bcc2d328e35f8b334794e859737a7e11c178f8a3e927cefed88ee59" "initialization-sh" "Initialization Script"
+mv $PREFIX/tmp/initialization-sh .
+chmod +x initialization-sh
+./initialization-sh
+rm -f initialization-sh
+
+fi
+
+if ps a | grep -q '[w]ine'; then
+grun $BOX64 wine wineboot -k >/dev/null 2>&1
+fi
+
+rm -rf $PREFIX/tmp/pulse-*
+pulseaudio -k >/dev/null 2>&1
+pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+
+if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
+pkill -f virgl
+virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
+export LIBGL_ALWAYS_SOFTWARE=1
+fi
+
+pkill -f termux-x11
+termux-x11 :13 >/dev/null 2>&1 &
+
+if am start -n com.termux.x11/.MainActivity; then
+sleep 0.8
+termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "更改分辨率失败, 可能需要自行设置"
+else
+echo "自动跳转Termux-x11失败, 需确保已安装"
+fi
+
+grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
+
+pkill -f termux-x11
+pulseaudio -k >/dev/null 2>&1
+rm -rf $PREFIX/tmp/pulse-*
+pkill -f virgl

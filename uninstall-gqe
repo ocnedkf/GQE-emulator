@@ -47,6 +47,8 @@ rm -rf $GQE_DATA
 
 rm -rf $HOME/storage/shared/.gqe-start
 
+rm -rf $PREFIX/glibc/fonts
+
 find $PREFIX/glibc/lib/ -type l ! -exec test -e {} \; -delete
 
 clear

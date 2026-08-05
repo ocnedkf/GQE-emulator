@@ -91,7 +91,7 @@ cd $HOME
 
 # download and extract necessary files
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "额外依赖项"
-extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
+extract_file "额外依赖项" "lib.tar.xz" "$GQE_DATA/lib"
 
 echo -e "正在修复软链接...\n"
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "ad15d49a2291db116d5029d9ecea611e58c74f0e119157b6fc70c5f17ea79479" "repair-symlinks.sh" "修复脚本"

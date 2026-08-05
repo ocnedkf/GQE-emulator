@@ -58,7 +58,7 @@ pkill termux-x11
 echo -e "正在配置 Wine...\n"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/tfm/releases/download/v1.0.1-zh_cn/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "文件管理器"
 mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
-download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink.tar.xz "1f24e7bd90687fae687414e892966270f2cb21e63195c62489eb753c347d513b" "startmenulink.tar.xz" "开始菜单快捷方式文件"
+download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink-zh.tar.xz "1f24e7bd90687fae687414e892966270f2cb21e63195c62489eb753c347d513b" "startmenulink.tar.xz" "开始菜单快捷方式文件"
 extract_file "Start Menu Link" "startmenulink.tar.xz" "$WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "761fd6a5e3cd30a0522814c80150effccd26803c44a79a9bb22aea748859dde3" "startmenu-v0.3.tar.xz" "开始菜单文件"
 extract_file "Start Menu Files" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"

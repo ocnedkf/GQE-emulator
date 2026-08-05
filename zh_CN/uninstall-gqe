@@ -47,7 +47,7 @@ rm -rf $GQE_DATA
 
 rm -rf $HOME/storage/shared/.gqe-start
 
-rm -rf $PREFIX/glibc/share/wine
+rm -rf $PREFIX/glibc/fonts
 
 clear
 

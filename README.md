@@ -69,6 +69,8 @@ An Android ARM64 device with Android version 7 or above, requiring at least appr
 
 [Termux-APP](https://github.com/termux/termux-app)
 
+[Termux-X11](https://github.com/termux/termux-x11)
+
 [Termux-Packages](https://github.com/termux/termux-packages)
 
 [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)

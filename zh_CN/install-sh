@@ -143,13 +143,13 @@ mv $GQE_DATA/wine/share/wine $PREFIX/glibc/share/
 
 clear
 echo -e "正在初始化 Wine...\n"
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "a680da0448ce06ff5712087f859c419c262558ac9e2f9e287550470cb2aeb79f" "initialization-sh" "初始化脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "5cc00fa2518c7ad3b87849989f438799d584e25f7ea1b30742242ce11e19edab" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
 
 # download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe "3ccbbc98677195ba18993f96127a980c90ce4980d235799d92b0fe493bfb1edc" "start-gqe" "启动脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe "2cfbeda18a6087f459a60201eb725ee93be459ce32649673afe17d76461e6e62" "start-gqe" "启动脚本"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

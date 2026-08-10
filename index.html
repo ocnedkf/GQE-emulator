@@ -1,7 +1,243 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GQE-emulator README</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      background-color: #f6f8fa;
+      color: #24292f;
+      line-height: 1.5;
+    }
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #f6f8fa;
+    }
+    body {
+      padding: 32px 0;
+    }
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 45px;
+      background: #ffffff;
+      border: 1px solid #d0d7de;
+      border-radius: 12px;
+      box-shadow: 0 16px 32px rgba(9, 30, 66, 0.08);
+    }
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4,
+    .markdown-body h5,
+    .markdown-body h6 {
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    .markdown-body h1 { font-size: 2.25em; }
+    .markdown-body h2 { font-size: 1.75em; }
+    .markdown-body h3 { font-size: 1.5em; }
+    .markdown-body p {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+    .markdown-body a {
+      color: #0969da;
+      text-decoration: none;
+    }
+    .markdown-body a:hover {
+      text-decoration: underline;
+    }
+    .markdown-body strong {
+      font-weight: 600;
+    }
+    .markdown-body ul,
+    .markdown-body ol {
+      margin-top: 0;
+      margin-bottom: 16px;
+      padding-left: 2em;
+    }
+    .markdown-body li {
+      margin-bottom: 0.25em;
+    }
+    .markdown-body blockquote {
+      margin: 0;
+      padding: 0 1em;
+      color: #6a737d;
+      border-left: 0.25em solid #dfe2e5;
+    }
+    .markdown-body .admonition {
+      display: flex;
+      gap: 16px;
+      padding: 18px 20px;
+      margin: 24px 0;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: #24292f;
+      background-color: #f1f8ff;
+    }
+    .markdown-body .admonition .admonition-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 16px;
+      background-color: rgba(15, 118, 255, 0.12);
+      color: #0969da;
+    }
+    .markdown-body .admonition.note {
+      background-color: #f1f8ff;
+      border-color: #c8e1ff;
+    }
+    .markdown-body .admonition.note .admonition-icon {
+      background-color: rgba(15, 118, 255, 0.16);
+    }
+    .markdown-body .admonition.warning {
+      background-color: #fff4d6;
+      border-color: #ffdf9b;
+    }
+    .markdown-body .admonition.warning .admonition-icon {
+      background-color: rgba(227, 144, 0, 0.16);
+      color: #8a3ffc;
+    }
+    .markdown-body .admonition p {
+      margin: 0;
+      color: #24292f;
+    }
+    .markdown-body .admonition strong {
+      font-weight: 600;
+    }
+    .markdown-body figure {
+      margin: 0;
+      margin-bottom: 24px;
+    }
+    .markdown-body figure img {
+      border-radius: 12px;
+    }
+    .markdown-body a {
+      color: #0969da;
+      text-decoration: none;
+    }
+    .markdown-body a:hover {
+      text-decoration: underline;
+    }
+    .markdown-body pre {
+      margin-top: 0;
+      margin-bottom: 16px;
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      background-color: #f6f8fa;
+      border: 1px solid #d1d5da;
+      border-radius: 6px;
+    }
+    .markdown-body code {
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 85%;
+      background-color: rgba(27,31,35,0.05);
+      padding: 0.2em 0.4em;
+      border-radius: 6px;
+    }
+    .markdown-body img {
+      max-width: 100%;
+      box-sizing: content-box;
+      background-color: transparent;
+    }
+    .markdown-body hr {
+      border: 0;
+      border-top: 1px solid #dfe2e5;
+      margin: 24px 0;
+    }
+    .markdown-body figure {
+      margin: 0;
+      margin-bottom: 16px;
+    }
+    .markdown-body figcaption {
+      margin-top: 8px;
+      color: #6a737d;
+      font-size: 0.9em;
+      text-align: center;
+    }
+  </style>
+</head>
 <body>
-<h1>GQE-emulator 测试站点</h1>
-<p>网站部署成功！后续替换成项目页面</p>
+  <article class="markdown-body">
+    <div class="admonition note">
+      <div class="admonition-icon">💡</div>
+      <div>
+        <p><strong>NOTE</strong> You are currently in the v0.3-beta channel</p>
+      </div>
+    </div>
+    <div class="admonition warning">
+      <div class="admonition-icon">⚠️</div>
+      <div>
+        <p><strong>WARNING</strong> This emulator is still in the beta stage, so there may be several bugs that have not yet been discovered. We apologize for any inconvenience and appreciate your understanding</p>
+      </div>
+    </div>
+    <h1>GQE-emulator</h1>
+    <p>GQE is an emulator that runs Windows x86_64 programs on Android ARM64 devices, no root, relying on <a href="https://github.com/termux/termux-app">Termux</a>, <a href="https://github.com/termux/termux-x11">Termux-X11</a>, and <a href="https://inputbridge.net/">InputBridge</a></p>
+    <p>Have an improvement? Please submit a pull request — we accept constructive contributions.</p>
+    <h2>Installation</h2>
+    <p>Execute the following command in Termux (ensure that the 64-bit version is used)</p>
+    <pre><code>curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/install-sh && chmod +x g && ./g</code></pre>
+    <h2>Launch the GQE</h2>
+    <p>Execute the following command</p>
+    <pre><code>start-gqe</code></pre>
+    <h2>Terminate GQE</h2>
+    <p>Close all windows or run the command below</p>
+    <pre><code>kill-gqe</code></pre>
+    <h2>Fix GQE</h2>
+    <p>Try <code>start-gqe -f</code> to repair the Wine prefix or reinitialize it</p>
+    <blockquote>
+      <p><strong>Tip</strong><br>
+      If you only want to perform reinitialization, delete the Wine prefix before executing the command</p>
+      <p>The directory path is <code>$HOME/.gqe-data-v0.3/.wine</code></p>
+    </blockquote>
+    <h2>Uninstallation</h2>
+    <p>Execute the following command<br>Warning: This will delete GQE along with all data stored within it<br>Do not attempt to execute without GQE installation!!!</p>
+    <pre><code>curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/uninstall-gqe && chmod +x u && ./u</code></pre>
+    <h2>Device Requirements</h2>
+    <p>An Android ARM64 device with Android version 7 or above, requiring at least approximately 5GB of space</p>
+    <h2>Third party applications</h2>
+    <ul>
+      <li><a href="https://github.com/Pipetto-crypto/box64">Box64</a></li>
+      <li><a href="https://github.com/doitsujin/dxvk">DXVK</a></li>
+      <li><a href="https://github.com/HansKristian-Work/vkd3d-proton">VKD3D</a></li>
+      <li><a href="https://github.com/AlpyneDreams/d8vk">D8VK</a></li>
+      <li><a href="https://github.com/WinterSnowfall/d7vk">D7VK</a></li>
+      <li><a href="https://github.com/termux/termux-app">Termux-APP</a></li>
+      <li><a href="https://github.com/termux/termux-x11">Termux-X11</a></li>
+      <li><a href="https://github.com/termux-pacman/glibc-packages">Termux-Packages</a></li>
+      <li><a href="https://github.com/termux-pacman/glibc-packages">Termux-Glibc-Packages</a></li>
+      <li><a href="https://github.com/Sporif/dxvk-async">DXVK-ASYNC</a></li>
+      <li><a href="https://gitlab.com/Ph42oN/dxvk-gplasync">DXVK-GPLASYNC</a></li>
+      <li><a href="https://gitlab.freedesktop.org/mesa/mesa/">Mesa</a></li>
+      <li><a href="https://github.com/K11MCH1/WinlatorTurnipDrivers">Mesa-Turnip</a></li>
+      <li><a href="https://github.com/alexvorxx/Mesa-VirGL">Mesa-VirGL</a></li>
+      <li><a href="https://github.com/ocnedkf/proton-wine-custom">Proton-Wine</a></li>
+      <li><a href="https://github.com/ocnedkf/wine-custom">Wine</a></li>
+      <li><a href="https://gitlab.winehq.org/wine/wine-gecko">Wine-Gecko</a></li>
+      <li><a href="https://gitlab.winehq.org/mono/wine-mono">Wine-Mono</a></li>
+      <li><a href="https://downloads.fdossena.com/Projects/WineD3D/Builds/">WineD3D</a></li>
+      <li><a href="https://packages.ubuntu.com/noble/">Ubuntu-Packages</a></li>
+      <li><a href="https://inputbridge.net/">InputBridge</a></li>
+      <li><a href="https://github.com/radzikpwnz/tfm">Tiny File Manager</a></li>
+      <li><a href="https://7-zip.org/">7-Zip</a></li>
+    </ul>
+  </article>
 </body>
 </html>

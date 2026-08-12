@@ -80,7 +80,7 @@ echo 'start TFM.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe.bat
 
 echo ""
 echo -e "下载终止脚本中...\n"
-wget --quiet --show-progress -O /data/data/com.termux/files/usr/bin/kill-gqe https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe-v0.1
+wget --quiet --show-progress -O /data/data/com.termux/files/usr/bin/kill-gqe https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.2-beta/kill-gqe-v0.1
 chmod +x /data/data/com.termux/files/usr/bin/kill-gqe
 
 echo ""

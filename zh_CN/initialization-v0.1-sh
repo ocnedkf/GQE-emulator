@@ -58,7 +58,7 @@ mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "dba34c7a7efef73e1f3973ce80876372297ac36b670d3cf75faf73de40d5289a" "startmenu-v0.3.tar.xz" "开始菜单文件" 
 extract_file "开始菜单文件" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink-zh.tar.xz "7a7a6f22c8a837cfa2c6c47bd770c4124834f8e939c881758836382274541f16" "startmenulink-zh.tar.xz" "开始菜单快捷方式"
-mv $PREFIX/tmp/startmenulink.tar.xz .
+mv $PREFIX/tmp/startmenulink-zh.tar.xz .
 ls -d $WINEPREFIX/drive_c/users/u* | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink.tar.xz 
 
@@ -112,7 +112,7 @@ mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64
 
 echo ""
 echo -e "正在设置 DLL覆盖...\n"
-download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "DLL Setting REG File"
+download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "用于设置DLL覆盖的注册表文件"
 mv $PREFIX/tmp/dllsetting.reg .
 grun $BOX64 $GQE_DATA/box64/bin/box64-bash regedit dllsetting.reg >/dev/null 2>&1
 rm -f dllsetting.reg
@@ -136,6 +136,7 @@ echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
 grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f wallpapersetting.reg set.bat
 
+echo ""
 echo -e "正在创建配置文件...\n"
 touch $HOME/storage/shared/.gqe-start/log.txt
 touch $HOME/storage/shared/.gqe-start/mesa_var.txt

@@ -1,3 +1,6 @@
+[![中文](https://img.shields.io/badge/lang-中文-red.svg)](https://github.com/ocnedkf/GQE-emulator/blob/v0.3-beta/README-zh_CN.md)
+[![English](https://img.shields.io/badge/lang-English-blue.svg)](README.md)
+
 > [!NOTE]
 > You are currently in the v0.3-beta channel
 

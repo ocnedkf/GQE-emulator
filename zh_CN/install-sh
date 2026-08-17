@@ -127,7 +127,7 @@ chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
 
 # download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe-old "3a7856e0c4c36c4a49803033e22119110ea32f40a14881e7f5f66b935c9166d8" "start-gqe" "启动脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe-old "cae42808b722f05e5cabb764b7e0e45e4d4e9e4f4512929f22b555a5405d9bf3" "start-gqe" "启动脚本"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 

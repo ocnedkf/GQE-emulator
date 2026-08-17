@@ -141,13 +141,13 @@ extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "正在初始化 Wine...\n"
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "91ad038dc0e418071a9668935d0bbf0f3fc596d5896331aa1239b8b59f896700" "initialization-sh" "初始化脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "ad289f09e9424c73169e66e230e17326da12474b0cb556c0b6ab957929986f7e" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
 
 # download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe "7ac5d9379bd659f3a15784d227836044cb6ee7974889b9b8550eb4d028fa7628" "start-gqe" "启动脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe "7c975a7284f63c35ad5cfb0bde44fd7197ff0d707658d91415053be78ad82cd8" "start-gqe" "启动脚本"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

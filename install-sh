@@ -90,7 +90,7 @@ cd $HOME
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"
 extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 
-echo -e "Repairing the symbolic link...\n"
+echo -e "Repairing the symbolic link..."
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "ad15d49a2291db116d5029d9ecea611e58c74f0e119157b6fc70c5f17ea79479" "repair-symlinks.sh" "Fix Script"
 mv $PREFIX/tmp/repair-symlinks.sh .
 chmod +x repair-symlinks.sh

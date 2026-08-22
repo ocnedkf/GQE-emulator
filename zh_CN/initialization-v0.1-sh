@@ -59,8 +59,8 @@ download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/re
 extract_file "开始菜单文件" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink-zh.tar.xz "7a7a6f22c8a837cfa2c6c47bd770c4124834f8e939c881758836382274541f16" "startmenulink-zh.tar.xz" "开始菜单快捷方式"
 mv $PREFIX/tmp/startmenulink-zh.tar.xz .
-ls -d $WINEPREFIX/drive_c/users/u* | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
-rm -f startmenulink.tar.xz 
+ls -d $WINEPREFIX/drive_c/users/u* | xargs -I {} tar -xJf startmenulink-zh.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
+rm -f startmenulink-zh.tar.xz 
 
 # download gecko 64-bit
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86_64.msi "e590b7d988a32d6aa4cf1d8aa3aa3d33766fdd4cf4c89c2dcc2095ecb28d066f" wine-gecko-2.47.4-x86_64.msi "Gecko(64位)"

@@ -50,9 +50,9 @@ extract_file() {
 
 if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "a3f0708163e4d24778a37b95bef4183ebd5b23905175321ecddf5e6b5948e3fc" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "8b73ac1a5a24892e9d4ab3506698a464bd240d5335d66e1fc1dd6f26997fa391" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
-sed -n '118,144p' initialization-sh | bash
+sed -n '118,143p' initialization-sh | bash
 rm -f initialization-sh
 fi
 
@@ -108,7 +108,7 @@ do
     fi
 
     if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "a3f0708163e4d24778a37b95bef4183ebd5b23905175321ecddf5e6b5948e3fc" "initialization-sh" "Initialization Script"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "8b73ac1a5a24892e9d4ab3506698a464bd240d5335d66e1fc1dd6f26997fa391" "initialization-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -137,7 +137,7 @@ if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "a3f0708163e4d24778a37b95bef4183ebd5b23905175321ecddf5e6b5948e3fc" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "8b73ac1a5a24892e9d4ab3506698a464bd240d5335d66e1fc1dd6f26997fa391" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
@@ -169,7 +169,7 @@ else
 echo "Failed to start Termux:X11 App. Please ensure it is installed"
 fi
 
-grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
+grun PULSE_SERVER=127.0.0.1 $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
 
 pkill -f termux-x11
 pulseaudio -k >/dev/null 2>&1

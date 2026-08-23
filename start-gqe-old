@@ -52,7 +52,7 @@ if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "fac9bc74a9825c2dc821255b3c9945287b2b9796704eca30df55fc1b47b46d32" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-v0.1-sh .
-sed -n '147,173p' initialization-v0.1-sh | bash
+sed -n '147,172p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
 fi
 

@@ -175,7 +175,7 @@ grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i ru_RU "$GQE_DATA/locale/ru_RU.UT
 
 # download and extract fonts
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz "c51a887f91f3b64cc218d417bdcaef84c93061c4451df79cff4ce9f631413254" "fonts.tar.xz" "字体文件"
-extract_file "Fonts" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
+extract_file "字体文件" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
 
 # download and set up GQE termination script
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/kill-gqe "a6547afc5bf85527cb7646ba83d108b58064d565754c333ee74e60e07a87afcc" "kill-gqe" "终止脚本"

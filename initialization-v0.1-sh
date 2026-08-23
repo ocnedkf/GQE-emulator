@@ -114,7 +114,7 @@ echo ""
 echo -e "Setting DLL overrides...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "DLL Setting REG File"
 mv $PREFIX/tmp/dllsetting.reg .
-grun $BOX64 $GQE_DATA/box64/bin/box64-bash regedit dllsetting.reg >/dev/null 2>&1
+touch set.bat && echo "regedit /s Z:\\home\\dllsetting.reg" > set.bat && grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f dllsetting.reg
 
 echo ""

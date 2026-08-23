@@ -158,7 +158,6 @@ export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.
 export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
 export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
 export LOCPATH="$HOME/.gqe-data-v0.3/locale"
-export PULSE_SERVER=127.0.0.1
 export MESA_NO_ERROR=1
 export DISPLAY=:13
 export MESA_DEBUG=1

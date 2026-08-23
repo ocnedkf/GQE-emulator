@@ -84,7 +84,7 @@ cat << EOF
 usage : start-gqe [参数]
 
         start-gqe               正常启动GQE
-        start-gqe -v/--version  打印版本信息并推出
+        start-gqe -v/--version  打印版本信息并退出
         start-gqe -h/--help     打印帮助与介绍信息并退出
         start-gqe -f/--fix      尝试修复 Wine前缀
 EOF

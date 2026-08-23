@@ -50,9 +50,9 @@ extract_file() {
 
 if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
 echo "配置文件不存在! 尝试重新配置..."
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "0ad336e771d7f76d63c83ee9dc375b7d86b6c0b32fc005c37cdb21bfc8df9f18" "initialization-sh" "Initialization Script"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "9879df2e9466e551bfcdadbab092db62fa81cb551dbf59e25aca578085b99468" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
-sed -n '118,145p' initialization-sh | bash
+sed -n '118,144p' initialization-sh | bash
 rm -f initialization-sh
 fi
 
@@ -108,7 +108,7 @@ do
     fi
 
     if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "0ad336e771d7f76d63c83ee9dc375b7d86b6c0b32fc005c37cdb21bfc8df9f18" "initialization-sh" "Initialization Script"
+     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "9879df2e9466e551bfcdadbab092db62fa81cb551dbf59e25aca578085b99468" "initialization-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -137,7 +137,7 @@ if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
 clear
 echo -e "Wine前缀损坏! 尝试重新初始化...\n"
 
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "0ad336e771d7f76d63c83ee9dc375b7d86b6c0b32fc005c37cdb21bfc8df9f18" "initialization-sh" "Initialization Script"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "9879df2e9466e551bfcdadbab092db62fa81cb551dbf59e25aca578085b99468" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
@@ -169,7 +169,7 @@ else
 echo "自动跳转Termux-x11失败, 需确保已安装"
 fi
 
-env LC_ALL=zh_CN.UTF-8 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
+env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
 
 pkill -f termux-x11
 pulseaudio -k >/dev/null 2>&1

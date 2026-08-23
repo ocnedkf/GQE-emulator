@@ -50,9 +50,9 @@ extract_file() {
 
 if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
 echo "配置文件不存在! 尝试重新配置..."
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "a2d8f343f7e281cdc3a1074f7f8ed7d4920c511f3f8c78e3448fb21540a3d090" "initialization-sh" "初始化脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "6f030cb25303f015912dd16dcf587f1babcd53afe35b720d87a9d89c098b4d6f" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-v0.1-sh .
-sed -n '147,174p' initialization-v0.1-sh | bash
+sed -n '147,173p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
 fi
 
@@ -108,7 +108,7 @@ do
     fi
 
     if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "a2d8f343f7e281cdc3a1074f7f8ed7d4920c511f3f8c78e3448fb21540a3d090" "initialization-v0.1-sh" "初始化脚本"
+     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "6f030cb25303f015912dd16dcf587f1babcd53afe35b720d87a9d89c098b4d6f" "initialization-v0.1-sh" "初始化脚本"
      mv $PREFIX/tmp/initialization-v0.1-sh .
      chmod +x initialization-v0.1-sh
      ./initialization-v0.1-sh
@@ -137,7 +137,7 @@ if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
 clear
 echo -e "Wine前缀损坏! 尝试重新初始化...\n"
 
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "a2d8f343f7e281cdc3a1074f7f8ed7d4920c511f3f8c78e3448fb21540a3d090" "initialization-sh" "初始化脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "6f030cb25303f015912dd16dcf587f1babcd53afe35b720d87a9d89c098b4d6f" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh

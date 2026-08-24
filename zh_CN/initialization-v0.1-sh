@@ -57,7 +57,7 @@ download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/tfm/releases/do
 mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "dba34c7a7efef73e1f3973ce80876372297ac36b670d3cf75faf73de40d5289a" "startmenu-v0.3.tar.xz" "开始菜单文件" 
 extract_file "开始菜单文件" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"
-download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink-zh.tar.xz "7a7a6f22c8a837cfa2c6c47bd770c4124834f8e939c881758836382274541f16" "startmenulink-zh.tar.xz" "开始菜单快捷方式"
+download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenulink-zh.tar.xz "df7c1a5948e650dc6dc402b300c44b6f5b1afa00e76521f4039b6d53fca0f635" "startmenulink-zh.tar.xz" "开始菜单快捷方式"
 mv $PREFIX/tmp/startmenulink-zh.tar.xz .
 ls -d $WINEPREFIX/drive_c/users/u* | xargs -I {} tar -xJf startmenulink-zh.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink-zh.tar.xz 

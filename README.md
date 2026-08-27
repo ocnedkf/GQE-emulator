@@ -35,17 +35,16 @@ Close all windows or run the command below
 ```bash
 kill-gqe
 ```
-
-# Configure GQE
-You can find the configuration files at the path `/storage/emulator/0/.gqe-start`
+# GQE Configuration
+You can find the configuration files at the path `/storage/emulator/0/.gqe-start`.
 
 | File Name | Description |
 |---|---|
 | `all_var.txt` | GQE global environment variables |
 | `dxvk.conf` | DXVK configuration file |
-| `mesa_var.txt` | Environmental variables for selecting Mesa Gallium drivers |
-| `mesa_var_v.txt` | Environmental variables for selecting Mesa Vulkan drivers |
-| `mesa_var_f.txt` | **Points to the Vulkan ICD‑JSON manifest file** |
+| `mesa_var.txt` | Mesa Gallium driver selection |
+| `mesa_var_v.txt` | Mesa Vulkan driver selection |
+| `mesa_var_f.txt` | Points to the Vulkan ICD‑JSON manifest file |
 | `log.txt` | Wine runtime log file |
 
 # Fix GQE

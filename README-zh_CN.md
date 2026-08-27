@@ -30,7 +30,8 @@ kill-gqe
 ```
 
 # 配置 GQE
-你可在开始菜单中，通过“安装”和“Programs”选项，调整应用的Mesa与D3D文件，并使用 winecfg 快捷调整配置，等等
+> [!Tip]
+> 你可在开始菜单中，通过“安装”和“Programs”选项，调整应用的Mesa与D3D文件，并使用 winecfg 快捷调整配置，等等
 
 你可以在`/storage/emulator/0/.gqe-start`路径下找到配置文件
 

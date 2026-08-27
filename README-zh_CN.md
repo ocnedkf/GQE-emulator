@@ -36,8 +36,8 @@ kill-gqe
 |---|---|
 | `all_var.txt` | GQE 全局环境变量 |
 | `dxvk.conf` | DXVK 配置文件 |
-| `mesa_var.txt` | Mesa Gallium 驱动选择环境变量 |
-| `mesa_var_v.txt` | Mesa Vulkan 驱动选择环境变量 |
+| `mesa_var.txt` | Mesa Gallium 驱动选择 |
+| `mesa_var_v.txt` | Mesa Vulkan 驱动选择 |
 | `mesa_var_f.txt` | 指向 Vulkan ICD‑JSON 文本清单文件 |
 | `log.txt` | Wine 运行时日志文件 |
 

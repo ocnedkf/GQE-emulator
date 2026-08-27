@@ -36,7 +36,8 @@ Close all windows or run the command below
 kill-gqe
 ```
 # GQE Configuration
-In the Start Menu, you can adjust the application's Mesa and D3D files via the 'Install' and 'Programs' options, as well as quickly configure settings using winecfg, among other functions.
+> [!Tip]
+> In the Start Menu, you can adjust the application's Mesa and D3D files via the 'Install' and 'Programs' options, as well as quickly configure settings using winecfg, among other functions.
 
 You can find the configuration files at the path `/storage/emulator/0/.gqe-start`.
 

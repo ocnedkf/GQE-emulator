@@ -47,7 +47,7 @@ curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v
 ``` 
 
 # Device Requirements
-An Android ARM64 device with Android version 7 or above, requiring at least approximately 5GB of space
+An Android ARM64 device with Android version 8 or above, requiring at least approximately 5GB of space
 
 # Third party applications
 

@@ -24,15 +24,17 @@ download_file() {
     echo ""
     echo -e "Downloading $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
-    
+
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo -e "ERROR: Failed to download $echo_file_name, check network!\n"
+    echo ""
+    echo -e "\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
     exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo -e "Hash verification failed for $file_name. Please check the file integrity.\n"
+    echo ""
+    echo -e "\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
     rm -f "$PREFIX/tmp/$file_name"
     exit 1
     fi
@@ -48,11 +50,11 @@ extract_file() {
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
-    echo -e "Failed to unpack $file_name. Please try again.\n"
+    echo ""
+    echo -e "\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
     exit 1
     fi
 }
-
 clear
 
 echo -e "Welcome to the GQE installation script\n"
@@ -121,6 +123,9 @@ download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
+if [ $? -ne 0 ]; then
+echo -e "\033[31mError: Initialization failed, please try again\033[0m"
+exit 1
 
 # download and set up GQE startup script
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe-old "7ecfe50a478f602be7bb7ef76023be723f418c8eebd8daa5b4dd1aa5958aff2a" "start-gqe" "GQE Startup Script"
@@ -141,6 +146,9 @@ download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
+if [ $? -ne 0 ]; then
+echo -e "\033[31mError: Initialization failed, please try again\033[0m"
+exit 1
 
 # download and set up GQE startup script
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "71d84ab23f2ce7f7efa2ac648720fd90cdbc98237a4c2fe1d9438e3e8acf0708" "start-gqe" "GQE Startup Script"

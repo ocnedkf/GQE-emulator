@@ -125,6 +125,9 @@ download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
+if [ $? -ne 0 ]; then
+echo -e "\033[31m错误: 初始化失败，请重试\033[0m"
+exit 1
 
 # download and set up GQE startup script
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe-old "cc6ec8fd0c81594fe03af734d350a3a52c8d7cc28b3d346942d67eb4a6a4459d" "start-gqe" "启动脚本"
@@ -145,6 +148,9 @@ download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
+if [ $? -ne 0 ]; then
+echo -e "\033[31m错误: 初始化失败，请重试\033[0m"
+exit 1
 
 # download and set up GQE startup script
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/start-gqe "1abc9af8de97d71f12ae9dadd4bb21a5eaaff08f232d0e92201e1d32f721ee6f" "start-gqe" "启动脚本"

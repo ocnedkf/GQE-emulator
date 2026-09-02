@@ -30,7 +30,7 @@ wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/
 
 echo ""
 echo -e "解压依赖项包...\n"
-tar -xJf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
+tar -xf lib.tar.xz -C /data/data/com.termux/files/usr/glibc/lib
 rm -f lib.tar.xz
 
 echo -e "正在下载 Box64...\n"
@@ -39,7 +39,7 @@ wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/
 
 echo ""
 echo -e "正在解压 Box64...\n"
-tar -xJf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
+tar -xf box64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f box64.tar.xz
 
 echo ""
@@ -61,7 +61,7 @@ wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/
 echo ""
 echo -e "正在解压 Wine...\n"
 rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
-tar -xJf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+tar -xf winewow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f winewow64.tar.xz
 
 clear
@@ -86,7 +86,7 @@ wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/
 echo ""
 echo -e "正在解压 Wine...\n"
 rm -rf /data/data/com.termux/files/usr/glibc/{lib/wine,share/applications/wine.desktop,share/wine,share/man}
-tar -xJf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
+tar -xf proton-wine-11.0-wow64.tar.xz -C /data/data/com.termux/files/usr/glibc
 rm -f proton-wine-11.0-wow64.tar.xz
 
 clear
@@ -128,7 +128,7 @@ wget --quiet --show-progress https://v6.gh-proxy.org/https://github.com/ocnedkf/
 echo ""
 echo -e "正在解压字体文件...\n"
 mkdir -p /data/data/com.termux/files/usr/glibc/share/fonts
-tar -xJf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
+tar -xf fonts.tar.xz -C /data/data/com.termux/files/usr/glibc/share/fonts
 rm -f fonts.tar.xz
 
 echo ""

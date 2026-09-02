@@ -1,11 +1,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-export HOME=/data/data/com.termux/files/home
-export GQE_DATA=$HOME/.gqe-data-v0.3
-export PREFIX=/data/data/com.termux/files/usr
-export BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
-export BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
-export WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
+HOME=/data/data/com.termux/files/home
+GQE_DATA=$HOME/.gqe-data-v0.3
+PREFIX=/data/data/com.termux/files/usr
+BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
+BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
+WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
 
 if [ -x "$HOME/.gqe-data-v0.3/wine/bin/wine" ]; then
 

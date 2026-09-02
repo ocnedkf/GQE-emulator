@@ -64,7 +64,7 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 ```
 
 # 设备要求
-一台Android版本大于等于8的ARM64设备，并确保剩余至少5GB的存储空间
+一台Android版本大于等于8的ARM64设备，并确保剩余至少5.5GB的存储空间
 # 第三方应用程序
 
 [Box64](https://github.com/Pipetto-crypto/box64)

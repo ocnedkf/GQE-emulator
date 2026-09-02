@@ -103,7 +103,7 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
-[WineD3D](https://downloads.fdossena.com/Projects/WineD3D/Builds/)
+[WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **预编译自** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
 
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 

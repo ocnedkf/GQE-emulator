@@ -110,7 +110,7 @@ An Android ARM64 device with Android version 8 or above, requiring at least appr
 
 [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
-[WineD3D](https://downloads.fdossena.com/Projects/WineD3D/Builds/)
+[WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **Precompiled From** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
 
 [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 

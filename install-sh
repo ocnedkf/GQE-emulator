@@ -126,6 +126,7 @@ chmod +x initialization-v0.1-sh
 if [ $? -ne 0 ]; then
 echo -e "\033[31mError: Initialization failed, please try again\033[0m"
 exit 1
+fi
 
 # download and set up GQE startup script
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe-old "7ecfe50a478f602be7bb7ef76023be723f418c8eebd8daa5b4dd1aa5958aff2a" "start-gqe" "GQE Startup Script"
@@ -149,6 +150,7 @@ chmod +x initialization-sh
 if [ $? -ne 0 ]; then
 echo -e "\033[31mError: Initialization failed, please try again\033[0m"
 exit 1
+fi
 
 # download and set up GQE startup script
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/start-gqe "71d84ab23f2ce7f7efa2ac648720fd90cdbc98237a4c2fe1d9438e3e8acf0708" "start-gqe" "GQE Startup Script"

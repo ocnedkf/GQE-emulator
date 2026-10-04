@@ -26,9 +26,9 @@ fi
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $HOME/box64/bin/box64 -k >/dev/null 2>&1
+grun $GQE_DATA/box64/bin/box64 -k >/dev/null 2>&1
 elif ps a | grep -q '[w]ine64'; then
-grun $HOME/box64/bin/box64 -k >/dev/null 2>&1
+grun $GQE_DATA/box64/bin/box64 -k >/dev/null 2>&1
 else
 pkill -f 'wine'
 fi

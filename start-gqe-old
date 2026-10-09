@@ -92,9 +92,11 @@ EOF
 
 for cs in "$@"
 do
-    if [ "$cs" = "--version" ] || [ "$cs" = "-v" ]; then
+    if [ "$cs" = "-v" ] || [ "$cs" = "--version" ]; then
         show_version
         exit 0
+    elif [ "$cs" = "-na" ] || [ "$cs" = "--no-audio" ]; then
+        GQE_NO_PULSE=1
     elif [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
         show_info
         show_help
@@ -149,9 +151,13 @@ if ps a | grep -q '[w]ine64'; then
 grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
 fi
 
-rm -rf $PREFIX/tmp/pulse-*
-pulseaudio -k >/dev/null 2>&1
-pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+if [ "$GQE_NO_PULSE" = "1" ]; then
+  echo "Warning: Audio functionality is disabled"
+else
+  rm -rf $PREFIX/tmp/pulse-*
+  pulseaudio -k >/dev/null 2>&1
+  pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+fi
 
 if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
 pkill -f virgl

@@ -69,12 +69,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
 
-详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3-beta
+详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.1-beta
 EOF
 }
 
 show_version() {
-echo "v0.3-beta"
+echo "v0.3.1-beta"
 }
 
 show_help() {
@@ -83,18 +83,21 @@ cat << EOF
 
 usage : start-gqe [参数]
 
-        start-gqe               正常启动GQE
-        start-gqe -v/--version  打印版本信息并退出
-        start-gqe -h/--help     打印帮助与介绍信息并退出
-        start-gqe -f/--fix      尝试修复 Wine前缀
+        start-gqe                正常启动GQE
+        start-gqe -na/--no-audio 禁用音频以启动GQE
+        start-gqe -v/--version   打印版本信息并退出
+        start-gqe -h/--help      打印帮助与介绍信息并退出
+        start-gqe -f/--fix       尝试修复 Wine前缀
 EOF
 }
 
 for cs in "$@"
 do
-    if [ "$cs" = "--version" ] || [ "$cs" = "-v" ]; then
+    if [ "$cs" = "-v" ] || [ "$cs" = "--version" ]; then
         show_version
         exit 0
+    elif [ "$cs" = "-na" ] || [ "$cs" = "--no-audio" ];then
+        GQE_NO_PULSE=1
     elif [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
         show_info
         show_help
@@ -130,28 +133,32 @@ fi
 
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 1048576 ]; then
-echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
+  echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
 fi
 
 if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-clear
-echo -e "Wine前缀损坏! 尝试重新初始化...\n"
+  clear
+  echo -e "Wine前缀损坏! 尝试重新初始化...\n"
 
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "7f1a098c01140e2c55f624f28319cc70ec9b17f5117d729690e37c0257a7cd0e" "initialization-sh" "Initialization Script"
-mv $PREFIX/tmp/initialization-sh .
-chmod +x initialization-sh
-./initialization-sh
-rm -f initialization-sh
+  download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "7f1a098c01140e2c55f624f28319cc70ec9b17f5117d729690e37c0257a7cd0e" "initialization-sh" "Initialization Script"
+  mv $PREFIX/tmp/initialization-sh .
+  chmod +x initialization-sh
+  ./initialization-sh
+  rm -f initialization-sh
 
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $BOX64 wine wineboot -k >/dev/null 2>&1
+  grun $BOX64 wine wineboot -k >/dev/null 2>&1
 fi
 
-rm -rf $PREFIX/tmp/pulse-*
-pulseaudio -k >/dev/null 2>&1
-pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+if [ "$GQE_NO_PULSE" = "1" ]; then
+  echo "Warning: Audio functionality is disabled"
+else
+  rm -rf $PREFIX/tmp/pulse-*
+  pulseaudio -k >/dev/null 2>&1
+  pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+fi
 
 if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
 pkill -f virgl

@@ -69,12 +69,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator is an emulator capable of running Windows x86_64 applications.
 
-More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3-beta
+More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.1-beta
 EOF
 }
 
 show_version() {
-echo "v0.3-beta"
+echo "v0.3.1-beta"
 }
 
 show_help() {

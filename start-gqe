@@ -57,7 +57,6 @@ rm -f initialization-sh
 fi
 
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
-
 if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
 exit 1

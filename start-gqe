@@ -83,18 +83,21 @@ cat << EOF
 
 usage : start-gqe [option]
 
-        start-gqe               Launch GQE normally
-        start-gqe -v/--version  Print version info then exit
-        start-gqe -h/--help     Print introduction and help info then exit
-        start-gqe -f/--fix      Attempt to repair the Wine prefix
+        start-gqe                Launch GQE normally
+        start-gqe -na/--no-audio Launch GQE without audio support
+        start-gqe -v/--version   Print version info then exit
+        start-gqe -h/--help      Print introduction and help info then exit
+        start-gqe -f/--fix       Attempt to repair the Wine prefix
 EOF
 }
 
 for cs in "$@"
 do
-    if [ "$cs" = "--version" ] || [ "$cs" = "-v" ]; then
+    if [ "$cs" = "-v" ] || [ "$cs" = "--version" ]; then
         show_version
         exit 0
+    elif [ "$cs" = "-na" ] || [ "$cs" = "--no-audio" ]; then
+        GQE_NO_PULSE=1
     elif [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
         show_info
         show_help
@@ -130,43 +133,47 @@ fi
 
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 1048576 ]; then
-echo "Low free storage detected — GQE may lag or malfunction"
+  echo "Low free storage detected — GQE may lag or malfunction"
 fi
 
 if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
-clear
-echo -e "Wine prefix missing! try reinitializing...\n"
+  clear
+  echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "Initialization Script"
-mv $PREFIX/tmp/initialization-sh .
-chmod +x initialization-sh
-./initialization-sh
-rm -f initialization-sh
+  download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "Initialization Script"
+  mv $PREFIX/tmp/initialization-sh .
+  chmod +x initialization-sh
+  ./initialization-sh
+  rm -f initialization-sh
 
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $BOX64 wine wineboot -k >/dev/null 2>&1
+  grun $BOX64 wine wineboot -k >/dev/null 2>&1
 fi
 
-rm -rf $PREFIX/tmp/pulse-*
-pulseaudio -k >/dev/null 2>&1
-pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+if [ "$GQE_NO_PULSE" = "1" ]; then
+  echo "Warning: Audio functionality is disabled"
+else
+  rm -rf $PREFIX/tmp/pulse-*
+  pulseaudio -k >/dev/null 2>&1
+  pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+fi
 
 if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
-pkill -f virgl
-virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
-export LIBGL_ALWAYS_SOFTWARE=1
+  pkill -f virgl
+  virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
+  export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
 pkill -f termux-x11
 termux-x11 :13 >/dev/null 2>&1 &
 
 if am start -n com.termux.x11/.MainActivity; then
-sleep 0.8
-termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "Failed to set display resolution"
+  sleep 0.8
+  termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "Failed to set display resolution"
 else
-echo "Failed to start Termux:X11 App. Please ensure it is installed"
+  echo "Failed to start Termux:X11 App. Please ensure it is installed"
 fi
 
 env PULSE_SERVER=127.0.0.1 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1

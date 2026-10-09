@@ -56,6 +56,6 @@ ln -sf $HOME/.gqe-data-v0.3/lib/libdecor-0.so.0 libdecor-0.so.0
 ln -sf $HOME/.gqe-data-v0.3/lib/libgstgl-1.0.so.0.2402.0 $HOME/.gqe-data-v0.3/lib/libgstgl-1.0.so.0
 ln -sf $HOME/.gqe-data-v0.3/lib/libgstgl-1.0.so.0 libgstgl-1.0.so.0
 ln -sf libgstgl-1.0.so.0 libgstgl-1.0.so
-
+ln -sf $HOME/.gqe-data-v0.3/lib/libxml2.so.2 libxml2.so.2
 
 rm -f "$0"

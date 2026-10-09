@@ -9,7 +9,7 @@ WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
 
 if [ -x "$HOME/.gqe-data-v0.3/wine/bin/wine" ]; then
 
-if grun $HOME/box64/bin/box64 wine wineboot -k >/dev/null 2>&1; then
+if grun $GQE_DATA/box64/bin/box64 wine wineboot -k >/dev/null 2>&1; then
 echo "Process terminated successfully!"
 else
 echo "Failed to end the process! GQE might not be running"
@@ -17,7 +17,7 @@ fi
 
 else
 
-if grun $HOME/box64/bin/box64 wine64 wineboot -k >/dev/null 2>&1; then
+if grun $GQE_DATA/box64/bin/box64 wine64 wineboot -k >/dev/null 2>&1; then
 echo "Process terminated successfully!"
 else
 echo "Failed to end the process! GQE might not be running"

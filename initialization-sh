@@ -100,12 +100,8 @@ grun $BOX64 wine Z://home//set.bat >/dev/null 2>&1
 rm -f wallpapersetting.reg set.bat
 
 echo -e "Creating configuration files...\n"
-touch $HOME/storage/shared/.gqe-start/log.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt
-touch $HOME/storage/shared/.gqe-start/dxvk_settings.ini
-touch $HOME/storage/shared/.gqe-start/all_var.txt
+GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
+touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
 var_all(){
 cat << 'EOF'
@@ -132,9 +128,9 @@ export GALLIUM_HUD=simple,fps
 EOF
 }
 
-var_all > $HOME/storage/shared/.gqe-start/all_var.txt
-echo "dxvk.hud = 1" > $HOME/storage/shared/.gqe-start/dxvk_settings.ini
-echo "virpipe" > $HOME/storage/shared/.gqe-start/mesa_var.txt
+var_all > $GQE_CONFIG_PATH/all_var.txt
+echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
+echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
 
 echo -e "Configuration Completed\n"
 echo -e "Initialization completed\n"

@@ -48,7 +48,8 @@ extract_file() {
     fi
 }
 
-if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
+if [ ! -f "$GQE_CONFIG/all_var.txt" ]; then
 echo "配置文件不存在! 尝试重新配置..."
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-v0.1-sh "96955b0445ab6fe48c14c9d32892c5704b27192c856c06e9af50b504df89c7b6" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-v0.1-sh .
@@ -56,7 +57,7 @@ sed -n '148,174p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
 fi
 
-if ! source "$HOME/storage/shared/.gqe-start/all_var.txt"; then
+if ! source "$GQE_CONFOG_PATH/all_var.txt"; then
 echo "导入环境变量失败! 请检查文件 /storage/emulated/0/.gqe-start/all_var.txt 是否存在"
 exit 1
 fi
@@ -84,6 +85,7 @@ cat << EOF
 usage : start-gqe [参数]
 
         start-gqe               正常启动GQE
+        
         start-gqe -v/--version  打印版本信息并退出
         start-gqe -h/--help     打印帮助与介绍信息并退出
         start-gqe -f/--fix      尝试修复 Wine前缀
@@ -92,7 +94,7 @@ EOF
 
 for cs in "$@"
 do
-    if [ "$cs" = "--version" ] || [ "$cs" = "-v" ]; then
+    if [ "$cs" = "-v" ] || [ "$cs" = "--version" ]; then
         show_version
         exit 0
     elif [ "$cs" = "-h" ] || [ "$cs" = "--help" ]; then
@@ -107,7 +109,7 @@ do
         exit 1
     fi
 
-    if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+    if [ ! -d "$WINEPREFIX/drice_c/windows" ]; then
      download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "96955b0445ab6fe48c14c9d32892c5704b27192c856c06e9af50b504df89c7b6" "initialization-v0.1-sh" "初始化脚本"
      mv $PREFIX/tmp/initialization-v0.1-sh .
      chmod +x initialization-v0.1-sh
@@ -133,7 +135,7 @@ if [ "$FREE_KB" -lt 1048576 ]; then
 echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
 fi
 
-if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
 clear
 echo -e "Wine前缀损坏! 尝试重新初始化...\n"
 
@@ -153,7 +155,7 @@ rm -rf $PREFIX/tmp/pulse-*
 pulseaudio -k >/dev/null 2>&1
 pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
 
-if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
+if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
 pkill -f virgl
 virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
 export LIBGL_ALWAYS_SOFTWARE=1
@@ -169,7 +171,7 @@ else
 echo "自动跳转Termux-x11失败, 需确保已安装"
 fi
 
-env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $HOME/storage/shared/.gqe-start/log.txt 2>&1
+env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $GQE_CONFIG_PATH/log.txt 2>&1
 
 pkill -f termux-x11
 pulseaudio -k >/dev/null 2>&1

@@ -137,7 +137,7 @@ if [ "$FREE_KB" -lt 1048576 ]; then
 echo "Low free storage detected — GQE may lag or malfunction"
 fi
 
-if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+if [ ! -d "WINEPREFIX/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
@@ -161,7 +161,7 @@ else
   pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
 fi
 
-if [ "$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")" = virpipe ]; then
+if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
 pkill -f virgl
 virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
 export LIBGL_ALWAYS_SOFTWARE=1

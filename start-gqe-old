@@ -48,7 +48,8 @@ extract_file() {
     fi
 }
 
-if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
+if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
   echo "The configuration file is corrupted. Attempting to reconfigure..."
   download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "fac9bc74a9825c2dc821255b3c9945287b2b9796704eca30df55fc1b47b46d32" "initialization-sh" "Initialization Script"
   mv $PREFIX/tmp/initialization-v0.1-sh .
@@ -56,7 +57,6 @@ if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
   rm -f initialization-v0.1-sh
 fi
 
-GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
   echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
   exit 1
@@ -111,7 +111,7 @@ do
         exit 1
     fi
 
-    if [ ! -d "$HOME/.gqe-data-v0.3/.wine/drive_c/windows" ]; then
+    if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
      download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "fac9bc74a9825c2dc821255b3c9945287b2b9796704eca30df55fc1b47b46d32" "initialization-v0.1-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-v0.1-sh .
      chmod +x initialization-v0.1-sh

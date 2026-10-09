@@ -94,7 +94,7 @@ download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/re
 extract_file "额外依赖项" "lib.tar.xz" "$GQE_DATA/lib"
 
 echo -e "正在修复软链接..."
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "ad15d49a2291db116d5029d9ecea611e58c74f0e119157b6fc70c5f17ea79479" "repair-symlinks.sh" "修复脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/repair-symlinks.sh "23e241cade97b8f28700dc304b2bd57043485e652bf1f988f8c4ad01fbb66782" "repair-symlinks.sh" "修复脚本"
 mv $PREFIX/tmp/repair-symlinks.sh .
 chmod +x repair-symlinks.sh
 ./repair-symlinks.sh
@@ -186,7 +186,7 @@ download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/re
 extract_file "字体文件" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
 
 # download and set up GQE termination script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/kill-gqe "a6547afc5bf85527cb7646ba83d108b58064d565754c333ee74e60e07a87afcc" "kill-gqe" "终止脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/kill-gqe "18366190d60555d42ff527ac054498aa5a9bb6550df71ef094147ee526d266e2" "kill-gqe" "终止脚本"
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 

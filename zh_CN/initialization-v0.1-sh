@@ -129,12 +129,8 @@ rm -f wallpapersetting.reg set.bat
 
 echo ""
 echo -e "正在创建配置文件...\n"
-touch $HOME/storage/shared/.gqe-start/log.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt
-touch $HOME/storage/shared/.gqe-start/dxvk_settings.ini
-touch $HOME/storage/shared/.gqe-start/all_var.txt
+GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
+touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
 var_all(){
 cat << 'EOF'
@@ -162,9 +158,9 @@ export LC_ALL=C.UTF-8 # For the native Termux environment
 EOF
 }
 
-var_all > $HOME/storage/shared/.gqe-start/all_var.txt
-echo "dxvk.hud = 1" > $HOME/storage/shared/.gqe-start/dxvk_settings.ini
-echo "virpipe" > $HOME/storage/shared/.gqe-start/mesa_var.txt
+var_all > $GQE_CONFIG_PATH/all_var.txt
+echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
+echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
 
 echo -e "配置完成\n"
 echo -e "初始化完成\n"

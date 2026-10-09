@@ -128,7 +128,6 @@ grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f wallpapersetting.reg set.bat
 
 echo -e "Creating configuration files...\n"
-GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
 var_all(){

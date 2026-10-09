@@ -15,15 +15,16 @@ grun $BOX64 wine wineboot -k >/dev/null 2>&1
 if [ "$?" = "0" ]; then
 echo "Process terminated successfully!"
 else
-echo "Failed to end the process! GQE might not be running"
+echo "Failed to end the process!\nAbout to attempt a forced termination"
 fi
 
 else
 
-if grun $BOX64 wine64 wineboot -k >/dev/null 2>&1; then
+grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
+if [ "$?" = "0" ]; then
 echo "Process terminated successfully!"
 else
-echo "Failed to end the process! GQE might not be running"
+echo "Failed to end the process!\nAbout to attempt a forced termination"
 fi
 
 fi

@@ -3,13 +3,16 @@
 HOME=/data/data/com.termux/files/home
 GQE_DATA=$HOME/.gqe-data-v0.3
 PREFIX=/data/data/com.termux/files/usr
+TMPDIR=$PREFIX/tmp
 BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
 BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
 WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
+BOX64=$GQE_DATA/box64/bin/box64
 
 if [ -x "$HOME/.gqe-data-v0.3/wine/bin/wine" ]; then
 
-if grun $HOME/box64/bin/box64 wine wineboot -k >/dev/null 2>&1; then
+grun $BOX64 wine wineboot -k >/dev/null 2>&1
+if [ "$?" = "0" ]; then
 echo "Process terminated successfully!"
 else
 echo "Failed to end the process! GQE might not be running"
@@ -17,7 +20,7 @@ fi
 
 else
 
-if grun $HOME/box64/bin/box64 wine64 wineboot -k >/dev/null 2>&1; then
+if grun $BOX64 wine64 wineboot -k >/dev/null 2>&1; then
 echo "Process terminated successfully!"
 else
 echo "Failed to end the process! GQE might not be running"
@@ -26,14 +29,14 @@ fi
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $GQE_DATA/box64/bin/box64 -k >/dev/null 2>&1
+grun $BOX64 -k >/dev/null 2>&1
 elif ps a | grep -q '[w]ine64'; then
-grun $GQE_DATA/box64/bin/box64 -k >/dev/null 2>&1
+grun $BOX64 -k >/dev/null 2>&1
 else
 pkill -f 'wine'
 fi
 
-rm -rf $PREFIX/tmp/pulse-*
+rm -rf $TMPDIR/pulse-*
 pulseaudio -k >/dev/null 2>&1
 
 pkill -f virgl

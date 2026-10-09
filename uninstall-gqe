@@ -1,4 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
+
 clear
 echo -e "The uninstallation script will proceed in 15 seconds, which will result in the complete loss of GQE and its data\n"
 echo -e "To cancel, please immediately press CTRL+C to terminate the process\n"
@@ -37,9 +38,9 @@ sleep 2
 clear
 echo -e "Starting to uninstall GQE..."
 
-export PREFIX="/data/data/com.termux/files/usr"
-export HOME="$PREFIX/../home"
-export GQE_DATA=$HOME/.gqe-data-v0.3
+PREFIX="/data/data/com.termux/files/usr"
+HOME="$PREFIX/../home"
+GQE_DATA=$HOME/.gqe-data-v0.3
 
 rm -rf $PREFIX/bin/{start-gqe,kill-gqe}
 

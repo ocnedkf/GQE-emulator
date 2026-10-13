@@ -1,8 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 if [ "$(uname -m)" != "aarch64" ]; then
-echo "\033[31mERROR:The GQE-emulator only supports the ARM64 architecture\033[0m"
-echo "\033[31mPlease ensure that your device meets the requirements of Termux\033[0m"
+echo -e "\033[31mERROR:The GQE-emulator only supports the ARM64 architecture\033[0m"
+echo -e "\033[31mPlease ensure that your device meets the requirements of Termux\033[0m"
 exit 1
 fi
 
@@ -10,7 +10,7 @@ export HOME="/data/data/com.termux/files/home"
 
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 5767168 ]; then
-echo "\033[31mERROR:Insufficient storage space, at least 5.5GB of free space is required\033[0m"
+echo -e "\033[31mERROR:Insufficient storage space, at least 5.5GB of free space is required\033[0m"
 exit 1
 fi
 

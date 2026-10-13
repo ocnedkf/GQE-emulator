@@ -5,11 +5,11 @@ PREFIX="/data/data/com.termux/files/usr"
 GQE_DATA="$HOME/.gqe-data-v0.3"
 GQE_LIB_PATH="$GQE_DATA/lib"
 
-cd GQE_LIB_PATH
+cd $GQE_LIB_PATH
 find . -type l -delete
 grun $PREFIX/glibc/bin/ldconfig -n .
 
-cd /data/data/com.termux/files/usr/glibc/lib
+cd $PREFIX/glibc/lib
 ln -sf $GQE_LIB_PATH/libgstvideo-1.0.so.0 libgstvideo-1.0.so
 ln -sf $GQE_LIB_PATH/libgstaudio-1.0.so.0 libgstaudio-1.0.so
 ln -sf $GQE_LIB_PATH/libgsttag-1.0.so.0 libgsttag-1.0.so.0

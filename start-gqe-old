@@ -137,7 +137,7 @@ if [ "$FREE_KB" -lt 1048576 ]; then
 echo "Low free storage detected — GQE may lag or malfunction"
 fi
 
-if [ ! -d "WINEPREFIX/drive_c/windows" ]; then
+if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
@@ -177,7 +177,7 @@ else
 echo "Failed to start Termux:X11 App. Please ensure it is installed"
 fi
 
-env PULSE_SERVER=127.0.0.1 grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_COMFIG_PATH/log.txt" 2>&1
+env PULSE_SERVER=127.0.0.1 grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
 pkill -f termux-x11
 pulseaudio -k >/dev/null 2>&1

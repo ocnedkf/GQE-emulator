@@ -120,7 +120,7 @@ extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "fac9bc74a9825c2dc821255b3c9945287b2b9796704eca30df55fc1b47b46d32" "initialization-v0.1-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "8e75898314fd572242c48102ae151746bbf5af3ee9469434d7c6cf83feb2c9a0" "initialization-v0.1-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh
@@ -130,7 +130,7 @@ exit 1
 fi
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/start-gqe-old "7ecfe50a478f602be7bb7ef76023be723f418c8eebd8daa5b4dd1aa5958aff2a" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/start-gqe-old "e44b01acb3ee9dbbb77c8d19136eb837e8cc2bed8480ec39e829ec5c2ed8b54c" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 

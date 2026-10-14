@@ -37,7 +37,7 @@ else
 pkill -f 'wine'
 fi
 
-rm -rf $TMPDIR/tmp/pulse-*
+rm -rf $TMPDIR/pulse-*
 pulseaudio -k >/dev/null 2>&1
 
 pkill -f virgl

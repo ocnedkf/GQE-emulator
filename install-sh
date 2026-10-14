@@ -185,7 +185,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 extract_file "Fonts" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
 
 # download and set up GQE termination script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/kill-gqe "fed4880f7a508d9da477445c0c16c1bbdbf518fb6a10e2c5dd8cc8573f2bad56" "kill-gqe" "Termination Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/kill-gqe "3892fc7aca46bfc984c8e61236f3b13cff78d7c95c44acf42a344c0730d69ed3" "kill-gqe" "Termination Script"
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 

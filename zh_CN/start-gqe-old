@@ -57,7 +57,7 @@ sed -n '148,174p' initialization-v0.1-sh | bash
 rm -f initialization-v0.1-sh
 fi
 
-if ! source "$GQE_CONFOG_PATH/all_var.txt"; then
+if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 echo "导入环境变量失败! 请检查文件 /storage/emulated/0/.gqe-start/all_var.txt 是否存在"
 exit 1
 fi

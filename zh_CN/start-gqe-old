@@ -49,7 +49,7 @@ extract_file() {
 }
 
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
-if [ ! -f "$GQE_CONFIG/all_var.txt" ]; then
+if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 echo "配置文件不存在! 尝试重新配置..."
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-v0.1-sh "96955b0445ab6fe48c14c9d32892c5704b27192c856c06e9af50b504df89c7b6" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-v0.1-sh .

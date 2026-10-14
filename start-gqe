@@ -51,9 +51,10 @@ extract_file() {
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
-sed -n '119,144p' initialization-sh | bash
+# fix: valid env-var block starts at init-sh lines 110-137
+sed -n '110,137p' initialization-sh | bash
 rm -f initialization-sh
 fi
 
@@ -112,7 +113,7 @@ do
     fi
 
     if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "Initialization Script"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "initialization-sh"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -134,18 +135,18 @@ fi
 
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 1048576 ]; then
-  echo "Low free storage detected — GQE may lag or malfunction"
+echo "Low free storage detected — GQE may lag or malfunction"
 fi
 
 if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-  clear
-  echo -e "Wine prefix missing! try reinitializing...\n"
+clear
+echo -e "Wine prefix missing! try reinitializing...\n"
 
-  download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "Initialization Script"
-  mv $PREFIX/tmp/initialization-sh .
-  chmod +x initialization-sh
-  ./initialization-sh
-  rm -f initialization-sh
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "initialization-sh"
+mv $PREFIX/tmp/initialization-sh .
+chmod +x initialization-sh
+./initialization-sh
+rm -f initialization-sh
 
 fi
 
@@ -162,19 +163,19 @@ else
 fi
 
 if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
-  pkill -f virgl
-  virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
-  export LIBGL_ALWAYS_SOFTWARE=1
+pkill -f virgl
+virgl_test_server --use-gles --use-egl-surfaceless > $HOME/storage/shared/.gqe-start/log.txt 2>&1 &
+export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
 pkill -f termux-x11
 termux-x11 :13 >/dev/null 2>&1 &
 
 if am start -n com.termux.x11/.MainActivity; then
-  sleep 0.8
-  termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "Failed to set display resolution"
+sleep 0.8
+termux-x11-preference displayResolutionMode:exact displayResolutionExact:1024x768 || echo "Failed to set display resolution"
 else
-  echo "Failed to start Termux:X11 App. Please ensure it is installed"
+echo "Failed to start Termux:X11 App. Please ensure it is installed"
 fi
 
 env PULSE_SERVER=127.0.0.1 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1

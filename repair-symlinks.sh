@@ -55,7 +55,7 @@ ln -sf $GQE_LIB_PATH/libSDL2-2.0.so.0 libSDL2-2.0.so.0
 ln -sf $GQE_LIB_PATH/libsamplerate.so.0 libsamplerate.so.0
 ln -sf $GQE_LIB_PATH/libXss.so.1 libXss.so.1
 ln -sf $GQE_LIB_PATH/libdecor-0.so.0 libdecor-0.so.0
-ln -sf $GQE_LIB_PATH/libgstgl-1.0.so.0.2402.0 GQE_LIB_PATH/libgstgl-1.0.so.0
+ln -sf $GQE_LIB_PATH/libgstgl-1.0.so.0.2402.0 $GQE_LIB_PATH/libgstgl-1.0.so.0
 ln -sf $GQE_LIB_PATH/libgstgl-1.0.so.0 libgstgl-1.0.so.0
 ln -sf libgstgl-1.0.so.0 libgstgl-1.0.so
 ln -sf $GQE_LIB_PATH/libxml2.so.2 libxml2.so.2

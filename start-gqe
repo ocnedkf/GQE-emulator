@@ -51,7 +51,7 @@ extract_file() {
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "initialization-sh"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "816423b6bb16a46efb457ca963e4de26796b74fd3f4536493e2cf207d28dea31" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 # fix: valid env-var block starts at init-sh lines 110-137
 sed -n '110,137p' initialization-sh | bash
@@ -113,7 +113,7 @@ do
     fi
 
     if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "initialization-sh"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "816423b6bb16a46efb457ca963e4de26796b74fd3f4536493e2cf207d28dea31" "initialization-sh" "initialization-sh"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -142,7 +142,7 @@ if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "b9fd00e684e18d734f03dc13b8512e1d6aff3ea9017f847ff93e764bd1fac6dd" "initialization-sh" "initialization-sh"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-sh "816423b6bb16a46efb457ca963e4de26796b74fd3f4536493e2cf207d28dea31" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh

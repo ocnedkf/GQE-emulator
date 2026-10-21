@@ -53,7 +53,7 @@ if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 echo "配置文件不存在! 尝试重新配置..."
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "7f1a098c01140e2c55f624f28319cc70ec9b17f5117d729690e37c0257a7cd0e" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
-sed -n '121,147p' initialization-sh | bash
+sed -n '117,143p' initialization-sh | bash
 rm -f initialization-sh
 fi
 

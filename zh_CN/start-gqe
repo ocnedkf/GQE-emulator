@@ -13,20 +13,17 @@ download_file() {
     hash_value="$2"
     file_name="$3"
     echo_file_name="$4"
-    echo ""
-    echo -e "正在下载 $echo_file_name...\n"
+    echo -e "\n正在下载 $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
 
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo ""
-    echo -e "\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
+    echo -e "\n\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
     exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo ""
-    echo -e "\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
+    echo -e "\n\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
     rm -f "$PREFIX/tmp/$file_name"
     exit 1
     fi
@@ -36,14 +33,12 @@ extract_file() {
     echo_file_name="$1"
     file_name="$2"
     dest_dir="$3"
-    echo ""
-    echo -e "正在解压 $echo_file_name...\n"
+    echo -e "\n正在解压 $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
-    echo ""
-    echo -e "\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
+    echo -e "\n\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
     exit 1
     fi
 }
@@ -51,9 +46,10 @@ extract_file() {
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 echo "配置文件不存在! 尝试重新配置..."
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "Initialization Script"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
-sed -n '117,143p' initialization-sh | bash
+chmod +x initialization-sh
+initialization-sh var
 rm -f initialization-sh
 fi
 
@@ -70,12 +66,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
 
-详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.1-beta
+详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.2-beta
 EOF
 }
 
 show_version() {
-echo "v0.3.1-beta"
+echo "v0.3.2-beta"
 }
 
 show_help() {
@@ -112,7 +108,7 @@ do
     fi
 
     if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "Initialization Script"
+     download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -141,7 +137,7 @@ if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
   clear
   echo -e "Wine前缀损坏! 尝试重新初始化...\n"
 
-  download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "Initialization Script"
+  download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "Initialization Script"
   mv $PREFIX/tmp/initialization-sh .
   chmod +x initialization-sh
   ./initialization-sh

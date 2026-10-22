@@ -13,20 +13,17 @@ download_file() {
     hash_value="$2"
     file_name="$3"
     echo_file_name="$4"
-    echo ""
-    echo -e "Downloading $echo_file_name...\n"
+    echo -e "\nDownloading $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
 
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo ""
-    echo -e "\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
+    echo -e "\n\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
     exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo ""
-    echo -e "\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
+    echo -e "\n\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
     rm -f "$PREFIX/tmp/$file_name"
     exit 1
     fi
@@ -36,14 +33,12 @@ extract_file() {
     echo_file_name="$1"
     file_name="$2"
     dest_dir="$3"
-    echo ""
-    echo -e "Unpacking $echo_file_name...\n"
+    echo -e "\nUnpacking $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
-    echo ""
-    echo -e "\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
+    echo -e "\n\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
     exit 1
     fi
 }
@@ -51,9 +46,10 @@ extract_file() {
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
   echo "The configuration file is corrupted. Attempting to reconfigure..."
-  download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3-beta/initialization-v0.1-sh "e817d69589fe96459deca02d5fd21114c2f13b6ffaa55c61d873cf37df6768e9" "initialization-sh" "Initialization Script"
-  mv $PREFIX/tmp/initialization-v0.1-sh .
-  sed -n '138,163p' initialization-v0.1-sh | bash
+  download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-v0.1-sh "e817d69589fe96459deca02d5fd21114c2f13b6ffaa55c61d873cf37df6768e9" "initialization-sh" "Initialization Script"
+  mv $PREFIX/tmp/initialization-sh .
+  chmod +x initialization-sh
+  initialization-sh var
   rm -f initialization-v0.1-sh
 fi
 
@@ -70,12 +66,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator is an emulator capable of running Windows x86_64 applications.
 
-More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.1-beta
+More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.2-beta
 EOF
 }
 
 show_version() {
-echo "v0.3.1-beta"
+echo "v0.3.2-beta"
 }
 
 show_help() {

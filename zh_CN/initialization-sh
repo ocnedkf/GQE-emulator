@@ -107,12 +107,7 @@ rm -f wallpapersetting.reg set.bat
 
 echo ""
 echo -e "正在创建配置文件...\n"
-touch $HOME/storage/shared/.gqe-start/log.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var_v.txt
-touch $HOME/storage/shared/.gqe-start/mesa_var_f.txt
-touch $HOME/storage/shared/.gqe-start/dxvk_settings.ini
-touch $HOME/storage/shared/.gqe-start/all_var.txt
+touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
 var_all(){
 cat << 'EOF'

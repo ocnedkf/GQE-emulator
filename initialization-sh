@@ -40,6 +40,37 @@ extract_file() {
     fi
 }
 
+var_all(){
+cat << 'EOF'
+# GQE-emulator environment variables
+export HOME="/data/data/com.termux/files/home"
+export GQE_DATA="$HOME/.gqe-data-v0.3"
+export WINEPREFIX="${GQE_DATA}/.wine"
+export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
+export PULSE_LATENCY_MSEC=20
+export DXVK_ASYNC=1
+export BOX64_ASYNC=1
+export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
+export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
+export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
+export LOCPATH="${GQE_DATA}/locale"
+export MESA_NO_ERROR=1
+export DISPLAY=:13
+export MESA_DEBUG=1
+export PREFIX="/data/data/com.termux/files/usr"
+export BOX64_PATH="${WINEPREFIX}/bin:${GQE_DATA}/box64/bin:${PREFIX}/glibc/bin"
+export BOX64_LD_LIBRARY_PATH="${WINEPREFIX}/lib:${GQE_DATA}/lib:${GQE_DATA}/box64/lib/box64-x86_64-linux-gnu"
+export BOX64="${GQE_DATA}/box64/bin/box64"
+export GALLIUM_HUD=simple,fps
+EOF
+}
+
+if [ "$1" = "var" ]; then
+  mkdir -p "$GQE_CONFIG_PATH"
+  var_all > $GQE_CONFIG_PATH/all_var.txt
+  exit 0
+fi
+
 rm -rf $WINEPREFIX
 pkill -f termux-x11
 termux-x11 :13 >/dev/null 2>&1 &
@@ -66,8 +97,7 @@ rm -rf $HOME/.gqe-data-v0.3/InputBridge
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
 extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 
-echo ""
-echo -e "Installing InputBridge...\n"
+echo -e "\nInstalling InputBridge...\n"
 touch install-ib.bat
 echo "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\" > install-ib.bat
 echo ".\install.bat" >> install-ib.bat
@@ -79,23 +109,20 @@ rm install-ib.bat
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/mfc42.dll "40e83003f7d136276cd76fde17639f8cec04c3bc85d108446fa511aab1df0506" "mfc42.dll" "DLL File"
 mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64/mfc42.dll
 
-echo ""
-echo -e "Setting DLL overrides...\n"
+echo -e "\nSetting DLL overrides...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "DLL Setting REG File"
 mv $PREFIX/tmp/dllsetting.reg .
 grun $BOX64 wine64 regedit "$(realpath dllsetting.reg)" >/dev/null 2>&1
 rm -f dllsetting.reg
 
-echo ""
-echo -e "Configuring startup scripts...\n"
+echo -e "\nConfiguring startup scripts...\n"
 rm -rf $HOME/storage/shared/.gqe-start
 mkdir -p $HOME/storage/shared/.gqe-start
 touch $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 echo 'start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe' > $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 
-echo ""
-echo -e "Initializing visual environment...\n"
+echo -e "\nInitializing visual environment...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
 mv $PREFIX/tmp/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/wallpapersetting.reg "1b7e003f5a3f2ee82241ff2ae841cbedadd53eb5186edf374d4239297bd7261f" "wallpapersetting.reg" "Wallpaper Setting REG File"
@@ -108,35 +135,10 @@ rm -f wallpapersetting.reg set.bat
 echo -e "Creating configuration files...\n"
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
-var_all(){
-cat << 'EOF'
-# GQE-emulator environment variables
-export HOME="/data/data/com.termux/files/home"
-export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
-export PULSE_LATENCY_MSEC=20
-export WINEPREFIX="$HOME/.gqe-data-v0.3/.wine"
-export GQE_DATA="$WINEPREFIX/../"
-export DXVK_ASYNC=1
-export BOX64_ASYNC=1
-export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
-export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
-export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
-export LOCPATH="$HOME/.gqe-data-v0.3/locale"
-export MESA_NO_ERROR=1
-export DISPLAY=:13
-export MESA_DEBUG=1
-export BOX64_PATH="$HOME/.gqe-data-v0.3/wine/bin:$GQE_DATA/box64/bin:$PREFIX/glibc/bin"
-export BOX64_LD_LIBRARY_PATH="$HOME/.gqe-data-v0.3/wine/lib:$HOME/.gqe-data-v0.3/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
-export PREFIX="/data/data/com.termux/files/usr"
-export BOX64="$GQE_DATA/box64/bin/box64"
-export GALLIUM_HUD=simple,fps
-EOF
-}
-
 var_all > $GQE_CONFIG_PATH/all_var.txt
 echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
 echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
 
-echo -e "Configuration Completed\n"
-echo -e "Initialization completed\n"
+echo "Configuration Completed"
+echo -e "\nInitialization completed\n"
 rm -f "$0"

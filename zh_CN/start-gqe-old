@@ -154,7 +154,7 @@ grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
 fi
 
 if [ "$GQE_NO_PULSE" = "1" ]; then
-  echo "Warning: Audio functionality is disabled"
+  echo "警告: 音频功能已禁用"
 else
   rm -rf $PREFIX/tmp/pulse-*
   pulseaudio -k >/dev/null 2>&1

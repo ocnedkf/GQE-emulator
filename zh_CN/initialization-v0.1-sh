@@ -5,20 +5,17 @@ download_file() {
     hash_value="$2"
     file_name="$3"
     echo_file_name="$4"
-    echo ""
-    echo -e "正在下载 $echo_file_name...\n"
+    echo -e "\n正在下载 $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
 
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo ""
-    echo -e "\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
+    echo -e "\n\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
     exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo ""
-    echo -e "\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
+    echo -e "\n\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
     rm -f "$PREFIX/tmp/$file_name"
     exit 1
     fi
@@ -28,17 +25,47 @@ extract_file() {
     echo_file_name="$1"
     file_name="$2"
     dest_dir="$3"
-    echo ""
-    echo -e "正在解压 $echo_file_name...\n"
+    echo -e "\n正在解压 $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
-    echo ""
-    echo -e "\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
+    echo -e "\n\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
     exit 1
     fi
 }
+
+var_all(){
+cat << 'EOF'
+# GQE-emulator 环境变量
+export HOME="/data/data/com.termux/files/home"
+export GQE_DATA="$HOME/.gqe-data-v0.3"
+export WINEPREFIX="${GQE_DATA}/.wine"
+export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
+export PULSE_LATENCY_MSEC=20
+export DXVK_ASYNC=1
+export BOX64_ASYNC=1
+export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
+export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
+export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
+export LOCPATH="${GQE_DATA}/locale"
+export MESA_NO_ERROR=1
+export DISPLAY=:13
+export MESA_DEBUG=1
+export PREFIX="/data/data/com.termux/files/usr"
+export BOX64_PATH="${WINEPREFIX}/bin:${GQE_DATA}/box64/bin:${PREFIX}/glibc/bin"
+export BOX64_LD_LIBRARY_PATH="${WINEPREFIX}/lib:${GQE_DATA}/lib:${GQE_DATA}/box64/lib/box64-x86_64-linux-gnu"
+export BOX64="${GQE_DATA}/box64/bin/box64"
+export GALLIUM_HUD=simple,fps
+export LC_ALL=C.UTF-8 # For the native Termux environment
+EOF
+}
+
+if [ "$1" = "var" ]; then
+  mkdir -p "$GQE_CONFIG_PATH"
+  var_all > $GQE_CONFIG_PATH/all_var.txt
+  exit 0
+fi
 
 rm -rf $WINEPREFIX
 env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
@@ -61,8 +88,7 @@ rm -f startmenulink-zh.tar.xz
 # download gecko 64-bit
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86_64.msi "e590b7d988a32d6aa4cf1d8aa3aa3d33766fdd4cf4c89c2dcc2095ecb28d066f" wine-gecko-2.47.4-x86_64.msi "Gecko(64位)"
 
-echo ""
-echo -e "正在安装 Gecko(64位)...\n"
+echo -e "\n正在安装 Gecko(64位)...\n"
 mv $PREFIX/tmp/wine-gecko-2.47.4-x86_64.msi .
 grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86_64.msi
@@ -70,8 +96,7 @@ rm -f wine-gecko-2.47.4-x86_64.msi
 # download Gecko 32-bit
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86.msi "26cecc47706b091908f7f814bddb074c61beb8063318e9efc5a7f789857793d6" "wine-gecko-2.47.4-x86.msi" "Gecko(32位)"
 
-echo ""
-echo -e "正在安装 Gecko(32位)...\n"
+echo -e "\n正在安装 Gecko(32位)...\n"
 mv $PREFIX/tmp/wine-gecko-2.47.4-x86.msi .
 grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
 rm -f wine-gecko-2.47.4-x86.msi
@@ -79,8 +104,7 @@ rm -f wine-gecko-2.47.4-x86.msi
 # download mono
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-mono-9.4.0-x86.msi "cf6173ae94b79e9de13d9a74cdb2560a886fc3d271f9489acb1cfdbd961cacb2" "wine-mono-9.4.0-x86.msi" "Mono"
 
-echo ""
-echo -e "正在安装 Mono...\n"
+echo -e "\n正在安装 Mono...\n"
 mv $PREFIX/tmp/wine-mono-9.4.0-x86.msi .
 grun $BOX64 wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
 rm -f wine-mono-9.4.0-x86.msi
@@ -89,8 +113,7 @@ rm -f wine-mono-9.4.0-x86.msi
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
 extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 
-echo ""
-echo -e "正在安装 InputBridge...\n"
+echo -e "\n正在安装 InputBridge...\n"
 touch install-ib.bat
 echo "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\" > install-ib.bat
 echo ".\install.bat" >> install-ib.bat
@@ -106,23 +129,20 @@ ln -s $HOME/storage/shared $WINEPREFIX/dosdevices/e:
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/mfc42.dll "40e83003f7d136276cd76fde17639f8cec04c3bc85d108446fa511aab1df0506" "mfc42.dll" "DLL文件"
 mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64
 
-echo ""
-echo -e "正在设置 DLL覆盖...\n"
+echo -e "\n正在设置 DLL覆盖...\n"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "用于设置DLL覆盖的注册表文件"
 mv $PREFIX/tmp/dllsetting.reg .
 touch set.bat && echo "regedit /s Z:\\home\\dllsetting.reg" > set.bat && grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f dllsetting.reg
 
-echo ""
-echo -e "正在配置启动脚本...\n"
+echo -e "\n正在配置启动脚本...\n"
 rm -rf $HOME/storage/shared/.gqe-start
 mkdir -p $HOME/storage/shared/.gqe-start
 touch $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 echo "start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 
-echo ""
-echo -e "正在初始化视觉环境...\n"
+echo -e "\n正在初始化视觉环境...\n"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "壁纸"
 mv $PREFIX/tmp/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpapersetting.reg "1b7e003f5a3f2ee82241ff2ae841cbedadd53eb5186edf374d4239297bd7261f" "wallpapersetting.reg" "用于壁纸设置的注册表文件"
@@ -137,36 +157,10 @@ echo -e "正在创建配置文件...\n"
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
-var_all(){
-cat << 'EOF'
-# GQE-emulator 环境变量
-export HOME="/data/data/com.termux/files/home"
-export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
-export PULSE_LATENCY_MSEC=20
-export WINEPREFIX="$HOME/.gqe-data-v0.3/.wine"
-export GQE_DATA=$WINEPREFIX/../
-export DXVK_ASYNC=1
-export BOX64_ASYNC=1
-export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
-export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
-export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
-export LOCPATH="$HOME/.gqe-data-v0.3/locale"
-export MESA_NO_ERROR=1
-export DISPLAY=:13
-export MESA_DEBUG=1
-export BOX64_PATH="$HOME/.gqe-data-v0.3/wine/bin:$GQE_DATA/box64/bin:$PREFIX/glibc/bin"
-export BOX64_LD_LIBRARY_PATH="$HOME/.gqe-data-v0.3/wine/lib:$HOME/.gqe-data-v0.3/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
-export PREFIX="/data/data/com.termux/files/usr"
-export BOX64="$GQE_DATA/box64/bin/box64"
-export GALLIUM_HUD=simple,fps
-export LC_ALL=C.UTF-8 # For the native Termux environment
-EOF
-}
-
 var_all > $GQE_CONFIG_PATH/all_var.txt
 echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
 echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
 
-echo -e "配置完成\n"
-echo -e "初始化完成\n"
+echo "配置完成"
+echo -e "\n初始化完成\n"
 rm -f "$0"

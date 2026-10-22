@@ -122,7 +122,7 @@ do
     fi
 done
 
-if [ $# -gt 0 ]; then
+if [ $# -gt 0 ] && [ "$*" != "-na" ] && [ "$*" != "--no-audio" ]; then
     echo -e "不支持的参数\n"
     show_help
     exit 1
@@ -150,7 +150,7 @@ if ps a | grep -q '[w]ine'; then
 fi
 
 if [ "$GQE_NO_PULSE" = "1" ]; then
-  echo "Warning: Audio functionality is disabled"
+  echo "警告: 音频功能已禁用"
 else
   rm -rf $PREFIX/tmp/pulse-*
   pulseaudio -k >/dev/null 2>&1

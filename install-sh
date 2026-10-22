@@ -113,10 +113,9 @@ chmod +x repair-symlinks.sh
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz "6ff2d48380f5a76e2f03c4023e71e1a1d4e5b84ca1948e59cb6f8b76fdd165a9" "box64.tar.xz" "Box64"
 extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
 
-echo ""
 while true; do
 
-echo -e "Choose Wine version... (Input number then press Enter)\n"
+echo -e "\nChoose Wine version... (Input number then press Enter)\n"
 echo "1) Wine-9.16-custom (Old Version)"
 echo -e "2) Proton-Wine-11.0 (Testing)\n"
 

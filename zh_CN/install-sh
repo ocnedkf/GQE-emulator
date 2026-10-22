@@ -21,20 +21,17 @@ download_file() {
     hash_value="$2"
     file_name="$3"
     echo_file_name="$4"
-    echo ""
-    echo -e "正在下载 $echo_file_name...\n"
+    echo -e "\n正在下载 $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
 
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo ""
-    echo -e "\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
+    echo -e "\n\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
     exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo ""
-    echo -e "\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
+    echo -e "\n\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
     rm -f "$PREFIX/tmp/$file_name"
     exit 1
     fi
@@ -44,14 +41,12 @@ extract_file() {
     echo_file_name="$1"
     file_name="$2"
     dest_dir="$3"
-    echo ""
-    echo -e "正在解压 $echo_file_name...\n"
+    echo -e "\n正在解压 $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
     rm -f "$PREFIX/tmp/$file_name"
     else
-    echo ""
-    echo -e "\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
+    echo -e "\n\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
     exit 1
     fi
 }
@@ -117,10 +112,9 @@ chmod +x repair-symlinks.sh
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/box64.tar.xz "6ff2d48380f5a76e2f03c4023e71e1a1d4e5b84ca1948e59cb6f8b76fdd165a9" "box64.tar.xz" "Box64"
 extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
 
-echo ""
 while true; do
 
-echo "选择Wine版本... (输入数字并回车)"
+echo "\n选择Wine版本... (输入数字并回车)"
 echo ""
 echo "1) Wine-9.16-custom(旧版)"
 echo -e "2) Proton-Wine-11.0(实验性)\n"

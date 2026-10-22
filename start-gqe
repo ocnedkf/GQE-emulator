@@ -122,7 +122,7 @@ do
     fi
 done
 
-if [ $# -gt 0 ]; then
+if [ $# -gt 0 ] && [ "$*" != "-na" ] && [ "$*" != "--no-audio" ]; then
     echo -e "Unsupported argument\n"
     show_help
     exit 1

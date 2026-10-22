@@ -126,7 +126,7 @@ do
     fi
 done
 
-if [ $# -gt 0 ]; then
+if [ $# -gt 0 ] && [ "$*" != "-na" ] && [ "$*" != "--no-audio" ]; then
     echo -e "不支持的参数\n"
     show_help
     exit 1

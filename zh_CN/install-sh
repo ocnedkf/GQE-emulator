@@ -177,7 +177,7 @@ setup_area_files en_US ja_JP zh_CN zh_TW C de_DE ko_KR ru_RU
 
 # download and extract fonts
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz "c51a887f91f3b64cc218d417bdcaef84c93061c4451df79cff4ce9f631413254" "fonts.tar.xz" "字体文件"
-extract_file "字体文件" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
+extract_file "字体文件" "fonts.tar.xz" "$GQE_DATA/wine/share/wine/fonts"
 
 # download and set up GQE termination script
 download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/kill-gqe "aba1b68e361eae6c4a15db5cf72b83e6f4561923018eb388a6202259f384f87d" "kill-gqe" "终止脚本"

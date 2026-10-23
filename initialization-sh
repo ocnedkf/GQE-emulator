@@ -59,7 +59,6 @@ extract_file "Start Menu Extra Pack" "turnip-all.tar.xz" "$HOME/.gqe-data-v0.3/S
 mv turnip-26.3.0-devel.lnk "$WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu/Installer/Mesa/1.Applizable to Adreno GPU"
 tar -xf turnip.tar.xz -C $HOME/.gqe-data-v0.3/STARTMENU/install/Mesa
 rm -rf turnip.tar.xz
-mv turnip-26.3.0-devel.lnk "${WINEPREFIX}/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu"
 
 # download and extract InputBridge
 rm -rf $HOME/.gqe-data-v0.3/InputBridge

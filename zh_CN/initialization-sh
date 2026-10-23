@@ -55,11 +55,11 @@ echo -e "正在解压 开始菜单快捷方式文件...\n"
 tar -xJf $PREFIX/tmp/startmenulink-zh.tar.xz -C $WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/"Start Menu"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/startmenu-v0.3.tar.xz "dba34c7a7efef73e1f3973ce80876372297ac36b670d3cf75faf73de40d5289a" "startmenu-v0.3.tar.xz" "开始菜单文件"
 extract_file "开始菜单文件" "startmenu-v0.3.tar.xz" "$GQE_DATA/STARTMENU"
-download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3.1-beta/turnip-all.tar.xz "8fb339d337e0d8e347f9e2528735f9b43c84b6a652a18223eb9812552ac4afb4" "turnip-all.tar.xz" "开始菜单额外补充包"
+download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3.1-beta/turnip-all.tar.xz "a4f7f453b6e4379679201ee4b1f1d8df294905b9a9dff14c1366f9bf0636659c" "turnip-all.tar.xz" "开始菜单额外补充包"
 extract_file "开始菜单额外补充包" "turnip-all.tar.xz" "$HOME"
 tar -xf turnip.tar.xz -C $HOME/.gqe-data-v0.3/STARTMENU/install/Mesa
 rm -rf turnip.tar.xz
-mv turnip-26.3.0-devel.lnk "${WINEPREFIX}/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu/安装/Mesa/1.适用于 Adreno GPU"
+mv turnip-26.3.0-devel.lnk "${WINEPREFIX}/drive_c/users/"u*"/AppData/Roaming/Microsoft/Windows/Start Menu/Installer/Mesa/1.Applizable to Adreno GPU"
 
 # download and extract InputBridge
 rm -rf $HOME/.gqe-data-v0.3/InputBridge

@@ -177,7 +177,7 @@ setup_area_files en_US ja_JP zh_CN zh_TW C de_DE ko_KR ru_RU
 
 # download and extract fonts
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/fonts.tar.xz "c51a887f91f3b64cc218d417bdcaef84c93061c4451df79cff4ce9f631413254" "fonts.tar.xz" "Fonts"
-extract_file "Fonts" "fonts.tar.xz" "$PREFIX/glibc/share/fonts"
+extract_file "Fonts" "fonts.tar.xz" "$GQE_DATA/wine/share/wine/fonts"
 
 # download and set up GQE termination script
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/kill-gqe "3892fc7aca46bfc984c8e61236f3b13cff78d7c95c44acf42a344c0730d69ed3" "kill-gqe" "Termination Script"

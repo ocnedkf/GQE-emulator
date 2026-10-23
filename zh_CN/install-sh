@@ -184,7 +184,7 @@ download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 
-echo "\n开始运行GQE, 下次执行'start-gqe'以启动
+echo "\n开始运行GQE, 下次执行'start-gqe'以启动"
 sleep 2
 
 start-gqe

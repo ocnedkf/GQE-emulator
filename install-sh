@@ -154,7 +154,7 @@ exit 1
 fi
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/start-gqe "39b9fb43acdbef4a907f2e81ee48b8edac10629bb72b06cd09c931d78d4dad03" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/start-gqe "bff24e46736b4f9b578572710034b0833ea9c92cf878f270b0aa6c31851301a5" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

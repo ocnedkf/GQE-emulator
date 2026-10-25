@@ -50,7 +50,7 @@ if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
   mv $PREFIX/tmp/initialization-sh .
   chmod +x initialization-sh
   initialization-sh var
-  rm -f initialization-v0.1-sh
+  rm -f initialization-sh
 fi
 
 if ! source "$GQE_CONFIG_PATH/all_var.txt"; then

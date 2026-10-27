@@ -51,7 +51,7 @@ extract_file() {
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
   echo "The configuration file is corrupted. Attempting to reconfigure..."
-  download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "18209cc8fd3601ceb79d7ad84302cd3e03e1c601030c20a5b526dc7f341026ff" "initialization-v0.1-sh" "Initialization Script"
+  download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "ba409c836b20686a3fb75029a2f710db9bf809e5df363ed2dd717690d3cbe1cc" "initialization-v0.1-sh" "Initialization Script"
   mv $PREFIX/tmp/initialization-v0.1-sh .
   sed -n '138,163p' initialization-v0.1-sh | bash
   rm -f initialization-v0.1-sh
@@ -112,7 +112,7 @@ do
     fi
 
     if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "18209cc8fd3601ceb79d7ad84302cd3e03e1c601030c20a5b526dc7f341026ff" "initialization-v0.1-sh" "Initialization Script"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "ba409c836b20686a3fb75029a2f710db9bf809e5df363ed2dd717690d3cbe1cc" "initialization-v0.1-sh" "Initialization Script"
      mv $PREFIX/tmp/initialization-v0.1-sh .
      chmod +x initialization-v0.1-sh
      ./initialization-v0.1-sh
@@ -141,7 +141,7 @@ if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "18209cc8fd3601ceb79d7ad84302cd3e03e1c601030c20a5b526dc7f341026ff" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.1-beta/initialization-v0.1-sh "ba409c836b20686a3fb75029a2f710db9bf809e5df363ed2dd717690d3cbe1cc" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-v0.1-sh .
 chmod +x initialization-v0.1-sh
 ./initialization-v0.1-sh

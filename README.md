@@ -29,7 +29,8 @@ Execute the following command
 ```bash
 start-gqe
 ```
-
+> [!IMPORTANT]
+>Please ensure that sufficient RAM is available during use to prevent Termux from being terminated in the background.
 # Terminate GQE
 Close all windows or run the command below
 ```bash

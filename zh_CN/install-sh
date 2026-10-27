@@ -129,14 +129,14 @@ extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "正在初始化 Wine...\n"
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-v0.1-sh "2568b5f244102eba19b6d2bdb2d68dcc458d1e9dc66da3275d4eebbf3086d860" "initialization-sh" "初始化脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-v0.1-sh "ad4e655439e7c2f4d0a9602b8959b93db20cf5d434caa41ab0a3c405e0ff1f2e" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/start-gqe-old "f945ff5d537acf773765353412bdf63456186badf7c5c7bd32ca4a5d2f82234a" "start-gqe" "启动脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/start-gqe-old "6ac6b5729ed46619d238b462fcbf0ff28cdca062b03f5a85a626aca3b45bdb76" "start-gqe" "启动脚本"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 
@@ -150,14 +150,14 @@ extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
 clear
 echo -e "正在初始化 Wine...\n"
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-sh "54f4dde5ec4f8b6f7c84b4c889f8f7b617ba1eb5b53b198bce43b6ab6f5e6139" "initialization-sh" "初始化脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/initialization-sh "c94b0c36b3d78ba7c033657449a25039a30fbd085550db12299a98c3a31c2db6" "initialization-sh" "初始化脚本"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/start-gqe "1c9e067442ece9de7384dec93c9b61d04b3eb81d30b2d6b04d6a61e7717fd499" "start-gqe" "启动脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/zh_CN/start-gqe "9a89d1146e57fd3dcebb3f3ae8390805d8c197f3abf1ccb90e3e2e95ed968bc8" "start-gqe" "启动脚本"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

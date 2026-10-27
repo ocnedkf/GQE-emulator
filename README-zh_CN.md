@@ -10,6 +10,7 @@ GQE是一个在Android ARM64设备上运行windows x86_64程序的模拟器，�
 <br>
 <br>
 有改进想法？请提交拉取请求 — 我们接受建设性贡献
+
 # 安装
 在Termux中执行以下命令
 <br>
@@ -24,7 +25,7 @@ start-gqe
 ```
 > [!IMPORTANT]
 > 使用时请确保留有充足的运行内存，防止Termux被杀后台
-> 
+
 # 终止 GQE
 关闭所有窗口或执行以下命令
 ```bash
@@ -67,50 +68,50 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 
 # 设备要求
 一台Android版本大于等于8的ARM64设备，并确保剩余至少5.5GB的存储空间
+
 # 第三方应用程序
+- [Box64](https://github.com/Pipetto-crypto/box64)
 
-[Box64](https://github.com/Pipetto-crypto/box64)
+- [DXVK](https://github.com/doitsujin/dxvk)
 
-[DXVK](https://github.com/doitsujin/dxvk)
+- [VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
 
-[VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
+- [D8VK](https://github.com/AlpyneDreams/d8vk)
 
-[D8VK](https://github.com/AlpyneDreams/d8vk)
+- [D7VK](https://github.com/WinterSnowfall/d7vk)
 
-[D7VK](https://github.com/WinterSnowfall/d7vk)
+- [Termux-APP](https://github.com/termux/termux-app)
 
-[Termux-APP](https://github.com/termux/termux-app)
+- [Termux-X11](https://github.com/termux/termux-x11)
 
-[Termux-X11](https://github.com/termux/termux-x11)
+- [Termux-Packages](https://github.com/termux/termux-packages)
 
-[Termux-Packages](https://github.com/termux/termux-packages)
+- [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
-[Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
+- [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 
-[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+- [DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
 
-[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
+- [Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
 
-[Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
+- [Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
 
-[Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+- [Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
 
-[Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
+- [Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
 
-[Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
+- [Wine](https://github.com/ocnedkf/wine-custom)
 
-[Wine](https://github.com/ocnedkf/wine-custom)
+- [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
 
-[Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
+- [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
-[Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
+- [WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **预编译自** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
 
-[WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **预编译自** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
+- [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
-[Ubuntu-Packages](https://packages.ubuntu.com/noble/)
+- [InputBridge](https://inputbridge.net/)
 
-[InputBridge](https://inputbridge.net/)
+- [Tiny File Manager-zh](https://github.com/ocnedkf/tfm)
 
-[Tiny File Manager-zh](https://github.com/ocnedkf/tfm)
-
-[7-Zip](https://7-zip.org/)
+- [7-Zip](https://7-zip.org/)

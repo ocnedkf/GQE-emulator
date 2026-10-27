@@ -31,11 +31,13 @@ start-gqe
 ```
 > [!IMPORTANT]
 > Please ensure that sufficient RAM is available during use to prevent Termux from being terminated in the background
+
 # Terminate GQE
 Close all windows or run the command below
 ```bash
 kill-gqe
 ```
+
 # GQE Configuration
 > [!Tip]
 > In the Start Menu, you can adjust the application's Mesa and D3D files via the 'Install' and 'Programs' options, as well as quickly configure settings using winecfg, among other functions.

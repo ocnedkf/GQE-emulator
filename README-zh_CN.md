@@ -22,7 +22,9 @@ curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 ```bash
 start-gqe
 ```
-
+> [!IMPORTANT]
+> 使用时请确保留有充足的运行内存，防止Termux被杀后台
+> 
 # 终止 GQE
 关闭所有窗口或执行以下命令
 ```bash

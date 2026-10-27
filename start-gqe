@@ -46,7 +46,7 @@ extract_file() {
 GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 echo "The configuration file is corrupted. Attempting to reconfigure..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "a9093c3f123113323abf93df3b1499108077b70ff207711329fca301a7ebdc24" "initialization-sh" "initialization-sh"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "f24959c042ffc9b7b98b7a928045315aa239110ee5277996216b37cfba3c3166" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 initialization-sh var
@@ -108,7 +108,7 @@ do
     fi
 
     if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "a9093c3f123113323abf93df3b1499108077b70ff207711329fca301a7ebdc24" "initialization-sh" "initialization-sh"
+     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "f24959c042ffc9b7b98b7a928045315aa239110ee5277996216b37cfba3c3166" "initialization-sh" "initialization-sh"
      mv $PREFIX/tmp/initialization-sh .
      chmod +x initialization-sh
      ./initialization-sh
@@ -137,7 +137,7 @@ if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
 clear
 echo -e "Wine prefix missing! try reinitializing...\n"
 
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "a9093c3f123113323abf93df3b1499108077b70ff207711329fca301a7ebdc24" "initialization-sh" "initialization-sh"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "f24959c042ffc9b7b98b7a928045315aa239110ee5277996216b37cfba3c3166" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh

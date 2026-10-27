@@ -74,48 +74,48 @@ An Android ARM64 device with Android version 8 or above, requiring at least appr
 
 # Third party applications
 
-[Box64](https://github.com/Pipetto-crypto/box64)
+- [Box64](https://github.com/Pipetto-crypto/box64)
 
-[DXVK](https://github.com/doitsujin/dxvk)
+- [DXVK](https://github.com/doitsujin/dxvk)
 
-[VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
+- [VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
 
-[D8VK](https://github.com/AlpyneDreams/d8vk)
+- [D8VK](https://github.com/AlpyneDreams/d8vk)
 
-[D7VK](https://github.com/WinterSnowfall/d7vk)
+- [D7VK](https://github.com/WinterSnowfall/d7vk)
 
-[Termux-APP](https://github.com/termux/termux-app)
+- [Termux-APP](https://github.com/termux/termux-app)
 
-[Termux-X11](https://github.com/termux/termux-x11)
+- [Termux-X11](https://github.com/termux/termux-x11)
 
-[Termux-Packages](https://github.com/termux/termux-packages)
+- [Termux-Packages](https://github.com/termux/termux-packages)
 
-[Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
+- [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
 
-[DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
+- [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 
-[DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
+- [DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
 
-[Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
+- [Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
 
-[Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+- [Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
 
-[Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
+- [Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
 
-[Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
+- [Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
 
-[Wine](https://github.com/ocnedkf/wine-custom)
+- [Wine](https://github.com/ocnedkf/wine-custom)
 
-[Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
+- [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
 
-[Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
+- [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
 
-[WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **Precompiled From** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
+- [WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **Precompiled From** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
 
-[Ubuntu-Packages](https://packages.ubuntu.com/noble/)
+- [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
-[InputBridge](https://inputbridge.net/)
+- [InputBridge](https://inputbridge.net/)
 
-[Tiny File Manager](https://github.com/radzikpwnz/tfm)
+- [Tiny File Manager](https://github.com/radzikpwnz/tfm)
 
-[7-Zip](https://7-zip.org/)
+- [7-Zip](https://7-zip.org/)

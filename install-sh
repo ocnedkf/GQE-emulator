@@ -25,15 +25,15 @@ download_file() {
     rm -f "$PREFIX/tmp/$file_name"
 
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo -e "\n\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
-    exit 1
+        echo -e "\n\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
+        exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo -e "\n\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
-    rm -f "$PREFIX/tmp/$file_name"
-    exit 1
+        echo -e "\n\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
+        rm -f "$PREFIX/tmp/$file_name"
+        exit 1
     fi
 }
 
@@ -44,18 +44,18 @@ extract_file() {
     echo -e "\nUnpacking $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
-    rm -f "$PREFIX/tmp/$file_name"
+        rm -f "$PREFIX/tmp/$file_name"
     else
-    echo -e "\n\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
-    exit 1
+        echo -e "\n\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
+        exit 1
     fi
 }
 
 judge_init_error(){
 if [ $? -ne 0 ]; then
-  echo -e "\033[31mError: Initialization failed, please try again\033[0m"
-  rm -f initialization-sh
-  exit 1
+    echo -e "\033[31mError: Initialization failed, please try again\033[0m"
+    rm -f initialization-sh
+    exit 1
 fi
 }
 

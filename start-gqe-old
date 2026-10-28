@@ -43,7 +43,7 @@ extract_file() {
     fi
 }
 
-GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
+export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
     echo "The configuration file is corrupted. Attempting to reconfigure..."
     download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-v0.1-sh "0edba08ce16daa8016f42eef7dd928296d6c695a5ae439414854b036154c0573" "initialization-sh" "Initialization Script"

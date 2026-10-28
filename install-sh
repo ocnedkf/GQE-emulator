@@ -132,7 +132,7 @@ download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/
 echo -e "Initializing Wine...\n"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
-./initialization-sh
+source ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
@@ -153,7 +153,7 @@ download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/
 echo -e "Initializing Wine...\n"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
-./initialization-sh
+source ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script

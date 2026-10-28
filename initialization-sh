@@ -1,40 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-download_file() {
-    url="$1"
-    hash_value="$2"
-    file_name="$3"
-    echo_file_name="$4"
-    echo -e "\nDownloading $echo_file_name...\n"
-    rm -f "$PREFIX/tmp/$file_name"
-
-    if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo -e "\n\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
-    exit 1
-    fi
-
-    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
-    if [ $? -ne 0 ]; then
-    echo -e "\n\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
-    rm -f "$PREFIX/tmp/$file_name"
-    exit 1
-    fi
-}
-
-extract_file() {
-    echo_file_name="$1"
-    file_name="$2"
-    dest_dir="$3"
-    echo -e "\nUnpacking $echo_file_name...\n"
-    mkdir -p "$dest_dir"
-    if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
-    rm -f "$PREFIX/tmp/$file_name"
-    else
-    echo -e "\n\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
-    exit 1
-    fi
-}
-
 var_all(){
 cat << 'EOF'
 # GQE-emulator environment variables
@@ -66,18 +31,28 @@ if [ "$1" = "var" ]; then
   exit 0
 fi
 
+wallpaper_reg(){
+cat << EOF
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"Wallpaper"="C:\\\\wallpaper.bmp"
+EOF
+}
+
 rm -rf $WINEPREFIX
 pkill -f termux-x11
 termux-x11 :13 >/dev/null 2>&1 &
 env WINEDLLOVERRIDES="mscoree=" DISPLAY=:13 grun $BOX64 wine wineboot -i >/dev/null 2>&1
 pkill termux-x11
 
-echo -e "Configuring Wine...\n"
+echo -e "\nConfiguring Wine...\n"
 download_file https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "TFM"
 mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3.2-beta/startmenulink.tar.xz "58687644e0bddb8a0ec8c2393fb85f34b7729c3732311e520b0f3b4dc299b2a0" "startmenulink.tar.xz" "Start Menu Link"
 echo -e "Unpacking StartMenuLink...\n"
 tar -xf $PREFIX/tmp/startmenulink.tar.xz -C $WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/"Start Menu"
+rm -f startmenulink.tar.xz
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3.2-beta/startmenu-v0.3.2.tar.xz "20193fb78daeaa1eedac5e1a3e69c4a6a55bc28575d143c591cd0ea05af287dd" "startmenu-v0.3.2.tar.xz" "Start Menu"
 extract_file "Start Menu Files" "startmenu-v0.3.2.tar.xz" "$GQE_DATA/STARTMENU"
 
@@ -114,8 +89,7 @@ echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
 echo -e "\nInitializing visual environment...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
 mv $PREFIX/tmp/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/wallpapersetting.reg "1b7e003f5a3f2ee82241ff2ae841cbedadd53eb5186edf374d4239297bd7261f" "wallpapersetting.reg" "Wallpaper Setting REG File"
-mv $PREFIX/tmp/wallpapersetting.reg .
+wallpaper_reg > wallpapersetting.reg
 touch set.bat
 echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
 grun $BOX64 wine Z://home//set.bat >/dev/null 2>&1

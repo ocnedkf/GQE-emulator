@@ -131,7 +131,7 @@ if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
 fi
 
 if ps a | grep -q '[w]ine'; then
-  grun $BOX64 wine wineboot -k >/dev/null 2>&1
+    grun $BOX64 wine wineboot -k >/dev/null 2>&1
 fi
 
 if [ "$GQE_NO_PULSE" = "1" ]; then
@@ -158,7 +158,7 @@ else
     echo "Failed to start Termux:X11 App. Please ensure it is installed"
 fi
 
-env PULSE_SERVER=127.0.0.1 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1 &
+env PULSE_SERVER=127.0.0.1 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
 
 

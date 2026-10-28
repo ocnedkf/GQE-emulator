@@ -114,7 +114,7 @@ extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
 
 while true; do
 
-echo "\n选择Wine版本... (输入数字并回车)"
+echo -e "\n选择Wine版本... (输入数字并回车)"
 echo ""
 echo "1) Wine-9.16-custom(旧版)"
 echo -e "2) Proton-Wine-11.0(实验性)\n"

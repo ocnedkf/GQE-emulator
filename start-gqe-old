@@ -49,7 +49,7 @@ if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
   download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-v0.1-sh "0edba08ce16daa8016f42eef7dd928296d6c695a5ae439414854b036154c0573" "initialization-sh" "Initialization Script"
   mv $PREFIX/tmp/initialization-sh .
   chmod +x initialization-sh
-  initialization-sh var
+  ./initialization-sh var
   rm -f initialization-sh
 fi
 

@@ -160,8 +160,6 @@ fi
 
 env PULSE_SERVER=127.0.0.1 grun $BOX64 wine explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
-
-
 pkill -f termux-x11
 pulseaudio -k >/dev/null 2>&1
 rm -rf $PREFIX/tmp/pulse-*

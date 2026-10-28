@@ -9,10 +9,10 @@ fi
 export PREFIX="/data/data/com.termux/files/usr"
 
 download_file() {
-    url="$1"
-    hash_value="$2"
-    file_name="$3"
-    echo_file_name="$4"
+    local url="$1"
+    local hash_value="$2"
+    local file_name="$3"
+    local echo_file_name="$4"
     echo -e "\nDownloading $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
 

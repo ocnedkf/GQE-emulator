@@ -11,30 +11,30 @@ BOX64=$GQE_DATA/box64/bin/box64
 
 if [ -x "$GQE_DATA/wine/bin/wine" ]; then
 
-grun $BOX64 wine wineboot -k >/dev/null 2>&1
-if [ "$?" = "0" ]; then
-echo "Process terminated successfully!"
-else
-echo "Failed to end the process!\nAbout to attempt a forced termination"
-fi
+  grun $BOX64 wine wineboot -k >/dev/null 2>&1
+  if [ "$?" = "0" ]; then
+    echo "Process terminated successfully!"
+  else
+    echo "Failed to end the process!\nAbout to attempt a forced termination"
+  fi
 
 else
 
-grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
-if [ "$?" = "0" ]; then
-echo "Process terminated successfully!"
-else
-echo "Failed to end the process!\nAbout to attempt a forced termination"
-fi
+  grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
+  if [ "$?" = "0" ]; then
+    echo "Process terminated successfully!"
+  else
+    echo "Failed to end the process!\nAbout to attempt a forced termination"
+  fi
 
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $BOX64 -k >/dev/null 2>&1 && echo "The process has been forcibly terminated via Box64"
+  grun $BOX64 -k >/dev/null 2>&1 && echo "The process has been forcibly terminated via Box64"
 elif ps a | grep -q '[w]ine64'; then
-grun $BOX64 -k >/dev/null 2>&1 && echo "The process has been forcibly terminated via Box64"
+  grun $BOX64 -k >/dev/null 2>&1 && echo "The process has been forcibly terminated via Box64"
 else
-pkill -f wine && echo "The process has been forcibly terminated using pkill"
+  pkill -f wine && echo "The process has been forcibly terminated using pkill"
 fi
 
 rm -rf $TMPDIR/pulse-*

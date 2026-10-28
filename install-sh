@@ -17,10 +17,10 @@ fi
 export PREFIX="/data/data/com.termux/files/usr"
 
 download_file() {
-    url="$1"
-    hash_value="$2"
-    file_name="$3"
-    echo_file_name="$4"
+    local url="$1"
+    local hash_value="$2"
+    local file_name="$3"
+    local echo_file_name="$4"
     echo -e "\nDownloading $echo_file_name...\n"
     rm -f "$PREFIX/tmp/$file_name"
 
@@ -38,9 +38,9 @@ download_file() {
 }
 
 extract_file() {
-    echo_file_name="$1"
-    file_name="$2"
-    dest_dir="$3"
+    local echo_file_name="$1"
+    local file_name="$2"
+    local dest_dir="$3"
     echo -e "\nUnpacking $echo_file_name...\n"
     mkdir -p "$dest_dir"
     if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
@@ -104,7 +104,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-bet
 extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 
 echo -e "Repairing the symbolic link..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/repair-symlinks.sh "70b93bc552d86298adad2cd6ba1d79c5efa97082792481f2f978f6435525b869" "repair-symlinks.sh" "Fix Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/repair-symlinks.sh "70b93bc552d86298adad2cd6ba1d79c5efa97082792481f2f978f6435525b869" "repair-symlinks.sh" "Fix Script"
 mv $PREFIX/tmp/repair-symlinks.sh .
 chmod +x repair-symlinks.sh
 ./repair-symlinks.sh
@@ -128,15 +128,15 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 
 clear
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-v0.1-sh "3a2896f7b98baccbeb3366c27e2c2b25ed455ca175ab19559de746ab336887f6" "initialization-sh" "Initialization Script"
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-v0.1-sh "3a2896f7b98baccbeb3366c27e2c2b25ed455ca175ab19559de746ab336887f6" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/start-gqe-old "ea1d353fe18ad3f7903bc1501b2afd0d6e6112fddea1dbce0693ebf1f979767f" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/start-gqe-old "ea1d353fe18ad3f7903bc1501b2afd0d6e6112fddea1dbce0693ebf1f979767f" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 
@@ -149,15 +149,15 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-bet
 extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
 clear
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "0edba08ce16daa8016f42eef7dd928296d6c695a5ae439414854b036154c0573" "initialization-sh" "Initialization Script"
 echo -e "Initializing Wine...\n"
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/initialization-sh "0edba08ce16daa8016f42eef7dd928296d6c695a5ae439414854b036154c0573" "initialization-sh" "Initialization Script"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/start-gqe "068286eedaab94c65a508ce00151ca32b37cf815cccf7f8559e6ccecd0ed14bb" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/start-gqe "068286eedaab94c65a508ce00151ca32b37cf815cccf7f8559e6ccecd0ed14bb" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break
@@ -180,7 +180,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 extract_file "Fonts" "fonts.tar.xz" "$GQE_DATA/wine/share/wine/fonts"
 
 # download and set up GQE termination script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/kill-gqe "3892fc7aca46bfc984c8e61236f3b13cff78d7c95c44acf42a344c0730d69ed3" "kill-gqe" "Termination Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/kill-gqe "3892fc7aca46bfc984c8e61236f3b13cff78d7c95c44acf42a344c0730d69ed3" "kill-gqe" "Termination Script"
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 

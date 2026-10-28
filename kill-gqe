@@ -30,11 +30,11 @@ fi
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $BOX64 -k >/dev/null 2>&1
+grun $BOX64 -k >/dev/null 2>&1 && echo "The process has been forcibly terminated via Box64"
 elif ps a | grep -q '[w]ine64'; then
-grun $BOX64 -k >/dev/null 2>&1
+grun $BOX64 -k >/dev/null 2>&1 && echo "The process has been forcibly terminated via Box64"
 else
-pkill -f 'wine'
+pkill -f wine && echo "The process has been forcibly terminated using pkill"
 fi
 
 rm -rf $TMPDIR/pulse-*

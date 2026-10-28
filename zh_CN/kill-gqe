@@ -4,37 +4,37 @@ HOME=/data/data/com.termux/files/home
 GQE_DATA=$HOME/.gqe-data-v0.3
 PREFIX=/data/data/com.termux/files/usr
 TMPDIR=$PREFIX/tmp
-BOX64_PATH=$HOME/.gqe-data-v0.3/wine/bin
+BOX64_PATH=$GQE_DATA/wine/bin
 BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
-WINEPREFIX=$HOME/.gqe-data-v0.3/.wine
+WINEPREFIX=$GQE_DATA/.wine
 BOX64=$GQE_DATA/box64/bin/box64
 
 if [ -x "$GQE_DATA/wine/bin/wine" ]; then
 
 grun $BOX64 wine wineboot -k >/dev/null 2>&1
 if [ "$?" = "0" ]; then
-echo "进程结束成功!"
+  echo "进程结束成功!"
 else
-echo "结束进程失败! 将尝试强制结束进程"
+  echo "结束进程失败! 将尝试强制结束进程"
 fi
 
 else
 
 grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
 if [ "$?" = "0" ]; then
-echo "进程结束成功!"
+  echo "进程结束成功!"
 else
-echo "结束进程失败! 将尝试强制结束进程"
+  echo "结束进程失败! 将尝试强制结束进程"
 fi
 
 fi
 
 if ps a | grep -q '[w]ine'; then
-grun $BOX64 -k >/dev/null 2>&1
+  grun $BOX64 -k >/dev/null 2>&1 && echo "已通过 Box64 强制结束进程"
 elif ps a | grep -q '[w]ine64'; then
-grun $BOX64 -k >/dev/null 2>&1
+  grun $BOX64 -k >/dev/null 2>&1 && echo "已通过 Box64 强制结束进程"
 else
-pkill -f 'wine'
+  pkill -f 'wine' && echo "已通过 pkill 强制结束进程"
 fi
 
 rm -rf $TMPDIR/pulse-*

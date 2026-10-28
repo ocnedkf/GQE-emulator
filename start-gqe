@@ -17,15 +17,29 @@ download_file() {
     rm -f "$PREFIX/tmp/$file_name"
 
     if ! wget --quiet --show-progress -O "$PREFIX/tmp/$file_name" "$url"; then
-    echo -e "\n\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
-    exit 1
+        echo -e "\n\033[31mERROR: Failed to download $echo_file_name, check network!\033[0m\n"
+        exit 1
     fi
 
     sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
     if [ $? -ne 0 ]; then
-    echo -e "\n\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
-    rm -f "$PREFIX/tmp/$file_name"
-    exit 1
+        echo -e "\n\033[31mERROR: Hash verification failed for $file_name. Please check the file integrity.\033[0m\n"
+        rm -f "$PREFIX/tmp/$file_name"
+        exit 1
+    fi
+}
+
+extract_file() {
+    local echo_file_name="$1"
+    local file_name="$2"
+    local dest_dir="$3"
+    echo -e "\nUnpacking $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xJf $PREFIX/tmp/$file_name -C "$dest_dir" >/dev/null 2>&1; then
+        rm -f "$PREFIX/tmp/$file_name"
+    else
+        echo -e "\n\033[31mERROR: Failed to unpack $file_name. Please try again.\033[0m\n"
+        exit 1
     fi
 }
 
@@ -48,7 +62,7 @@ reinit(){
 download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "3a2896f7b98baccbeb3366c27e2c2b25ed455ca175ab19559de746ab336887f6" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
-./initialization-sh
+source ./initialization-sh
 rm -f initialization-sh
 }
 

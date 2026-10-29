@@ -45,7 +45,7 @@ extract_file() {
 export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
     echo "配置文件不存在! 尝试重新配置..."
-    download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/initialization-v0.1-sh "54f1b5753c6e08e08ede9bb8a1a681f90bf7d7aed7f99bf3271e30ba0762fc77" "initialization-sh" "初始化脚本"
+    download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "初始化脚本"
     mv $PREFIX/tmp/initialization-sh .
     chmod +x initialization-sh
     ./initialization-sh var
@@ -58,7 +58,7 @@ if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 fi
 
 reinit(){
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "3a2896f7b98baccbeb3366c27e2c2b25ed455ca175ab19559de746ab336887f6" "initialization-sh" "initialization-sh"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 source ./initialization-sh

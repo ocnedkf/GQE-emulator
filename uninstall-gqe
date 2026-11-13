@@ -6,7 +6,7 @@ echo -e "To cancel, please immediately press CTRL+C to terminate the process\n"
 sleep 1
 
 echo_number(){
-    for (( i=15; i<=1; i-- )); do
+    for (( i=15; i>=1; i-- )); do
         echo -e "\033[31m${i}\033[0m"
         sleep 1
     done

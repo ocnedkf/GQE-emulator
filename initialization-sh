@@ -230,7 +230,6 @@ rm -f wallpapersetting.reg set.bat
 
 echo -e "Creating configuration files...\n"
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
-
 var_all > $GQE_CONFIG_PATH/all_var.txt
 echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
 echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt

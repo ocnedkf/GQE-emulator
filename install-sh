@@ -3,7 +3,7 @@
 if [ "$(uname -m)" != "aarch64" ]; then
     echo -e "\033[31mERROR:The GQE-emulator only supports the ARM64 architecture\033[0m"
     echo -e "\033[31mPlease ensure that your device meets the requirements of Termux\033[0m"
-exit 1
+    exit 1
 fi
 
 export HOME="/data/data/com.termux/files/home"

@@ -5,35 +5,15 @@ echo -e "The uninstallation script will proceed in 15 seconds, which will result
 echo -e "To cancel, please immediately press CTRL+C to terminate the process\n"
 sleep 1
 
-echo -e "\033[31m15\033[0m"
-sleep 1
-echo -e "\033[31m14\033[0m"
-sleep 1
-echo -e "\033[31m13\033[0m"
-sleep 1
-echo -e "\033[31m12\033[0m"
-sleep 1
-echo -e "\033[31m11\033[0m"
-sleep 1
-echo -e "\033[31m10\033[0m"
-sleep 1
-echo -e "\033[31m9\033[0m"
-sleep 1
-echo -e "\033[31m8\033[0m"
-sleep 1
-echo -e "\033[31m7\033[0m"
-sleep 1
-echo -e "\033[31m6\033[0m"
-sleep 1
-echo -e "\033[31m5\033[0m"
-sleep 1
-echo -e "\033[31m4\033[0m"
-sleep 1
-echo -e "\033[31m3\033[0m"
-sleep 1
-echo -e "\033[31m2\033[0m"
-sleep 1
-echo -e "\033[31m1\033[0m"
+echo_number(){
+    for (( i=15; i<=1; i-- )); do
+        echo -e "\033[31m${i}\033[0m"
+        sleep 1
+    done
+}
+
+echo_number
+
 sleep 2
 clear
 echo -e "Starting to uninstall GQE..."

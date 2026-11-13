@@ -2,8 +2,8 @@
 
 export HOME=/data/data/com.termux/files/home
 if [ ! -d "$HOME/storage" ]; then
-echo -e "External storage not found! Please check your storage permissions"
-exit 1
+    echo -e "External storage not found! Please check your storage permissions"
+    exit 1
 fi
 
 export PREFIX="/data/data/com.termux/files/usr"
@@ -44,7 +44,7 @@ extract_file() {
 }
 
 kill_x11(){
-pkill -f termux-x11
+    pkill -f termux-x11
 }
 
 export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start

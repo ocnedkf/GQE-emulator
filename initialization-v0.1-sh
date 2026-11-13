@@ -216,7 +216,7 @@ extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 
 echo -e "\nInstalling InputBridge...\n"
 touch install-ib.bat
-echo -e "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\\n.\install.bat\nexit" > install-ib.bat
+echo -e "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\ \n.\install.bat\nexit" > install-ib.bat
 grun $BOX64 wine64 cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
 rm install-ib.bat
 

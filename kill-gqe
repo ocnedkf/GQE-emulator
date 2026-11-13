@@ -1,32 +1,29 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-HOME=/data/data/com.termux/files/home
-GQE_DATA=$HOME/.gqe-data-v0.3
-PREFIX=/data/data/com.termux/files/usr
-TMPDIR=$PREFIX/tmp
-BOX64_PATH=$GQE_DATA/wine/bin
-BOX64_LD_LIBRARY_PATH=$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu 
-WINEPREFIX=$GQE_DATA/.wine
-BOX64=$GQE_DATA/box64/bin/box64
+HOME="/data/data/com.termux/files/home"
+GQE_DATA="$HOME/.gqe-data-v0.3"
+PREFIX="/data/data/com.termux/files/usr"
+TMPDIR="$PREFIX/tmp"
+BOX64="$GQE_DATA/box64/bin/box64"
+export BOX64_PATH="$GQE_DATA/wine/bin"
+export BOX64_LD_LIBRARY_PATH="$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
+export WINEPREFIX="$GQE_DATA/.wine"
+export PATH="$BOX64_PATH:$PATH"
 
 if [ -x "$GQE_DATA/wine/bin/wine" ]; then
-
   grun $BOX64 wine wineboot -k >/dev/null 2>&1
   if [ "$?" = "0" ]; then
     echo "Process terminated successfully!"
   else
     echo "Failed to end the process!\nAbout to attempt a forced termination"
   fi
-
 else
-
   grun $BOX64 wine64 wineboot -k >/dev/null 2>&1
   if [ "$?" = "0" ]; then
     echo "Process terminated successfully!"
   else
     echo "Failed to end the process!\nAbout to attempt a forced termination"
   fi
-
 fi
 
 if ps a | grep -q '[w]ine'; then
@@ -37,8 +34,8 @@ else
   pkill -f wine && echo "The process has been forcibly terminated using pkill"
 fi
 
-rm -rf $TMPDIR/pulse-*
 pulseaudio -k >/dev/null 2>&1
+rm -rf $TMPDIR/pulse-*
 
 pkill -f virgl
 pkill -f termux-x11

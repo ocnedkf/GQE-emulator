@@ -1,27 +1,28 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 var_all(){
-cat << 'EOF'
-# GQE-emulator environment variables
-export HOME="/data/data/com.termux/files/home"
-export GQE_DATA="$HOME/.gqe-data-v0.3"
-export WINEPREFIX="${GQE_DATA}/.wine"
-export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
-export PULSE_LATENCY_MSEC=20
-export DXVK_ASYNC=1
-export BOX64_ASYNC=1
-export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
-export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
-export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
-export LOCPATH="${GQE_DATA}/locale"
-export MESA_NO_ERROR=1
-export DISPLAY=:13
-export MESA_DEBUG=1
-export PREFIX="/data/data/com.termux/files/usr"
-export BOX64_PATH="${GQE_DATA}/wine/bin:${GQE_DATA}/box64/bin:${PREFIX}/glibc/bin"
-export BOX64_LD_LIBRARY_PATH="${WINEPREFIX}/lib:${GQE_DATA}/lib:${GQE_DATA}/box64/lib/box64-x86_64-linux-gnu"
-export BOX64="${GQE_DATA}/box64/bin/box64"
-export GALLIUM_HUD=simple,fps
+  cat << 'EOF'
+  # GQE-emulator environment variables
+  export HOME="/data/data/com.termux/files/home"
+  export GQE_DATA="$HOME/.gqe-data-v0.3"
+  export WINEPREFIX="${GQE_DATA}/.wine"
+  export GQE_COMFIG_PATH="$HOME/storage/shared/.gqe-start"
+  export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
+  export PULSE_LATENCY_MSEC=20
+  export DXVK_ASYNC=1
+  export BOX64_ASYNC=1
+  export MESA_VK_DEVICE_SELECT="$(cat "$GQE_CONFIG_PATH/mesa_var_v.txt")"
+  export VK_ICD_FILENAMES="$(cat "$GQE_CONFIG_PATH/mesa_var_f.txt")"
+  export GALLIUM_DRIVER="$(cat "$GQE_CONFIG_PATH/mesa_var.txt")"
+  export LOCPATH="${GQE_DATA}/locale"
+  export MESA_NO_ERROR=1
+  export DISPLAY=:13
+  export MESA_DEBUG=1
+  export PREFIX="/data/data/com.termux/files/usr"
+  export BOX64_PATH="${GQE_DATA}/wine/bin:${GQE_DATA}/box64/bin:${PREFIX}/glibc/bin"
+  export BOX64_LD_LIBRARY_PATH="${WINEPREFIX}/lib:${GQE_DATA}/lib:${GQE_DATA}/box64/lib/box64-x86_64-linux-gnu"
+  export BOX64="${GQE_DATA}/box64/bin/box64"
+  export GALLIUM_HUD=simple,fps
 EOF
 }
 
@@ -32,16 +33,167 @@ if [ "$1" = "var" ]; then
 fi
 
 wallpaper_reg(){
-cat << EOF
-Windows Registry Editor Version 5.00
+  cat << EOF
+  Windows Registry Editor Version 5.00
 
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"Wallpaper"="C:\\\\wallpaper.bmp"
+  [HKEY_CURRENT_USER\Control Panel\Desktop]
+  "Wallpaper"="C:\\\\wallpaper.bmp"
+EOF
+}
+
+install_engine(){
+  local package_name="$1"
+  local echo_package_name="$2"
+  local hash="$3"
+  download https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/${package_name} "$hash" "$package_name" "$echo_package_name"
+  echo -e "\nInstalling ${echo_package_name}...\n"
+  mv $TMPDIR/${package_name} .
+  grun $BOX64 wine64 msiexec /i ${package_name} >/dev/null 2>&1
+  rm -f package_name
+}
+
+dll_overrides(){
+  cat << EOF
+  Windows Registry Editor Version 5.00
+
+  [HKEY_CURRENT_USER\Software\Wine\DllOverrides]
+  "atl100"="native,builtin"
+  "d3d10"="native,builtin"
+  "d3d10_1"="native,builtin"
+  "d3d10core"="native,builtin"
+  "d3d11"="native,builtin"
+  "d3d12"="native,builtin"
+  "d3d12core"="native,builtin"
+  "d3d8"="native,builtin"
+  "d3d9"="native,builtin"
+  "d3dcompiler_33"="native,builtin"
+  "d3dcompiler_34"="native,builtin"
+  "d3dcompiler_35"="native,builtin"
+  "d3dcompiler_36"="native,builtin"
+  "d3dcompiler_37"="native,builtin"
+  "d3dcompiler_38"="native,builtin"
+  "d3dcompiler_39"="native,builtin"
+  "d3dcompiler_40"="native,builtin"
+  "d3dcompiler_41"="native,builtin"
+  "d3dcompiler_42"="native,builtin"
+  "d3dcompiler_43"="native,builtin"
+  "d3dcompiler_46"="native,builtin"
+  "d3dcompiler_47"="native,builtin"
+  "d3dcsx_42"="native,builtin"
+  "d3dcsx_43"="native,builtin"
+  "d3dx10"="native,builtin"
+  "d3dx10_33"="native,builtin"
+  "d3dx10_34"="native,builtin"
+  "d3dx10_35"="native,builtin"
+  "d3dx10_36"="native,builtin"
+  "d3dx10_37"="native,builtin"
+  "d3dx10_38"="native,builtin"
+  "d3dx10_39"="native,builtin"
+  "d3dx10_40"="native,builtin"
+  "d3dx10_41"="native,builtin"
+  "d3dx10_42"="native,builtin"
+  "d3dx10_43"="native,builtin"
+  "d3dx11_42"="native,builtin"
+  "d3dx11_43"="native,builtin"
+  "d3dx9_24"="native,builtin"
+  "d3dx9_25"="native,builtin"
+  "d3dx9_26"="native,builtin"
+  "d3dx9_27"="native,builtin"
+  "d3dx9_28"="native,builtin"
+  "d3dx9_29"="native,builtin"
+  "d3dx9_30"="native,builtin"
+  "d3dx9_31"="native,builtin"
+  "d3dx9_32"="native,builtin"
+  "d3dx9_33"="native,builtin"
+  "d3dx9_34"="native,builtin"
+  "d3dx9_35"="native,builtin"
+  "d3dx9_36"="native,builtin"
+  "d3dx9_37"="native,builtin"
+  "d3dx9_38"="native,builtin"
+  "d3dx9_39"="native,builtin"
+  "d3dx9_40"="native,builtin"
+  "d3dx9_41"="native,builtin"
+  "d3dx9_42"="native,builtin"
+  "d3dx9_43"="native,builtin"
+  "ddraw"="native,builtin"
+  "dinput"="builtin,native"
+  "dinput8"="builtin,native"
+  "dmband"="native,builtin"
+  "dmcompos"="native,builtin"
+  "dmime"="native,builtin"
+  "dmloader"="native,builtin"
+  "dmscript"="native,builtin"
+  "dmstyle"="native,builtin"
+  "dmsynth"="native,builtin"
+  "dmusic"="native,builtin"
+  "dmusic32"="native,builtin"
+  "dsound"="native,builtin"
+  "dswave"="native,builtin"
+  "dxgi"="native,builtin"
+  "mfc42.dll"="native,builtin"
+  "msvcp100"="native,builtin"
+  "msvcr100"="native,builtin"
+  "vcomp100"="native,builtin"
+  "wined3d"="native,builtin"
+  "wmadmod"="native,builtin"
+  "wmasf"="native,builtin"
+  "wmvcore"="native,builtin"
+  "wmvdecod"="native,builtin"
+  "x3daudio1_0"="native,builtin"
+  "x3daudio1_1"="native,builtin"
+  "x3daudio1_2"="native,builtin"
+  "x3daudio1_3"="native,builtin"
+  "x3daudio1_4"="native,builtin"
+  "x3daudio1_5"="native,builtin"
+  "x3daudio1_6"="native,builtin"
+  "x3daudio1_7"="native,builtin"
+  "xactengine2_0"="native,builtin"
+  "xactengine2_1"="native,builtin"
+  "xactengine2_10"="native,builtin"
+  "xactengine2_2"="native,builtin"
+  "xactengine2_3"="native,builtin"
+  "xactengine2_4"="native,builtin"
+  "xactengine2_5"="native,builtin"
+  "xactengine2_6"="native,builtin"
+  "xactengine2_7"="native,builtin"
+  "xactengine2_8"="native,builtin"
+  "xactengine2_9"="native,builtin"
+  "xactengine3_0"="native,builtin"
+  "xactengine3_1"="native,builtin"
+  "xactengine3_2"="native,builtin"
+  "xactengine3_3"="native,builtin"
+  "xactengine3_4"="native,builtin"
+  "xactengine3_5"="native,builtin"
+  "xactengine3_6"="native,builtin"
+  "xactengine3_7"="native,builtin"
+  "xapofx1_0"="native,builtin"
+  "xapofx1_1"="native,builtin"
+  "xapofx1_2"="native,builtin"
+  "xapofx1_3"="native,builtin"
+  "xapofx1_4"="native,builtin"
+  "xapofx1_5"="native,builtin"
+  "xaudio2_0"="native,builtin"
+  "xaudio2_1"="native,builtin"
+  "xaudio2_2"="native,builtin"
+  "xaudio2_3"="native,builtin"
+  "xaudio2_4"="native,builtin"
+  "xaudio2_5"="native,builtin"
+  "xaudio2_6"="native,builtin"
+  "xaudio2_7"="native,builtin"
+  "xinput1_1"="builtin,native"
+  "xinput1_2"="builtin,native"
+  "xinput1_3"="builtin,native"
+  "xinput1_4"="builtin,native"
+  "xinput9_1_0"="builtin,native"
+  "xinputuap"="builtin,native"
 EOF
 }
 
 rm -rf $WINEPREFIX
+pkill -f termux-x11
+termux-x11 :13 >/dev/null 2>&1 &
 env WINEDLLOVERRIDES="mscoree=" grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
+pkill -f termux-x11
 
 echo -e "\nConfiguring Wine...\n"
 download_file https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "TFM"
@@ -54,39 +206,17 @@ echo -e "Unpacking Start Menu Link File..."
 ls -d $WINEPREFIX/drive_c/users/u* | xargs -I {} tar -xJf startmenulink.tar.xz -C "{}/AppData/Roaming/Microsoft/Windows/Start Menu" >/dev/null 2>&1
 rm -f startmenulink.tar.xz
 
-# download gecko 64-bit
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86_64.msi "e590b7d988a32d6aa4cf1d8aa3aa3d33766fdd4cf4c89c2dcc2095ecb28d066f" wine-gecko-2.47.4-x86_64.msi "Gecko(64 bit)"
+# install gecko & mono engine
+install_engine "wine-gecko-2.47.4-x86_64.msi" "Gecko(64 bit)" "e590b7d988a32d6aa4cf1d8aa3aa3d33766fdd4cf4c89c2dcc2095ecb28d066f"
+install_engine "wine-gecko-2.47.4-x86.msi" "Gecko(32 bit)" "26cecc47706b091908f7f814bddb074c61beb8063318e9efc5a7f789857793d6"
+install_engine "wine-mono-9.4.0-x86.msi" "Mono" "cf6173ae94b79e9de13d9a74cdb2560a886fc3d271f9489acb1cfdbd961cacb2"
 
-echo -e "\nInstalling Gecko(64 bit)...\n"
-mv $PREFIX/tmp/wine-gecko-2.47.4-x86_64.msi .
-grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86_64.msi >/dev/null 2>&1
-rm -f wine-gecko-2.47.4-x86_64.msi
-
-# download Gecko 32-bit
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-gecko-2.47.4-x86.msi "26cecc47706b091908f7f814bddb074c61beb8063318e9efc5a7f789857793d6" "wine-gecko-2.47.4-x86.msi" "Gecko(32 bit)"
-
-echo -e "\nInstalling Gecko(32 bit)...\n"
-mv $PREFIX/tmp/wine-gecko-2.47.4-x86.msi .
-grun $BOX64 wine64 msiexec /i wine-gecko-2.47.4-x86.msi >/dev/null 2>&1
-rm -f wine-gecko-2.47.4-x86.msi
-
-# download mono
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/wine-mono-9.4.0-x86.msi "cf6173ae94b79e9de13d9a74cdb2560a886fc3d271f9489acb1cfdbd961cacb2" "wine-mono-9.4.0-x86.msi" "Mono"
-
-echo -e "\nInstalling Mono...\n"
-mv $PREFIX/tmp/wine-mono-9.4.0-x86.msi .
-grun $BOX64 wine64 msiexec /i wine-mono-9.4.0-x86.msi >/dev/null 2>&1
-rm -f wine-mono-9.4.0-x86.msi
-
-# download inputbridge
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
 extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 
 echo -e "\nInstalling InputBridge...\n"
 touch install-ib.bat
-echo "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\" > install-ib.bat
-echo ".\install.bat" >> install-ib.bat
-echo "exit" >> install-ib.bat
+echo -e "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\\n.\install.bat\nexit" > install-ib.bat
 grun $BOX64 wine64 cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
 rm install-ib.bat
 
@@ -99,30 +229,28 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64
 
 echo -e "\nSetting DLL overrides...\n"
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "DLL Setting REG File"
-mv $PREFIX/tmp/dllsetting.reg .
-touch set.bat && echo "regedit /s Z:\\home\\dllsetting.reg" > set.bat && grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
+dll_overrides > dllsetting.reg
+echo "regedit /s Z:\\home\\dllsetting.reg" > set.bat
+grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f dllsetting.reg
 
 echo -e "\nConfiguring startup scripts...\n"
-rm -rf $HOME/storage/shared/.gqe-start
-mkdir -p $HOME/storage/shared/.gqe-start
-touch $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
-echo "start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
-echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
+rm -rf $GQE_CONFIG_PATH
+mkdir -p $GQE_CONFIG_PATH
+touch $GQE_CONFIG_PATH/start-gqe-v0.3.bat
+echo "start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe" > $GQE_CONFIG_PATH/start-gqe-v0.3.bat
+echo 'start tfm.exe C:\' >> $GQE_CONFIG_PATH/start-gqe-v0.3.bat
 
 echo -e "\nInitializing visual environment...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
 mv $PREFIX/tmp/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
 wallpaper_reg > wallpapersetting.reg
-touch set.bat
 echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat
 grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f wallpapersetting.reg set.bat
 
 echo -e "Creating configuration files...\n"
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
-
 var_all > $GQE_CONFIG_PATH/all_var.txt
 echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
 echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt

@@ -2,8 +2,8 @@
 
 export HOME="/data/data/com.termux/files/home"
 if [ ! -d "$HOME/storage" ]; then
-echo -e "External storage not found! Please check your storage permissions"
-exit 1
+    echo -e "External storage not found! Please check your storage permissions"
+    exit 1
 fi
 
 export PREFIX="/data/data/com.termux/files/usr"
@@ -43,10 +43,14 @@ extract_file() {
     fi
 }
 
+kill_x11(){
+    pkill -f termux-x11
+}
+
 export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
     echo "The configuration file is corrupted. Attempting to reconfigure..."
-    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-v0.1-sh "b9aac06d1e14f8f5645ccb5c0a64656e15e02c280cfc1706fd8f870c6cd5ffb0" "initialization-sh" "Initialization Script"
+    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-v0.1-sh "b9aac06d1e14f8f5645ccb5c0a64656e15e02c280cfc1706fd8f870c6cd5ffb0" "initialization-sh" "Initialization Script"
     mv $PREFIX/tmp/initialization-sh .
     chmod +x initialization-sh
     ./initialization-sh var
@@ -59,11 +63,11 @@ if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 fi
 
 reinit(){
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "b9aac06d1e14f8f5645ccb5c0a64656e15e02c280cfc1706fd8f870c6cd5ffb0" "initialization-sh" "initialization-sh"
-mv $PREFIX/tmp/initialization-sh .
-chmod +x initialization-sh
-source ./initialization-sh
-rm -f initialization-sh
+    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "b9aac06d1e14f8f5645ccb5c0a64656e15e02c280cfc1706fd8f870c6cd5ffb0" "initialization-sh" "initialization-sh"
+    mv $PREFIX/tmp/initialization-sh .
+    chmod +x initialization-sh
+    source ./initialization-sh
+    rm -f initialization-sh
 }
 
 show_info() {
@@ -74,12 +78,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator is an emulator capable of running Windows x86_64 applications.
 
-More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.3-beta
+More details: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.4-beta
 EOF
 }
 
 show_version() {
-echo "v0.3.3-beta"
+echo "v0.3.4-beta"
 }
 
 show_help() {
@@ -117,13 +121,17 @@ do
 
         if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
             reinit
+        else
+            rm -rf "$HOME/.gqe-wine"
+            kill_x11
+            termux-x11 :13 >/dev/null 2>&1 &
+            env WINEPREFIX="$HOME/.gqe-wine" WINEDLLOVERRIDES="mscoree=" DISPLAY=:13 grun $BOX64 wine wineboot -i >/dev/null 2>&1
+            kill_x11
+            cp -r $HOME/.gqe-wine/drive_c/* $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
+            rm -rf $HOME/.gqe-wine
+            echo "done"
+            exit 0
         fi
-    rm -rf $HOME/.gqe-wine
-    env WINEPREFIX=$HOME/.gqe-wine grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
-    cp -r $HOME/.gqe-wine/drive_c/* $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
-    rm -rf $HOME/.gqe-wine
-    echo "done"
-    exit 0
     fi
 done
 
@@ -162,7 +170,7 @@ if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
-pkill -f termux-x11
+kill_x11
 termux-x11 :13 >/dev/null 2>&1 &
 
 if am start -n com.termux.x11/.MainActivity; then
@@ -174,7 +182,7 @@ fi
 
 env PULSE_SERVER=127.0.0.1 grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
-pkill -f termux-x11
+kill_x11
 pulseaudio -k >/dev/null 2>&1
 rm -rf $PREFIX/tmp/pulse-*
 pkill -f virgl

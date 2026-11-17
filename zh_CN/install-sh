@@ -1,17 +1,17 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 if [ "$(uname -m)" != "aarch64" ]; then
-echo "\033[31m错误: GQE-模拟器仅支持ARM64架构\033[0m"
-echo "\033[31m请检查你的设备与Termux是否符合要求\033[0m"
-exit 1
+    echo "\033[31m错误: GQE-模拟器仅支持ARM64架构\033[0m"
+    echo "\033[31m请检查你的设备与Termux是否符合要求\033[0m"
+    exit 1
 fi
 
 export HOME="/data/data/com.termux/files/home"
 
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 5767168 ]; then
-echo "\033[31m错误: 存储空间不足，至少需要 5.5GB 可用空间\033[0m"
-exit 1
+    echo "\033[31m错误: 存储空间不足，至少需要 5.5GB 可用空间\033[0m"
+    exit 1
 fi
 
 export PREFIX="/data/data/com.termux/files/usr"
@@ -33,7 +33,7 @@ download_file() {
     if [ $? -ne 0 ]; then
         echo -e "\n\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
         rm -f "$PREFIX/tmp/$file_name"
-    exit 1
+        exit 1
     fi
 }
 
@@ -60,9 +60,9 @@ fi
 }
 
 setup_area_files(){
-for area in "$@"; do
-grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i $area "$GQE_DATA/locale/${area}.UTF-8"
-done
+    for area in "$@"; do
+    grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i $area "$GQE_DATA/locale/${area}.UTF-8"
+    done
 }
 
 clear
@@ -76,8 +76,8 @@ echo -e "若已授权可忽略\n"
 termux-setup-storage >/dev/null 2>&1 & sleep 0
 sleep 10
 if [ ! -e $HOME/storage ]; then
-  echo -e "\033[31m错误: 找不到外部存储目录，确认你是否已授权\033[0m\n"
-  exit 1
+    echo -e "\033[31m错误: 找不到外部存储目录，确认你是否已授权\033[0m\n"
+    exit 1
 fi
 
 echo -e "更新Termux包...\n"
@@ -95,6 +95,7 @@ export WINEARCH=win64
 export BOX64_PATH="$GQE_DATA/wine/bin:$GQE_DATA/box64/bin:$PREFIX/glibc/bin"
 export BOX64_LD_LIBRARY_PATH="$GQE_DATA/wine/lib:$GQE_DATA/lib:$GQE_DATA/box64/lib/box64-x86_64-linux-gnu"
 export BOX64="$GQE_DATA/box64/bin/box64"
+export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
 
 cd $HOME
 
@@ -114,59 +115,51 @@ extract_file "Box64" box64.tar.xz "$GQE_DATA/box64"
 
 while true; do
 
-echo -e "\n选择Wine版本... (输入数字并回车)\n"
-echo "1) Wine-9.16-custom(旧版)"
-echo -e "2) Proton-Wine-11.0(实验性)\n"
+    echo -e "\n选择Wine版本... (输入数字并回车)\n"
+    echo "1) Wine-9.16-custom(旧版)"
+    echo -e "2) Proton-Wine-11.0(实验性)\n"
 
-read gqe
+    read gqe
+    if [ "$gqe" = "1" ]; then
+        # download and extract wine
+        download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
+        extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
 
-if [ "$gqe" = "1" ]; then
+        clear
+        download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads//zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "初始化脚本"
+        echo -e "正在初始化 Wine...\n"
+        mv $PREFIX/tmp/initialization-sh .
+        chmod +x initialization-sh
+        source ./initialization-sh
+        judge_init_error
 
-# download and extract wine
-download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
-extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
+        # download and set up GQE startup script
+        download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads//zh_CN/start-gqe-old "a39d2e195dcd3c9784c4f28108ac98e7e1869b17dc23de81e351431d591c3d36" "start-gqe" "启动脚本"
+        mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
+        chmod +x $PREFIX/bin/start-gqe
+        break
+    elif [ "$gqe" = "2" ]; then
+        # download and extract proton-wine
+        download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz "a937c76416c261bcbdbd9b5b6c3dd8142fdaed7060b171e2cb65bc4188d4a1ef" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
+        extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
-clear
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "初始化脚本"
-echo -e "正在初始化 Wine...\n"
-mv $PREFIX/tmp/initialization-sh .
-chmod +x initialization-sh
-source ./initialization-sh
-judge_init_error
+        clear
+        download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads//zh_CN/initialization-sh "15656bc16f36fce0501590bbd317cfa99a54163225b3d0c984e2bcbdac9bc2b4" "initialization-sh" "初始化脚本"
+        echo -e "正在初始化 Wine...\n"
+        mv $PREFIX/tmp/initialization-sh .
+        chmod +x initialization-sh
+        source ./initialization-sh
+        judge_init_error
 
-# download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/start-gqe-old "a39d2e195dcd3c9784c4f28108ac98e7e1869b17dc23de81e351431d591c3d36" "start-gqe" "启动脚本"
-mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
-chmod +x $PREFIX/bin/start-gqe
-
-break
-
-elif [ "$gqe" = "2" ]; then
-
-# download and extract proton-wine
-download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz "a937c76416c261bcbdbd9b5b6c3dd8142fdaed7060b171e2cb65bc4188d4a1ef" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
-extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
-
-clear
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/initialization-sh "15656bc16f36fce0501590bbd317cfa99a54163225b3d0c984e2bcbdac9bc2b4" "initialization-sh" "初始化脚本"
-echo -e "正在初始化 Wine...\n"
-mv $PREFIX/tmp/initialization-sh .
-chmod +x initialization-sh
-source ./initialization-sh
-judge_init_error
-
-# download and set up GQE startup script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/start-gqe "78bd2e79e94347be97bd6b3688d9168463a6c04bdc605838b88799bc8725dfb5" "start-gqe" "启动脚本"
-mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
-chmod +x $PREFIX/bin/start-gqe
-break
-
-else
-
-clear
-echo "输入错误，重新选择..."
-
-fi
+        # download and set up GQE startup script
+        download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads//zh_CN/start-gqe "78bd2e79e94347be97bd6b3688d9168463a6c04bdc605838b88799bc8725dfb5" "start-gqe" "启动脚本"
+        mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
+        chmod +x $PREFIX/bin/start-gqe
+        break
+    else
+        clear
+        echo "输入错误，重新选择..."
+    fi
 done
 
 echo -e "\n正在配置区文件...\n"
@@ -179,7 +172,7 @@ download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/re
 extract_file "字体文件" "fonts.tar.xz" "$GQE_DATA/wine/share/wine/fonts"
 
 # download and set up GQE termination script
-download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/kill-gqe "466af1c24257c9e6f042dc06f9ac6c76cabeedd28c1a84337f7648fd10827d33" "kill-gqe" "终止脚本"
+download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/zh_CN/kill-gqe "466af1c24257c9e6f042dc06f9ac6c76cabeedd28c1a84337f7648fd10827d33" "kill-gqe" "终止脚本"
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 

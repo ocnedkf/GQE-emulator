@@ -6,13 +6,14 @@ var_all(){
   export HOME="/data/data/com.termux/files/home"
   export GQE_DATA="$HOME/.gqe-data-v0.3"
   export WINEPREFIX="${GQE_DATA}/.wine"
-  export DXVK_CONFIG_FILE="$HOME/storage/shared/.gqe-start/dxvk_settings.ini"
+  export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
+  export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
   export PULSE_LATENCY_MSEC=20
   export DXVK_ASYNC=1
   export BOX64_ASYNC=1
-  export MESA_VK_DEVICE_SELECT="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_v.txt")"
-  export VK_ICD_FILENAMES="$(cat "$HOME/storage/shared/.gqe-start/mesa_var_f.txt")"
-  export GALLIUM_DRIVER="$(cat "$HOME/storage/shared/.gqe-start/mesa_var.txt")"
+  export MESA_VK_DEVICE_SELECT="$(cat "$GQE_CONFIG_PATH/mesa_var_v.txt")"
+  export VK_ICD_FILENAMES="$(cat "$GQE_CONFIG_PATH/mesa_var_f.txt")"
+  export GALLIUM_DRIVER="$(cat "$GQE_CONFIG_PATH/mesa_var.txt")"
   export LOCPATH="${GQE_DATA}/locale"
   export MESA_NO_ERROR=1
   export DISPLAY=:13
@@ -234,11 +235,11 @@ grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f dllsetting.reg
 
 echo -e "\n正在配置启动脚本...\n"
-rm -rf $HOME/storage/shared/.gqe-start
-mkdir -p $HOME/storage/shared/.gqe-start
-touch $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
-echo "start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe" > $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
-echo 'start tfm.exe C:\' >> $HOME/storage/shared/.gqe-start/start-gqe-v0.3.bat
+rm -rf $GQE_CONFIG_PATH
+mkdir -p $GQE_CONFIG_PATH
+touch $GQE_CONFIG_PATH/start-gqe-v0.3.bat
+echo "start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe" > $GQE_CONFIG_PATH/start-gqe-v0.3.bat
+echo 'start tfm.exe C:\' >> $GQE_CONFIG_PATH/start-gqe-v0.3.bat
 
 echo -e "\n正在初始化视觉环境...\n"
 download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "壁纸"
@@ -249,7 +250,7 @@ grun $BOX64 wine64 Z://home//set.bat >/dev/null 2>&1
 rm -f wallpapersetting.reg set.bat
 
 echo -e "\n正在创建配置文件...\n"
-GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
+GQE_CONFIG_PATH="HOME/storage/shared/.gqe-start"
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 var_all > $GQE_CONFIG_PATH/all_var.txt
 echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini

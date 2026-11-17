@@ -4,35 +4,15 @@ echo -e "卸载脚本将在 15 秒后执行，执行后将彻底删除 GQE 及�
 echo -e "如要取消，请立即按 Ctrl+C 终止\n"
 sleep 1
 
-echo -e "\033[31m15\033[0m"
-sleep 1
-echo -e "\033[31m14\033[0m"
-sleep 1
-echo -e "\033[31m13\033[0m"
-sleep 1
-echo -e "\033[31m12\033[0m"
-sleep 1
-echo -e "\033[31m11\033[0m"
-sleep 1
-echo -e "\033[31m10\033[0m"
-sleep 1
-echo -e "\033[31m9\033[0m"
-sleep 1
-echo -e "\033[31m8\033[0m"
-sleep 1
-echo -e "\033[31m7\033[0m"
-sleep 1
-echo -e "\033[31m6\033[0m"
-sleep 1
-echo -e "\033[31m5\033[0m"
-sleep 1
-echo -e "\033[31m4\033[0m"
-sleep 1
-echo -e "\033[31m3\033[0m"
-sleep 1
-echo -e "\033[31m2\033[0m"
-sleep 1
-echo -e "\033[31m1\033[0m"
+echo_number(){
+    for (( i=15; i>=1; i-- )); do
+        echo -e "\033[31m${i}\033[0m"
+        sleep 1
+    done
+}
+
+echo_number
+
 sleep 2
 clear
 echo -e "开始卸载 GQE..."

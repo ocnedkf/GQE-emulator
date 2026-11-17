@@ -98,6 +98,7 @@ rm -f wallpapersetting.reg set.bat
 
 echo ""
 echo -e "正在创建配置文件...\n"
+GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 
 var_all > $HOME/storage/shared/.gqe-start/all_var.txt

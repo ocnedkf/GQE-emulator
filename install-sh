@@ -149,7 +149,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-bet
 extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
 
 clear
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "8304b7d491963f65fb782d03aaf1b72a0f856440389bf5d252ef5dca4489311e" "initialization-sh" "Initialization Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "081c75c7ca92817285d6d0e5566b4f38b515557bcfbb12852732dae25c9cf9e9" "initialization-sh" "Initialization Script"
 echo -e "Initializing Wine...\n"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
@@ -157,7 +157,7 @@ source ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/start-gqe "fa7d9d867b79935c0959b4e439831f5e5a19671d38491a98e869da5348be0c0d" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/start-gqe "0b35338f14bcd12dab940b7b9e630ab33035ebcbe181b0c035d67cf8d447d6db" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 break

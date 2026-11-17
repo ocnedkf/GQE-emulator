@@ -101,7 +101,7 @@ mv $PREFIX/tmp/mfc42.dll $WINEPREFIX/drive_c/windows/syswow64/mfc42.dll
 echo -e "\nSetting DLL overrides...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/dllsetting.reg "13f6ca809b555d29e242ece34e65aaaa00fb04b0ab7619d6bfc028a8c66ddd1a" "dllsetting.reg" "DLL Setting REG File"
 mv $PREFIX/tmp/dllsetting.reg .
-grun $BOX64 wine64 regedit "$(realpath dllsetting.reg)" >/dev/null 2>&1
+grun $BOX64 wine regedit "$(realpath dllsetting.reg)" >/dev/null 2>&1
 rm -f dllsetting.reg
 
 echo -e "\nConfiguring startup scripts...\n"

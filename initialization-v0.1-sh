@@ -211,7 +211,8 @@ install_engine "wine-gecko-2.47.4-x86_64.msi" "Gecko(64 bit)" "e590b7d988a32d6aa
 install_engine "wine-gecko-2.47.4-x86.msi" "Gecko(32 bit)" "26cecc47706b091908f7f814bddb074c61beb8063318e9efc5a7f789857793d6"
 install_engine "wine-mono-9.4.0-x86.msi" "Mono" "cf6173ae94b79e9de13d9a74cdb2560a886fc3d271f9489acb1cfdbd961cacb2"
 
-# download inputbridge
+
+# download and extract InputBridge
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
 extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 

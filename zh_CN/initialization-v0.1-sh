@@ -46,11 +46,11 @@ install_engine(){
   local package_name="$1"
   local echo_package_name="$2"
   local hash="$3"
-  download https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/${package_name} "$hash" "$package_name" "$echo_package_name"
+  download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/${package_name} "$hash" "$package_name" "$echo_package_name"
   echo -e "\nInstalling ${echo_package_name}...\n"
   mv $TMPDIR/${package_name} .
   grun $BOX64 wine64 msiexec /i ${package_name} >/dev/null 2>&1
-  rm -f package_name
+  rm -f $package_name
 }
 
 dll_overrides(){

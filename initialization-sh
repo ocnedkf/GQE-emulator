@@ -234,4 +234,5 @@ echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
 
 echo "Configuration Completed"
 echo -e "\nInitialization completed\n"
-rm -f "$0"
+
+rm -rf -- "${BASH_SOURCE[0]}"

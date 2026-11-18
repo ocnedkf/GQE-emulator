@@ -58,8 +58,8 @@ if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
 fi
 
 if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
-  echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
-  exit 1
+    echo "Failed to import environment variables! Please check whether /storage/emulated/0/.gqe-start/all_var.txt exists"
+    exit 1
 fi
 
 reinit(){
@@ -71,7 +71,7 @@ reinit(){
 }
 
 show_info() {
-cat << EOF
+    cat << EOF
 ==================== Introduction ====================
 
 GQE-emulator by ocnedkf
@@ -83,11 +83,11 @@ EOF
 }
 
 show_version() {
-echo "v0.3.4-beta"
+    echo "v0.3.4-beta"
 }
 
 show_help() {
-cat << EOF
+    cat << EOF
 ==================== Usage ====================
 
 usage : start-gqe [option]

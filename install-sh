@@ -136,7 +136,7 @@ source ./initialization-sh
 judge_init_error
 
 # download and set up GQE startup script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/start-gqe-old "a5185029c5f62294f324887ed12ab073c3f67643d3e0a731581c3c0c5f6827a4" "start-gqe" "GQE Startup Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/start-gqe-old "0b35338f14bcd12dab940b7b9e630ab33035ebcbe181b0c035d67cf8d447d6db" "start-gqe" "GQE Startup Script"
 mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
 chmod +x $PREFIX/bin/start-gqe
 

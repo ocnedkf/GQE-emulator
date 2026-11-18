@@ -1,5 +1,5 @@
 > [!NOTE]
-> 当前为 v0.3.3-beta 频道
+> 当前为 v0.3.4-beta 频道
 
 > [!WARNING]
 > 本模拟器尚处于测试阶段，不排除存在未知问题。对此造成的不便敬请谅解
@@ -15,7 +15,7 @@ GQE是一个在Android ARM64设备上运行windows x86_64程序的模拟器，�
 在Termux中执行以下命令
 <br>
 ```bash
-curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/install-sh && chmod +x g && ./g
+curl -s -o g https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/zh_CN/install-sh && chmod +x g && ./g
 ```
 
 # 启动 GQE
@@ -36,7 +36,7 @@ kill-gqe
 > [!Tip]
 > 你可在开始菜单中，通过“安装”和“Programs”选项，调整应用的Mesa与D3D文件，并使用 winecfg 快捷调整配置，等等
 
-你可以在`/storage/emulator/0/.gqe-start`路径下找到配置文件
+你可以在`/storage/emulated/0/.gqe-start`路径下找到配置文件
 
 | 文件名 | 作用说明 |
 |---|---|
@@ -63,7 +63,7 @@ kill-gqe
 不要在未安装GQE的情况下尝试执行！！！
 <br>
 ```bash
-curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/uninstall-gqe && chmod +x u && ./u
+curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/zh_CN/uninstall-gqe && chmod +x u && ./u
 ```
 
 # 设备要求

@@ -215,7 +215,6 @@ rm -f dllsetting.reg
 echo -e "\nConfiguring startup scripts...\n"
 rm -rf $GQE_CONFIG_PATH
 mkdir -p $GQE_CONFIG_PATH
-touch $GQE_CONFIG_PATH/start-gqe-v0.3.bat
 echo 'start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe' > $GQE_CONFIG_PATH/start-gqe-v0.3.bat
 echo 'start tfm.exe C:\' >> $GQE_CONFIG_PATH/start-gqe-v0.3.bat
 

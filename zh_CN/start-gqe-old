@@ -72,13 +72,13 @@ reinit(){
 
 show_info() {
     cat << EOF
-    ==================== 介绍 ====================
+==================== 介绍 ====================
 
-    GQE-emulator by ocnedkf
+GQE-emulator by ocnedkf
 
-    GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
+GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
 
-    详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.4-beta
+详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.4-beta
 EOF
 }
 
@@ -87,7 +87,7 @@ show_version() {
 }
 
 show_help() {
-cat << EOF
+    cat << EOF
 ==================== 使用说明 ====================
 
 usage : start-gqe [参数]

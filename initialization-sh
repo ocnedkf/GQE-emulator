@@ -2,27 +2,27 @@
 
 var_all(){
   cat << 'EOF'
-  # GQE-emulator environment variables
-  export HOME="/data/data/com.termux/files/home"
-  export GQE_DATA="$HOME/.gqe-data-v0.3"
-  export WINEPREFIX="${GQE_DATA}/.wine"
-  export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
-  export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
-  export PULSE_LATENCY_MSEC=20
-  export DXVK_ASYNC=1
-  export BOX64_ASYNC=1
-  export MESA_VK_DEVICE_SELECT="$(cat "$GQE_CONFIG_PATH/mesa_var_v.txt")"
-  export VK_ICD_FILENAMES="$(cat "$GQE_CONFIG_PATH/mesa_var_f.txt")"
-  export GALLIUM_DRIVER="$(cat "$GQE_CONFIG_PATH/mesa_var.txt")"
-  export LOCPATH="${GQE_DATA}/locale"
-  export MESA_NO_ERROR=1
-  export DISPLAY=:13
-  export MESA_DEBUG=1
-  export PREFIX="/data/data/com.termux/files/usr"
-  export BOX64_PATH="${GQE_DATA}/wine/bin:${GQE_DATA}/box64/bin:${PREFIX}/glibc/bin"
-  export BOX64_LD_LIBRARY_PATH="${WINEPREFIX}/lib:${GQE_DATA}/lib:${GQE_DATA}/box64/lib/box64-x86_64-linux-gnu"
-  export BOX64="${GQE_DATA}/box64/bin/box64"
-  export GALLIUM_HUD=simple,fps
+# GQE-emulator environment variables
+export HOME="/data/data/com.termux/files/home"
+export GQE_DATA="$HOME/.gqe-data-v0.3"
+export WINEPREFIX="${GQE_DATA}/.wine"
+export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
+export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
+export PULSE_LATENCY_MSEC=20
+export DXVK_ASYNC=1
+export BOX64_ASYNC=1
+export MESA_VK_DEVICE_SELECT="$(cat "$GQE_CONFIG_PATH/mesa_var_v.txt")"
+export VK_ICD_FILENAMES="$(cat "$GQE_CONFIG_PATH/mesa_var_f.txt")"
+export GALLIUM_DRIVER="$(cat "$GQE_CONFIG_PATH/mesa_var.txt")"
+export LOCPATH="${GQE_DATA}/locale"
+export MESA_NO_ERROR=1
+export DISPLAY=:13
+export MESA_DEBUG=1
+export PREFIX="/data/data/com.termux/files/usr"
+export BOX64_PATH="${GQE_DATA}/wine/bin:${GQE_DATA}/box64/bin:${PREFIX}/glibc/bin"
+export BOX64_LD_LIBRARY_PATH="${WINEPREFIX}/lib:${GQE_DATA}/lib:${GQE_DATA}/box64/lib/box64-x86_64-linux-gnu"
+export BOX64="${GQE_DATA}/box64/bin/box64"
+export GALLIUM_HUD=simple,fps
 EOF
 }
 

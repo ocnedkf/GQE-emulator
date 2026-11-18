@@ -6,7 +6,7 @@ var_all(){
   export HOME="/data/data/com.termux/files/home"
   export GQE_DATA="$HOME/.gqe-data-v0.3"
   export WINEPREFIX="${GQE_DATA}/.wine"
-  export GQE_COMFIG_PATH="$HOME/storage/shared/.gqe-start"
+  export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
   export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
   export PULSE_LATENCY_MSEC=20
   export DXVK_ASYNC=1
@@ -45,11 +45,11 @@ install_engine(){
   local package_name="$1"
   local echo_package_name="$2"
   local hash="$3"
-  download https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/${package_name} "$hash" "$package_name" "$echo_package_name"
+  download_file https://v6.gh-proxy.org/https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/${package_name} "$hash" "$package_name" "$echo_package_name"
   echo -e "\nInstalling ${echo_package_name}...\n"
   mv $TMPDIR/${package_name} .
   grun $BOX64 wine64 msiexec /i ${package_name} >/dev/null 2>&1
-  rm -f package_name
+  rm -f $package_name
 }
 
 dll_overrides(){

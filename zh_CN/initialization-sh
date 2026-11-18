@@ -237,4 +237,4 @@ echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
 echo "配置完成"
 echo -e "\n初始化完成\n"
 
-rm -f "$0"
+rm -rf -- "${BASH_SOURCE[0]}"

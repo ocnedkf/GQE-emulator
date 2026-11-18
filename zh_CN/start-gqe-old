@@ -58,7 +58,7 @@ if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 fi
 
 reinit(){
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "initialization-sh"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "initialization-sh"
 mv $PREFIX/tmp/initialization-sh .
 chmod +x initialization-sh
 source ./initialization-sh

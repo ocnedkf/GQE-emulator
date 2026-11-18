@@ -52,16 +52,16 @@ extract_file() {
 }
 
 judge_init_error(){
-if [ $? -ne 0 ]; then
-    echo -e "\033[31m错误: 初始化失败，请重试\033[0m"
-    rm -f initialization-sh
-    exit 1
-fi
+    if [ $? -ne 0 ]; then
+        echo -e "\033[31m错误: 初始化失败，请重试\033[0m"
+        rm -f initialization-sh
+        exit 1
+    fi
 }
 
 setup_area_files(){
     for area in "$@"; do
-    grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i $area "$GQE_DATA/locale/${area}.UTF-8"
+        grun $PREFIX/glibc/bin/localedef -f UTF-8 -c -i $area "$GQE_DATA/locale/${area}.UTF-8"
     done
 }
 

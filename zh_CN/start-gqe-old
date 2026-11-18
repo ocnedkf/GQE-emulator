@@ -2,11 +2,12 @@
 
 export HOME="/data/data/com.termux/files/home"
 if [ ! -d "$HOME/storage" ]; then
-echo -e "找不到外部存储！检查你的存储权限"
-exit 1
+    echo -e "找不到外部存储！检查你的存储权限"
+    exit 1
 fi
 
 export PREFIX="/data/data/com.termux/files/usr"
+
 download_file() {
     local url="$1"
     local hash_value="$2"
@@ -42,10 +43,14 @@ extract_file() {
     fi
 }
 
+kill_x11(){
+    pkill -f termux-x11
+}
+
 export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
     echo "配置文件不存在! 尝试重新配置..."
-    download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "初始化脚本"
+    download_file https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "初始化脚本"
     mv $PREFIX/tmp/initialization-sh .
     chmod +x initialization-sh
     ./initialization-sh var
@@ -58,27 +63,27 @@ if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 fi
 
 reinit(){
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.3-beta/initialization-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "initialization-sh"
-mv $PREFIX/tmp/initialization-sh .
-chmod +x initialization-sh
-source ./initialization-sh
-rm -f initialization-sh
+    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/zh_CN/initialization-v0.1-sh "cf8b7e40475f165151865794e9e0a58099a5e21a5c87c190bf4df37e433d3725" "initialization-sh" "initialization-sh"
+    mv $PREFIX/tmp/initialization-sh .
+    chmod +x initialization-sh
+    source ./initialization-sh
+    rm -f initialization-sh
 }
 
 show_info() {
-cat << EOF
-==================== 介绍 ====================
+    cat << EOF
+    ==================== 介绍 ====================
 
-GQE-emulator by ocnedkf
+    GQE-emulator by ocnedkf
 
-GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
+    GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
 
-详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.3-beta
+    详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.3.4-beta
 EOF
 }
 
 show_version() {
-echo "v0.3.3-beta"
+    echo "v0.3.4-beta"
 }
 
 show_help() {
@@ -116,13 +121,17 @@ do
 
         if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
             reinit
+        else
+        rm -rf "$HOME/.gqe-wine"
+            kill_x11
+            termux-x11 :13 >/dev/null 2>&1 &
+            env WINEPREFIX="$HOME/.gqe-wine" WINEDLLOVERRIDES="mscoree=" DISPLAY=:13 grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
+            kill_x11
+            cp -r $HOME/.gqe-wine/drive_c/* $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
+            rm -rf $HOME/.gqe-wine
+            echo "done"
+            exit 0
         fi
-        rm -rf $HOME/.gqe-wine
-        env WINEPREFIX=$HOME/.gqe-wine grun $BOX64 wine64 wineboot -i >/dev/null 2>&1
-        cp -r $HOME/.gqe-wine/drive_c/* $HOME/.gqe-data-v0.3/.wine/drive_c >/dev/null 2>&1
-        rm -rf $HOME/.wine
-        echo "完成"
-        exit 0
     fi
 done
 
@@ -161,7 +170,7 @@ if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
-pkill -f termux-x11
+kill_x11
 termux-x11 :13 >/dev/null 2>&1 &
 
 if am start -n com.termux.x11/.MainActivity; then
@@ -173,7 +182,7 @@ fi
 
 env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun $BOX64 wine64 explorer /desktop=shell,1024x768 Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.3.bat > $GQE_CONFIG_PATH/log.txt 2>&1
 
-pkill -f termux-x11
+kill_x11
 pulseaudio -k >/dev/null 2>&1
 rm -rf $PREFIX/tmp/pulse-*
 pkill -f virgl

@@ -6,7 +6,7 @@ var_all(){
 export HOME="/data/data/com.termux/files/home"
 export GQE_DATA="$HOME/.gqe-data-v0.3"
 export WINEPREFIX="${GQE_DATA}/.wine"
-export GQE_CONFIG_PATH="$GQE_CONFIG_PATH"
+export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
 export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
 export PULSE_LATENCY_MSEC=20
 export DXVK_ASYNC=1

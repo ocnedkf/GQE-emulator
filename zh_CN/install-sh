@@ -1,8 +1,8 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 if [ "$(uname -m)" != "aarch64" ]; then
-echo "\033[31m错误: GQE-模拟器仅支持ARM64架构\033[0m"
-echo "\033[31m请检查你的设备与Termux是否符合要求\033[0m"
+echo -e "\033[31m错误: GQE-模拟器仅支持ARM64架构\033[0m"
+echo -e "\033[31m请检查你的设备与Termux是否符合要求\033[0m"
 exit 1
 fi
 

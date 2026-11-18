@@ -71,7 +71,7 @@ reinit(){
 }
 
 show_info() {
-cat << EOF
+    cat << EOF
 ==================== Introduction ====================
 
 GQE-emulator by ocnedkf
@@ -83,11 +83,11 @@ EOF
 }
 
 show_version() {
-echo "v0.3.4-beta"
+    echo "v0.3.4-beta"
 }
 
 show_help() {
-cat << EOF
+    cat << EOF
 ==================== Usage ====================
 
 usage : start-gqe [option]

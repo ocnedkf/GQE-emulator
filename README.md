@@ -76,48 +76,48 @@ curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v
 An Android ARM64 device with Android version 8 or above, requiring at least approximately 5.5GB of space
 
 # Third party applications
-- [Box64](https://github.com/Pipetto-crypto/box64)
+- [7-Zip](https://7-zip.org/) - GNU LGPL v2.1 or later; 7z.dll also contains BSD-2-Clause/BSD-3-Clause components and an unRAR license restriction.
 
-- [DXVK](https://github.com/doitsujin/dxvk)
+- [Box64 (Custom)](https://github.com/Pipetto-crypto/box64) - MIT License
 
-- [VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
+- [D7VK](https://github.com/WinterSnowfall/d7vk) - zlib License
 
-- [D8VK](https://github.com/AlpyneDreams/d8vk)
+- [D8VK](https://github.com/AlpyneDreams/d8vk) - zlib License
 
-- [D7VK](https://github.com/WinterSnowfall/d7vk)
-
-- [Termux-APP](https://github.com/termux/termux-app)
-
-- [Termux-X11](https://github.com/termux/termux-x11)
-
-- [Termux-Packages](https://github.com/termux/termux-packages)
-
-- [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
+- [DXVK](https://github.com/doitsujin/dxvk) - zlib License
 
 - [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 
 - [DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
 
-- [Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
-
-- [Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
-
-- [Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
-
-- [Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
-
-- [Wine](https://github.com/ocnedkf/wine-custom)
-
-- [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
-
-- [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
-
-- [WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **Precompiled From** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
-
-- [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
-
 - [InputBridge](https://inputbridge.net/)
 
-- [Tiny File Manager](https://github.com/radzikpwnz/tfm)
+- [Mesa](https://gitlab.freedesktop.org/mesa/mesa/) - MIT for most code; component and file licenses vary.
 
-- [7-Zip](https://7-zip.org/)
+- [Mesa-Turnip (Custom)](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+
+- [Mesa-VirGL (Custom)](https://github.com/alexvorxx/Mesa-VirGL)
+
+- [Proton-Wine (Custom)](https://github.com/ocnedkf/proton-wine-custom) - GNU LGPL v2.1 or later
+
+- [Termux-APP](https://github.com/termux/termux-app) - GPL-3.0-only (with stated exceptions for bundled libraries)
+
+- [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages) - MIT License
+
+- [Termux-Packages](https://github.com/termux/termux-packages) - Apache License 2.0 for build infrastructure; package scripts and patches follow each package's license.
+
+- [Termux-X11](https://github.com/termux/termux-x11) - GPL-3.0
+
+- [Tiny File Manager](https://github.com/radzikpwnz/tfm) - MIT License
+
+- [Ubuntu-Packages](https://packages.ubuntu.com/noble/) 
+
+- [VKD3D](https://github.com/HansKristian-Work/vkd3d-proton) - GNU LGPL v2.1 or later
+
+- [Wine (Custom)](https://github.com/ocnedkf/wine-custom) - GNU LGPL v2.1 or later
+
+- [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko) - MPL-2.0 for most code, plus LGPL, GPL, and other third-party licenses.
+
+- [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono) - Multiple licenses, including MIT/X11, LGPL, GPL with exceptions, BSD, zlib, and MS-PL
+
+- [WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **Precompiled From** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag) - GNU LGPL v2.1 or later

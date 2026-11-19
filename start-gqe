@@ -50,7 +50,7 @@ kill_x11(){
 export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 if [ ! -f "$GQE_CONFIG_PATH/all_var.txt" ]; then
     echo "The configuration file is corrupted. Attempting to reconfigure..."
-    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "8304b7d491963f65fb782d03aaf1b72a0f856440389bf5d252ef5dca4489311e" "initialization-sh" "initialization-sh"
+    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "eb56a8400530d388bd9b3b52c8e50a3cc0e8a0f6848a3b42ef7720174b079355" "initialization-sh" "initialization-sh"
     mv $PREFIX/tmp/initialization-sh .
     chmod +x initialization-sh
     ./initialization-sh var
@@ -63,7 +63,7 @@ if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
 fi
 
 reinit(){
-    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "8304b7d491963f65fb782d03aaf1b72a0f856440389bf5d252ef5dca4489311e" "initialization-sh" "initialization-sh"
+    download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "eb56a8400530d388bd9b3b52c8e50a3cc0e8a0f6848a3b42ef7720174b079355" "initialization-sh" "initialization-sh"
     mv $PREFIX/tmp/initialization-sh .
     chmod +x initialization-sh
     source ./initialization-sh

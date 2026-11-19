@@ -70,48 +70,49 @@ curl -s -o u https://gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-
 一台Android版本大于等于8的ARM64设备，并确保剩余至少5.5GB的存储空间
 
 # 第三方应用程序
-- [Box64](https://github.com/Pipetto-crypto/box64)
 
-- [DXVK](https://github.com/doitsujin/dxvk)
+- [7-Zip](https://7-zip.org/) - GNU LGPL v2.1 或更高版本；7z.dll 还包含采用 BSD-2-Clause/BSD-3-Clause 许可证的组件，并受 unRAR 许可证限制。
 
-- [VKD3D](https://github.com/HansKristian-Work/vkd3d-proton)
+- [Box64（自定义）](https://github.com/Pipetto-crypto/box64) - MIT 许可证
 
-- [D8VK](https://github.com/AlpyneDreams/d8vk)
+- [D7VK](https://github.com/WinterSnowfall/d7vk) - zlib 许可证
 
-- [D7VK](https://github.com/WinterSnowfall/d7vk)
+- [D8VK](https://github.com/AlpyneDreams/d8vk) - zlib 许可证
 
-- [Termux-APP](https://github.com/termux/termux-app)
-
-- [Termux-X11](https://github.com/termux/termux-x11)
-
-- [Termux-Packages](https://github.com/termux/termux-packages)
-
-- [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages)
+- [DXVK](https://github.com/doitsujin/dxvk) - zlib 许可证
 
 - [DXVK-ASYNC](https://github.com/Sporif/dxvk-async)
 
 - [DXVK-GPLASYNC](https://gitlab.com/Ph42oN/dxvk-gplasync)
 
-- [Mesa](https://gitlab.freedesktop.org/mesa/mesa/)
+- [InputBridge](https://inputbridge.net/)
 
-- [Mesa-Turnip](https://github.com/K11MCH1/WinlatorTurnipDrivers)
+- [Mesa](https://gitlab.freedesktop.org/mesa/mesa/) - 大部分代码采用 MIT 许可证；不同组件和文件的许可证可能有所不同。
 
-- [Mesa-VirGL](https://github.com/alexvorxx/Mesa-VirGL)
+- [Mesa-Turnip（自定义）](https://github.com/K11MCH1/WinlatorTurnipDrivers)
 
-- [Proton-Wine](https://github.com/ocnedkf/proton-wine-custom)
+- [Mesa-VirGL（自定义）](https://github.com/alexvorxx/Mesa-VirGL)
 
-- [Wine](https://github.com/ocnedkf/wine-custom)
+- [Proton-Wine（自定义）](https://github.com/ocnedkf/proton-wine-custom) - GNU LGPL v2.1 或更高版本
 
-- [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko)
+- [Termux-APP](https://github.com/termux/termux-app) - GPL-3.0-only 许可证（附带库有声明的例外）
 
-- [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono)
+- [Termux-Glibc-Packages](https://github.com/termux-pacman/glibc-packages) - MIT 许可证
 
-- [WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **预编译自** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag)
+- [Termux-Packages](https://github.com/termux/termux-packages) - 构建基础设施采用 Apache License 2.0；各软件包的脚本和补丁遵循对应软件包的许可证。
+
+- [Termux-X11](https://github.com/termux/termux-x11) - GPL-3.0 许可证
+
+- [Tiny File Manager](https://github.com/radzikpwnz/tfm) - MIT 许可证
 
 - [Ubuntu-Packages](https://packages.ubuntu.com/noble/)
 
-- [InputBridge](https://inputbridge.net/)
+- [VKD3D](https://github.com/HansKristian-Work/vkd3d-proton) - GNU LGPL v2.1 或更高版本
 
-- [Tiny File Manager-zh](https://github.com/ocnedkf/tfm)
+- [Wine（自定义）](https://github.com/ocnedkf/wine-custom) - GNU LGPL v2.1 或更高版本
 
-- [7-Zip](https://7-zip.org/)
+- [Wine-Gecko](https://gitlab.winehq.org/wine/wine-gecko) - 大部分代码采用 MPL-2.0 许可证，另包含 LGPL、GPL 及其他第三方许可证。
+
+- [Wine-Mono](https://gitlab.winehq.org/mono/wine-mono) - 使用多种许可证，包括 MIT/X11、LGPL、附带例外条款的 GPL、BSD、zlib 和 MS-PL。
+
+- [WineD3D](https://gitlab.winehq.org/wine/wine/-/tree/master/dlls/wined3d) **预编译版本来源：** [Federico Dossena](https://fdossena.com/?p=wined3d/index.frag) - GNU LGPL v2.1 或更高版本

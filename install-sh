@@ -123,9 +123,9 @@ while true; do
         # download and extract wine
         download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
         extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
-    
-        clear
+
         download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-v0.1-sh "7f408cafcba10ff94659c0332cf8b1e488bd7e1fe452016332dec5378b950bb3" "initialization-sh" "Initialization Script"
+        clear
         echo -e "Initializing Wine...\n"
         mv $PREFIX/tmp/initialization-sh .
         chmod +x initialization-sh
@@ -142,8 +142,8 @@ while true; do
         download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz "a937c76416c261bcbdbd9b5b6c3dd8142fdaed7060b171e2cb65bc4188d4a1ef" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
         extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
     
-        clear
         download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "eb56a8400530d388bd9b3b52c8e50a3cc0e8a0f6848a3b42ef7720174b079355" "initialization-sh" "Initialization Script"
+        clear
         echo -e "Initializing Wine...\n"
         mv $PREFIX/tmp/initialization-sh .
         chmod +x initialization-sh

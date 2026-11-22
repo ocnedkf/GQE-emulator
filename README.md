@@ -48,6 +48,18 @@ Close all windows or run the command below
 kill-gqe
 ```
 
+# GQE Settings
+
+To open the settings menu, run `start-gqe -s` or `start-gqe --settings`.
+
+The menu provides the following options:
+
+- **Display:** Choose a preset resolution or enter a custom resolution in `WIDTHxHEIGHT` format. You can also enter a DPI value. If the resolution is missing or invalid, GQE falls back to `1024x768`; invalid DPI values are ignored.
+- **Audio:** Enter and save an audio latency value in milliseconds.
+- **Wine:** Configure DLL overrides or view Wine information.
+- **Drive letters:** Add, remove, or view drive-letter mappings.
+- **More settings:** Save a time zone ID, edit configuration files, select a WineD3D or VirGL graphics backend, and set a custom BMP wallpaper.
+
 # GQE Configuration
 
 > [!Tip]

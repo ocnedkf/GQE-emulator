@@ -220,7 +220,7 @@ echo 'start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe' > $GQE_CONFIG_PA
 echo 'start tfm.exe C:\' >> $GQE_CONFIG_PATH/start-gqe-v0.3.bat
 
 echo -e "\nInitializing visual environment...\n"
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"
 mv $PREFIX/tmp/wallpaper.bmp $WINEPREFIX/drive_c/wallpaper.bmp
 wallpaper_reg > wallpapersetting.reg
 echo "regedit /s Z:\\home\\wallpapersetting.reg" > set.bat

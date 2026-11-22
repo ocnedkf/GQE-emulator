@@ -20,7 +20,7 @@ echo -e "Starting to uninstall GQE..."
 
 PREFIX="/data/data/com.termux/files/usr"
 HOME="$PREFIX/../home"
-GQE_DATA=$HOME/.gqe-data-v0.3
+GQE_DATA=$HOME/.gqe-data-v0.4
 
 rm -rf $PREFIX/bin/{start-gqe,kill-gqe}
 

@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 HOME=/data/data/com.termux/files/home
-GQE_DATA=$HOME/.gqe-data-v0.3
+GQE_DATA=$HOME/.gqe-data-v0.4
 PREFIX=/data/data/com.termux/files/usr
 TMPDIR=$PREFIX/tmp
 BOX64=$GQE_DATA/box64/bin/box64

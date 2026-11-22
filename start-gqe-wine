@@ -1,0 +1,789 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+
+trap 'clear; echo "Closing..."; if ps a | grep -q "[w]ine"; then /data/data/com.termux/files/usr/bin/kill-gqe; fi; exit 130' 2 3
+
+export HOME="/data/data/com.termux/files/home"
+if [ ! -d "$HOME/storage" ]; then
+    echo -e "External storage not found! Check your storage permissions"
+    exit 1
+fi
+
+export PREFIX="/data/data/com.termux/files/usr"
+download_file() {
+    local url="$1"
+    local hash_value="$2"
+    local file_name="$3"
+    local echo_file_name="$4"
+    echo -e "\nDownloading $echo_file_name...\n"
+    rm -f "$PREFIX/tmp/$file_name"
+
+    if ! wget --quiet --show-progress -c -O "$PREFIX/tmp/$file_name" "$url"; then
+        echo -e "\n\033[31mError: Failed to download $echo_file_name, check your network!\033[0m\n"
+        exit 1
+    fi
+
+    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
+    if [ $? -ne 0 ]; then
+        echo -e "\n\033[31mError: Verification of $file_name failed, please check the file's integrity\033[0m\n"
+        rm -f "$PREFIX/tmp/$file_name"
+        exit 1
+    fi
+}
+
+extract_file() {
+    local echo_file_name="$1"
+    local file_name="$2"
+    local dest_dir="$3"
+    echo -e "\nExtracting $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xJf "$PREFIX/tmp/$file_name" -C "$dest_dir" >/dev/null 2>&1; then
+        rm -f "$PREFIX/tmp/$file_name"
+    else
+        echo -e "\n\033[31mError: Failed to extract $file_name; please try again\033[0m\n"
+        exit 1
+    fi
+}
+
+show_info() {
+    cat <<-EOF
+==================== Introduction ====================
+
+GQE-emulator by ocnedkf
+
+GQE-emulator is an emulator for running Windows x86_64 programs
+
+For details, see: https://github.com/ocnedkf/GQE-emulator/tree/v0.4-beta
+EOF
+}
+
+show_version() {
+    echo "v0.4-beta"
+    exit 0
+}
+
+show_help() {
+    cat <<'EOF'
+==================== Usage ====================
+
+usage : start-gqe [option]
+
+        start-gqe                Start GQE normally
+        start-gqe -v/--version   Print version information and exit
+        start-gqe -h/--help      Print help and introduction, then exit
+        start-gqe -f/--fix       Try to repair the Wine prefix
+        start-gqe -na/--no-audio Disable audio when starting GQE
+        start-gqe -wv/--with-vnc Start GQE with the VNC service
+        start-gqe -nv/--only-vnc Start GQE with only the VNC service
+        start-gqe -s/--settings  Open the GQE settings menu
+EOF
+    show_info
+}
+
+reinit() {
+    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "5BE3933470C4C5F3C0BFA87077FC74B28A89A2CC662EF72B254BE7DD7C2A694B" "initialization-sh" "initialization script"
+    mv "$PREFIX/tmp/initialization-sh" .
+    chmod +x initialization-sh
+    source ./initialization-sh "$1"
+    rm -f initialization-sh
+}
+
+reinit_var() {
+    echo "Configuration file is corrupted. How would you like to proceed? [1] Restore automatically [2] Edit manually [EXIT] Cancel "
+    while true; do
+        read -r choice
+        if [ "${choice^^}" = "EXIT" ]; then
+            echo "Exiting configuration editor"
+            return 0
+        fi
+        case "$choice" in
+            1)
+                reinit var
+                return 0
+                ;;
+            2)
+                nano "$GQE_START/all_var.txt"
+                clear
+                return 0
+                ;;
+            *)
+                clear
+                echo "Invalid option; please try again or enter EXIT to exit"
+                continue
+                ;;
+        esac
+    done
+}
+
+if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+    reinit_var
+fi
+
+if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
+    echo "Failed to import environment variables! Please check whether the file /storage/emulated/0/.gqe-start/all_var.txt exists"
+    exit 1
+fi
+
+echo_gqe_settings() {
+    cat <<'EOF'
+GQE-emulator Settings
+
+1) Display settings
+2) Audio settings
+3) Wine settings
+4) Drive letter settings
+5) Other settings
+6) About
+7) Back
+EOF
+}
+
+echo_time_info() {
+    cat <<'EOF'
+Example time zone IDs...
+
+Asia/Shanghai    Mainland China (UTC+8)
+Asia/Hong_Kong   Hong Kong
+Asia/Taipei      Taipei
+Asia/Tokyo       Tokyo, Japan (UTC+9)
+Europe/London    London
+America/New_York New York
+Etc/UTC          UTC (standard zero-offset time zone)
+Region/City        custom time zone ID
+EOF
+}
+
+echo_about_gqe() {
+    clear
+    echo -e "GQE Emulator v0.4-beta\n"
+    echo -e "Author: ocnedkf\n"
+    echo -e "GitHub: https://github.com/ocnedkf/GQE-emulator\n"
+    echo -e "Report issues: https://github.com/ocnedkf/GQE-emulator/issues\n"
+}
+
+# 1 Display settings
+gqe_display_settings() {
+    echo -e "1) Resolution settings\n2) DPI settings\n3) Back"
+    read -e -p "Enter an option (1-3): " display_choice
+    case $display_choice in
+        1)
+            echo -e "Preset resolutions:\n\n1) 320x200\n2) 320x420\n3) 352x288\n4) 400x240\n5) 640x350\n6) 640x480 (recommended)\n7) 800x480\n8) 800x600 (recommended)\n9) 1024x768 (recommended)\n10) 1280x720 (recommended)\n11) 1280x960 (recommended)\n12) 1280x1024 (recommended)\n13) 1400x1024\n14) 1600x1200 (recommended)\n15) 1366x768\n16) 1680x1050 (recommended)\n17) 1920x1080 (recommended)\n18) 1920x1200\n19) 2048x1536\n20) 2560x1600 (recommended)\n21) 2560x2048\n22) 3840x2160 (recommended)\n23) 7680x4320"
+            read -e -p "Enter a resolution: " resolution_choice
+            if [[ "$resolution_choice" =~ ^[0-9]+[xX][0-9]+$ ]]; then
+                echo "$resolution_choice" > "$GQE_DATA/config/resolution.txt"
+                echo "Resolution saved as: $resolution_choice"
+            else
+                echo "Invalid resolution format; use 'width x height' format, e.g. 1920x1080"
+            fi
+            # Add resolution-setting code here
+            ;;
+        2)
+            read -e -p "Enter the DPI value (e.g. 96, 120, 144): " dpi_value
+            if [[ "$dpi_value" =~ ^[0-9]+$ ]]; then
+                echo "$dpi_value" > "$GQE_DATA/config/dpi.txt"
+                echo "DPI saved as: $dpi_value"
+            else
+                echo "Invalid DPI value; enter a positive integer"
+            fi
+            # Add DPI-setting code here
+            ;;
+        3)
+            return 1
+            ;;
+        *)
+            echo "Invalid option; please select again."
+            ;;
+    esac
+}
+
+# 2 Audio settings
+gqe_audio_settings() {
+    echo -e "1) Latency settings\n2) Back"
+    read -e -p "Enter an option (1-2): " audio_choice
+    case $audio_choice in
+        1)
+            read -e -p "Enter the audio latency (ms): " audio_delay
+            if [[ "$audio_delay" =~ ^[0-9]+$ ]]; then
+                echo "$audio_delay" > "$GQE_DATA/config/audio_delay.txt"
+                echo "Audio delay saved as: $audio_delay ms"
+            else
+                echo "Invalid audio delay; enter a positive integer"
+            fi
+            # Add audio-delay setting code here
+            ;;
+        2)
+            return 1
+            ;;
+        *)
+            echo "Invalid option; please select again."
+            ;;
+    esac
+}
+
+# 3 Wine settings
+gqe_wine_settings() {
+    echo -e "1) DLL overrides\n2) Wine information\n3) Back"
+    read -e -p "Enter an option (1-3): " wine_choice
+    case $wine_choice in
+        1)
+            echo ""
+            while true; do
+                read -p "Enter the DLL file name (or type 'exit' to return): " dll_name
+
+                if [ "$dll_name" = "exit" ] || [ "$dll_name" = "EXIT" ]; then
+                    echo "Returning to the previous menu..."
+                    return 0
+                fi
+
+                if [ -z "$dll_name" ]; then
+                    echo "Error: DLL name cannot be empty; please try again..."
+                    continue
+                fi
+
+                read -p "Enter the override type (native/builtin/native,builtin): " dll_type
+                if [ "$dll_type" != "native" ] && [ "$dll_type" != "builtin" ] && [ "$dll_type" != "native,builtin" ]; then
+                    echo "Error: Invalid override type; enter 'native','builtin' or 'native,builtin'"
+                    continue
+                fi
+
+                echo "Windows Registry Editor Version 5.00" > dllset.reg
+                echo "[HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides]" >> dllset.reg
+                echo "\"$dll_name\"=\"$dll_type\"" >> dllset.reg
+
+                echo "regedit /s Z:\\home\\dllset.reg" > set.bat
+                grun "$BOX64" wine64 Z://home//set.bat >/dev/null 2>&1
+                rm -f dllset.reg set.bat
+
+                echo "Set $dll_name to $dll_type"
+            done
+            ;;
+        2)
+            echo -e "Wine information\nWine version: 9.16-custom\nWine prefix path: $GQE_DATA/.wine\nWine mode: Wow64\nWine build by ocnedkf"
+            ;;
+        3)
+            return 1
+            ;;
+        *)
+            echo "Invalid option; please select again."
+            ;;
+    esac
+}
+
+# 4 Drive letter settings
+gqe_drive_settings() {
+    echo -e "1) Add a drive letter\n2) Remove a drive letter\n3) View drive letters\n4) Back"
+    local DOSDIR="${GQE_DATA}/.wine/dosdevices"
+    read -e -p "Enter an option (1-4): " drive_choice
+    case $drive_choice in
+        1)
+            while true; do
+                read -e -p "Enter a drive letter (e.g. D, or EXIT to return): " drive_letter
+                if [ "${drive_letter^^}" = "EXIT" ]; then
+                    return 0
+                fi
+                read -e -p "Enter a drive path (e.g. /storage/emulated/0, or EXIT to return): " drive_path
+                if [ "${drive_path^^}" = "EXIT" ]; then
+                    return 0
+                fi
+                if [ -z "$drive_letter" ] || [ -z "$drive_path" ]; then
+                    echo "Error: Drive letter and path cannot be empty; please try again..."
+                    continue
+                fi
+
+                if ! [[ "$drive_letter" =~ ^[A-Za-z]$ ]]; then
+                    echo "Error: Drive letter must be a single English letter (e.g., D); please try again..."
+                    continue
+                fi
+
+                drive_letter=${drive_letter^^}
+                link="$DOSDIR/${drive_letter}:"
+                if [ -L "$link" ] || [ -e "$link" ]; then
+                    echo "Error: Drive letter $drive_letter already exists; please choose another drive letter..."
+                    continue
+                fi
+
+                ln -s "$drive_path" "$link"
+                echo "Added drive letter $drive_letter mapped to $drive_path"
+                return 0
+            done
+            ;;
+        2)
+            while true; do
+                read -e -p "Enter the drive letter to remove (e.g. D, or EXIT to return): " drive_letter
+
+                if [ "${drive_letter^^}" = "EXIT" ]; then
+                    return 0
+                fi
+                if [ -z "$drive_letter" ]; then
+                    echo "Error: Drive letter cannot be empty..."
+                    continue
+                fi
+                drive_letter=${drive_letter^^}
+                link="$DOSDIR/${drive_letter}:"
+
+                if [ ! -L "$link" ]; then
+                    echo "Error: Drive letter $drive_letter does not exist..."
+                    continue
+                fi
+
+                read -e -p "Confirm removal of drive letter $drive_letter ? (y/n): " confirm
+                if [[ "$confirm" =~ ^[Yy]$ ]]; then
+                    rm -f "$link"
+                    echo "Removed drive letter $drive_letter"
+                else
+                    echo "Canceled removal of drive letter $drive_letter"
+                    return 0
+                fi
+                return 0
+            done
+            ;;
+        3)
+            echo "Current drive letters:"
+            for link in "$DOSDIR"/*; do
+                if [ -L "$link" ]; then
+                    drive_letter=$(basename "$link" | sed 's/:$//')
+                    drive_path=$(readlink "$link")
+                    echo "Drive letter $drive_letter mapped to $drive_path"
+                fi
+            done
+            ;;
+        4)
+            return 1
+            ;;
+        *)
+            echo "Invalid option; please select again."
+            ;;
+    esac
+}
+
+# 5 Other settings
+gqe_other_settings() {
+    while true; do
+        echo -e "More settings\n\n1) Time zone settings\n2) Configuration settings\n3) Backend settings\n4) Wallpaper settings\n5) Back"
+        read -e -p "Enter an option (1-5): " other_choice
+        case $other_choice in
+        1)
+            echo_time_info
+            read -p "Enter a time zone ID: " timezone
+            if [ -z "${timezone}" ]; then
+                echo -e "\033[31mError: No time zone was entered; please try again\033[0m"
+                continue
+            else
+                echo "${timezone}" > "$GQE_DATA/timezone.txt"
+                clear
+                echo "Time zone saved as: ${timezone}"
+            fi
+            ;;
+        2)
+            local config_file
+
+            if [ ! -f "$PREFIX/bin/nano" ]; then
+                clear
+                echo -e "\nnano editor is not installed; attempting to install...\n"
+                pkg i --reinstall nano
+                if [ ! -f "$PREFIX/bin/nano" ]; then
+                    echo -e "Installation failed; please try again\n"
+                    continue
+                fi
+            fi
+            while true; do
+                echo -e "1) Edit dxvk_settings.ini ( DXVK configuration file )\n2) Edit all_var.txt ( GQE environment variable configuration file )\n3) Edit start-gqe-v0.4.bat ( GQE Wine startup script )\n4) Back"
+                read -e -p "Enter an option (1-4): " config_file
+                GQE_START="$HOME/storage/shared/.gqe-start"
+                case "$config_file" in
+                    1)
+                        if [ ! -f "$GQE_START/dxvk_settings.ini" ]; then
+                            touch "$GQE_START/dxvk_settings.ini"
+                        fi
+                        nano "$GQE_START/dxvk_settings.ini"
+
+                        clear
+                        continue
+                        ;;
+                    2)
+                        if [ ! -f "$GQE_START/all_var.txt" ]; then
+                            reinit_var
+                        fi
+                        nano "$GQE_START/all_var.txt"
+                        clear
+                        continue
+                        ;;
+                    3)
+                        if [ ! -f "$GQE_START/start-gqe-v0.4.bat" ]; then
+                            touch "$GQE_START/start-gqe-v0.4.bat"
+                        fi
+                        nano "$GQE_START/start-gqe-v0.4.bat"
+                        clear
+                        continue
+                        ;;
+                    4)
+                        break
+                        ;;
+                    *)
+                        echo "Invalid selection; please try again or enter EXIT to exit"
+                        continue
+                        ;;
+                esac
+            done
+            ;;
+        3)
+            while true; do
+                echo -e "1) WineD3D backend\n2) Virgl backend\n3) Back"
+                read -e -p "Choose a number to continue...(1/2/3 or EXIT to exit) " choose_backend
+            if [ "${choose_backend^^}" = "EXIT" ]; then
+                echo "Exiting backend settings"
+                clear
+                break
+            fi
+            case "$choose_backend" in
+                1)
+                    clear
+                    while true; do
+                        read -p 'choose a backend... (gl/vulkan/no3d or "exit" to cancel): ' renderer
+                        if [ "${renderer^^}" = "EXIT" ]; then
+                            echo "Exiting backend settings"
+                            break
+                        fi
+                        if [ "$renderer" = "gl" ] || [ "$renderer" = "vulkan" ] || [ "$renderer" = "no3d" ]; then
+                            cd "$HOME"
+                            echo "Windows Registry Editor Version 5.00" > dllset.reg
+                            echo "[HKEY_CURRENT_USER\\Software\\Wine\\Direct3D]" >> dllset.reg
+                            echo "\"renderer\"=\"$renderer\"" >> dllset.reg
+                            echo -e "\n[HKEY_CURRENT_USER\\WoW6432Node\\Software\\Wine\\Direct3D]" >> dllset.reg
+                            echo "\"renderer\"=\"$renderer\"" >> dllset.reg
+
+                            echo "regedit /s Z:\\home\\dllset.reg" > set.bat
+
+                            if grun "$BOX64" wine64 Z:\\home\\set.bat >/dev/null 2>&1; then
+                                echo "Done!"
+                                rm -f dllset.reg set.bat
+                                break
+                            else
+                                clear
+                                echo "Failed to set the backend; please check Wine integrity"
+                                rm -f dllset.reg set.bat
+                                break
+                            fi
+                        else
+                            clear
+                            echo -e "You selected an unavailable option; please try again"
+                        fi
+                    done
+
+                    ;;
+                2)
+                    while true; do
+                        echo -e "1) Standard\n2) Android special edition\n3) Exit"
+                        read -e -p "Enter a number to choose...(1/2/3) " choose_virgl_backend
+                    if [ "$choose_virgl_backend" = "1" ]; then
+                        if ! command -v virgl_test_server >/dev/null 2>&1; then
+                            read -p "This backend is not installed. Install it now? [y/n] " choose
+                            if [ "${choose^^}" != "Y" ]; then
+                                echo "Backend installation canceled"
+                                break
+                            fi
+                            echo "Installing..."
+                            pkg i --reinstall virglrenderer >/dev/null 2>&1
+                            if ! command -v virgl_test_server >/dev/null 2>&1; then
+                                echo "Installation failed; could not find virgl_test_server"
+                                break
+                            fi
+                        fi
+                        echo "virglrenderer" > "$GQE_DATA/virgl_backend.txt"
+                        echo "Switched successfully"
+                        break
+                    elif [ "$choose_virgl_backend" = "2" ]; then
+                        if ! command -v virgl_test_server_android >/dev/null 2>&1; then
+                            read -p "This backend is not installed. Install it now? [y/n] " choose
+                            if [ "$choose" != "y" ]; then
+                                echo "Backend installation canceled"
+                                break
+                            fi
+                            echo "Installing..."
+                            pkg i --reinstall virglrenderer >/dev/null 2>&1
+                            if ! command -v virgl_test_server_android >/dev/null 2>&1; then
+                                echo "Installation failed; could not find virgl_test_server_android"
+                                break
+                            fi
+                        fi
+                        echo "virglrenderer_android" > "$GQE_DATA/virgl_backend.txt"
+                        echo "Switched successfully"
+                        break
+                    elif [ "$choose_virgl_backend" = "3" ]; then
+                        echo "Exiting backend settings"
+                        break
+                    fi
+                        echo "Invalid option; please select again."
+                    done
+                    ;;
+                3)
+                    break
+                    ;;
+                *)
+                    echo "Invalid option; please select again."
+                    ;;
+            esac
+            done
+            ;;
+        4)
+            if [ ! -f "$GQE_DATA/.wine/drive_c/wallpaper.bmp" ]; then
+                echo "No wallpaper is set"
+            else
+                if sha256sum --status -c <<< "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15  $GQE_DATA/.wine/drive_c/wallpaper.bmp" >/dev/null 2>&1; then
+                    echo "The current wallpaper is the default wallpaper"
+                else
+                    echo "The current wallpaper is a custom wallpaper"
+                fi
+            fi
+            while true; do
+                read -e -p "Enter the path to the wallpaper file (BMP format, or enter EXIT to exit): " wallpaper_path
+                if [ "${wallpaper_path^^}" = "EXIT" ]; then
+                    echo "Exiting wallpaper settings"
+                    break
+                fi
+                if [ -z "$wallpaper_path" ]; then
+                    echo "Error: Path is empty; please try again or enter EXIT to exit"
+                    continue
+                fi
+                if [ -f "$wallpaper_path" ]; then
+                    cp "$wallpaper_path" "$GQE_DATA/.wine/drive_c/wallpaper.bmp"
+                    echo "Wallpaper path set to: $wallpaper_path"
+                    break
+                else
+                    echo "Error: File does not exist; please try again or enter EXIT to exit"
+                    continue
+                fi
+            done
+            ;;
+        5)
+            return 1
+            ;;
+        *)
+            echo "Invalid option; please select again."
+            continue
+            ;;
+    esac
+    done
+}
+
+gqe_settings_menu() {
+    clear
+    while true; do
+        echo_gqe_settings
+        read -p "Enter an option (1-7): " choice
+        case $choice in
+            1)
+                while gqe_display_settings; do :; done
+                ;;
+            2)
+                while gqe_audio_settings; do :; done
+                ;;
+            3)
+                while gqe_wine_settings; do :; done
+                ;;
+            4)
+                while gqe_drive_settings; do :; done
+                ;;
+            5)
+                gqe_other_settings
+                ;;
+            6)
+                echo_about_gqe
+                read -p "Press any key to return..." -n1 -s
+                clear
+                ;;
+            7)
+                clear
+                return 0
+                ;;
+            *)
+                echo "Invalid option; please select again."
+                ;;
+        esac
+    done
+}
+
+if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+    reinit_var
+fi
+
+for arg in "$@"; do
+    case $arg in
+        -v | --version)
+            show_version
+            exit 0
+            ;;
+        -h | --help)
+            show_help
+            exit 0
+            ;;
+        -f | --fix)
+            echo "Are you sure you want to try to repair the Wine prefix? [y/n]"
+            read -e -r response
+            if [ "$response" != "y" ]; then
+                echo "exit"
+                exit 1
+            fi
+
+            if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
+                reinit
+            fi
+            rm -rf "$HOME/.gqe-wine"
+            if ! env WINEPREFIX="$HOME/.gqe-wine" grun "$BOX64" wine64 wineboot -i >/dev/null 2>&1; then
+                echo "Failed to initialize the Wine prefix"
+                exit 1
+            fi
+            mkdir -p "$GQE_DATA/.wine/drive_c"
+            if ! cp -a "$HOME/.gqe-wine/drive_c/." "$GQE_DATA/.wine/drive_c/"; then
+                echo "Failed to copy the repaired files; the temporary prefix has been kept at $HOME/.gqe-wine"
+                exit 1
+            fi
+            rm -rf "$HOME/.gqe-wine"
+            echo "Done"
+            exit 0
+            ;;
+        -na | --no-audio)
+            GQE_NO_PULSE=1
+            ;;
+        -wv | --with-vnc)
+            if ! command -v x11vnc >/dev/null 2>&1; then
+                echo -e "Error: x11vnc is not installed; it is required for this feature to work\n"
+                read -p "Install now? (y/n) " choose
+                if [ "$choose" != "y" ]; then
+                    echo "Since you chose to cancel, the VNC feature will not work"
+                    exit 1
+                fi
+                echo "Installing x11vnc..."
+                pkg install x11vnc -y
+            fi
+            if ! command -v x11vnc >/dev/null 2>&1; then
+                echo "Installation failed; x11vnc was not found"
+                exit 1
+            fi
+            GQE_WITH_VNC=1
+            ;;
+        -nv | --only-vnc)
+            if ! command -v vncserver >/dev/null 2>&1; then
+                echo -e "Error: vncserver is not installed; it is required for this feature to work\n"
+                read -p "Install now? (y/n) " choose
+                if [ "$choose" != "y" ]; then
+                    echo "Since you chose to cancel, the VNC feature will not work"
+                    exit 1
+                fi
+                echo "Installing vncserver..."
+                pkg install tigervnc -y
+            fi
+            if ! command -v vncserver >/dev/null 2>&1; then
+                echo "Installation failed; vncserver was not found"
+                exit 1
+            fi
+            GQE_ONLY_VNC=1
+            ;;
+        -s | --settings)
+            gqe_settings_menu
+            exit 0
+            ;;
+    esac
+done
+
+if [ "$GQE_WITH_VNC" = "1" ] && [ "$GQE_ONLY_VNC" = "1" ]; then
+    echo "Warning: Both VNC modes were specified; --with-vnc will be used"
+    unset GQE_ONLY_VNC
+fi
+
+FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
+if [ "$FREE_KB" -lt 1048576 ]; then
+    echo "Low available storage detected — GQE may cause lag or malfunction"
+fi
+
+if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
+    clear
+    echo -e "Wine prefix is corrupted! Attempting to reinitialize...\n"
+    reinit
+fi
+
+if ps a | grep -q '[w]ine64'; then
+    grun "$BOX64" wine64 wineboot -k >/dev/null 2>&1
+fi
+
+if [ "$GQE_NO_PULSE" = "1" ]; then
+    echo "Warning: Audio is disabled"
+else
+    rm -rf "$PREFIX"/tmp/pulse-*
+    pulseaudio -k >/dev/null 2>&1
+    pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+fi
+
+if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
+    pkill -f virgl
+    if [ "$(cat "$GQE_DATA/virgl_backend.txt")" = "virglrenderer" ]; then
+        virgl_test_server --use-gles --use-egl-surfaceless > "$GQE_START/log.txt" 2>&1 &
+    else
+        virgl_test_server_android --angle-vulkan &
+    fi
+    export LIBGL_ALWAYS_SOFTWARE=1
+fi
+
+GQE_DISPLAY_DPI_CONFIG_PATH="$GQE_DATA/config"
+GQE_DISPLAY_DPI_CONFIG="$GQE_DISPLAY_DPI_CONFIG_PATH/dpi.txt"
+if [ ! -f "$GQE_DISPLAY_DPI_CONFIG" ]; then
+    mkdir -p "$GQE_DISPLAY_DPI_CONFIG_PATH"
+    touch "$GQE_DISPLAY_DPI_CONFIG"
+fi
+GQE_DISPLAY_DPI=$(cat "$GQE_DISPLAY_DPI_CONFIG" 2>/dev/null)
+if ! [[ -n $GQE_DISPLAY_DPI && -z ${GQE_DISPLAY_DPI//[0-9]/} && $GQE_DISPLAY_DPI -ne 0 ]]; then
+    echo "Invalid DPI configuration; ignoring DPI settings"
+    GQE_NO_DPI=1
+fi
+
+if [ "$GQE_WITH_VNC" = "1" ]; then
+    if ps a | grep -q '[t]ermux-x11'; then
+        pkill -f termux-x11
+    fi
+    termux-x11 :13 >/dev/null 2>&1 &
+    x11vnc -display :13 -nopw -forever -shared &
+    echo "VNC service started; connect to localhost:5913"
+elif [ "$GQE_ONLY_VNC" = "1" ]; then
+    vncserver -SecurityTypes None -geometry 1024x768 :13 &
+    export DISPLAY=:13
+    echo "VNC service started; connect to localhost:5913"
+else
+    if ps a | grep -q '[t]ermux-x11'; then
+        pkill -f termux-x11
+    fi
+    if [ "$GQE_NO_DPI" != 1 ]; then
+        termux-x11 :13 -dpi="$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
+    else
+        termux-x11 :13 >/dev/null 2>&1 &
+    fi
+fi
+
+resolution_file="$GQE_DATA/config/resolution.txt"
+resolution=$(cat "$resolution_file" 2>/dev/null)
+if [[ ! "$resolution" =~ ^[0-9]+[xX][0-9]+$ ]]; then
+    echo "Invalid or missing resolution configuration; resetting to the default resolution 1024x768"
+    mkdir -p "$(dirname "$resolution_file")"
+    resolution="1024x768"
+    echo "$resolution" > "$resolution_file"
+fi
+
+if [ "$GQE_ONLY_VNC" != "1" ]; then
+    if am start -n com.termux.x11/.MainActivity; then
+        sleep 0.8
+        termux-x11-preference displayResolutionMode:exact "displayResolutionExact:${resolution}" || echo "Failed to change the resolution; you may need to set it manually"
+    else
+        echo "Failed to launch Termux-x11 automatically; make sure it is installed"
+    fi
+fi
+
+env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
+
+if [ "$GQE_ONLY_VNC" != "1" ]; then
+    pkill -f termux-x11
+fi
+if [ "$GQE_NO_PULSE" != "1" ]; then
+    pulseaudio -k >/dev/null 2>&1
+    rm -rf "$PREFIX"/tmp/pulse-*
+fi
+if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
+    pkill -f virgl
+fi

@@ -74,7 +74,8 @@ sleep 1
 echo -e "Please grant storage permissions\n"
 echo -e "If already granted, this can be ignored\n"
 termux-setup-storage >/dev/null 2>&1 & sleep 0
-sleep 10
+PID=$!
+wait $PID
 if [ ! -e "$HOME/storage" ]; then
     echo -e "\033[31mERROR:Failed to check the directory , Please ensure that you have granted storage permissions\033[0m\n"
     exit 1
@@ -88,8 +89,9 @@ apt-get -y --with-new-pkgs -o Dpkg::Options::="--force-confdef" upgrade >/dev/nu
 echo "Installing necessary..."
 pkg install x11-repo glibc-repo -y &>/dev/null
 pkg install virglrenderer pulseaudio termux-x11-nightly glibc-runner alsa-lib-glibc freetype-glibc libpulse-glibc libx11-glibc libxcb-glibc libxext-glibc libxft-glibc libdrm-glibc libffi-glibc libicu-glibc libpciaccess-glibc libxml2-glibc libxshmfence-glibc libxi-glibc libxrandr-glibc vulkan-icd-loader-glibc tar xz-utils wget libepoxy-glibc libxkbcommon-glibc libxcursor-glibc libxcomposite-glibc libxinerama-glibc libmount-glibc libthai-glibc libgraphite-glibc libpixman-glibc libjpeg-turbo-glibc -y &>/dev/null
+pkg remove mesa-glibc -y &>/dev/null
 
-export GQE_DATA="$HOME/.gqe-data-v0.3"
+export GQE_DATA="$HOME/.gqe-data-v0.4"
 export WINEPREFIX="$GQE_DATA/.wine"
 export GQE_CONFIG_PATH=$HOME/storage/shared/.gqe-start
 export WINEARCH=win64
@@ -99,12 +101,13 @@ export BOX64="$GQE_DATA/box64/bin/box64"
 export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
 
 cd $HOME
+
 # download and extract necessary files
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/lib.tar.xz "bbc45aee29be45e8f90672e4cfac4f3d22baff20ca05131b44b38c5733dcd9e2" "lib.tar.xz" "additional dependencies"
 extract_file "additional dependencies" "lib.tar.xz" "$GQE_DATA/lib"
 
 echo -e "Repairing the symbolic link..."
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.2-beta/repair-symlinks.sh "70b93bc552d86298adad2cd6ba1d79c5efa97082792481f2f978f6435525b869" "repair-symlinks.sh" "Fix Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/repair-symlinks.sh "FC8D13E6B29850BE72A709F5C9BD75B286893610171D85A417E72955176B4A8C" "repair-symlinks.sh" "Fix Script"
 mv $PREFIX/tmp/repair-symlinks.sh .
 chmod +x repair-symlinks.sh
 ./repair-symlinks.sh
@@ -123,8 +126,8 @@ while true; do
         # download and extract wine
         download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/winewow64.tar.xz "88d1d73569e869ccdb51e1c25f5d70963a23344ea9be188e5442995d70492484" "winewow64.tar.xz" "Wine"
         extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
-
-        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-v0.1-sh "7f408cafcba10ff94659c0332cf8b1e488bd7e1fe452016332dec5378b950bb3" "initialization-sh" "Initialization Script"
+    
+        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh "5BE3933470C4C5F3C0BFA87077FC74B28A89A2CC662EF72B254BE7DD7C2A694B" "initialization-sh" "Initialization Script"
         clear
         echo -e "Initializing Wine...\n"
         mv $PREFIX/tmp/initialization-sh .
@@ -133,7 +136,7 @@ while true; do
         judge_init_error
     
         # download and set up GQE startup script
-        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/start-gqe-old "8d5179986c31206a439194b3e1b3d03ed9a9a8e278af92aa8483ed34e9eadf4a" "start-gqe" "GQE Startup Script"
+        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-wine "64A1C704EEAEAB579F75C52FD496862201001AAB575165151196B6BF73B0EA0A" "start-gqe" "GQE Startup Script"
         mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
         chmod +x $PREFIX/bin/start-gqe
         break
@@ -141,8 +144,8 @@ while true; do
         # download and extract proton-wine
         download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/proton-wine-11.0-wow64.tar.xz "a937c76416c261bcbdbd9b5b6c3dd8142fdaed7060b171e2cb65bc4188d4a1ef" "proton-wine-11.0-wow64.tar.xz" "Proton-Wine"
         extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
-    
-        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/initialization-sh "8135d6c6db3b3fd4b1f1cece0b32a95b447f35358e7737be014d52e9c90f9fb0" "initialization-sh" "Initialization Script"
+        
+        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-proton-sh "395AE312C86BB1C93B7E72AA4CA82C053F0D9197E47AF58A95E1EEC43CDD4D12" "initialization-sh" "Initialization Script"
         clear
         echo -e "Initializing Wine...\n"
         mv $PREFIX/tmp/initialization-sh .
@@ -151,7 +154,7 @@ while true; do
         judge_init_error
     
         # download and set up GQE startup script
-        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/start-gqe "6423fd33038230d22054025a2dbf6b1c2255e4de0013dd86fb6cd9a1d90ad6e2" "start-gqe" "GQE Startup Script"
+        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-proton "BD57B20C71472F7C7E07E44DADE4A7EAF064CA13BC9338EA3D9C4DD869602D5F" "start-gqe" "GQE Startup Script"
         mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
         chmod +x $PREFIX/bin/start-gqe
         break
@@ -171,7 +174,7 @@ download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-bet
 extract_file "Fonts" "fonts.tar.xz" "$GQE_DATA/wine/share/wine/fonts"
 
 # download and set up GQE termination script
-download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.3.4-beta/kill-gqe "2d65653ec5b6e5c68619f342d7e369a0508a4f61e57d2f105273eb77a8797664" "kill-gqe" "Termination Script"
+download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/kill-gqe "4831F5F9CFB0E982CB75E4E309C1BD875CA8B1BAD57092F0A07C3A47C047B79D" "kill-gqe" "Termination Script"
 mv $PREFIX/tmp/kill-gqe $PREFIX/bin/kill-gqe
 chmod +x $PREFIX/bin/kill-gqe
 

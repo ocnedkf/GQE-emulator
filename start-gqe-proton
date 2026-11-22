@@ -45,7 +45,7 @@ extract_file() {
 }
 
 show_info() {
-    cat <<-EOF
+    cat << EOF
 ==================== Introduction ====================
 
 GQE-emulator by ocnedkf
@@ -80,7 +80,7 @@ EOF
 }
 
 reinit() {
-    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "5BE3933470C4C5F3C0BFA87077FC74B28A89A2CC662EF72B254BE7DD7C2A694B" "initialization-sh" "initialization script"
+    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-proton-sh" "395AE312C86BB1C93B7E72AA4CA82C053F0D9197E47AF58A95E1EEC43CDD4D12" "initialization-sh" "initialization script"
     mv "$PREFIX/tmp/initialization-sh" .
     chmod +x initialization-sh
     source ./initialization-sh "$1"
@@ -250,7 +250,7 @@ gqe_wine_settings() {
                 echo "\"$dll_name\"=\"$dll_type\"" >> dllset.reg
 
                 echo "regedit /s Z:\\home\\dllset.reg" > set.bat
-                grun "$BOX64" wine64 Z://home//set.bat >/dev/null 2>&1
+                grun "$BOX64" wine Z://home//set.bat >/dev/null 2>&1
                 rm -f dllset.reg set.bat
 
                 echo "Set $dll_name to $dll_type"
@@ -355,213 +355,206 @@ gqe_drive_settings() {
     esac
 }
 
+gqe_config_settings() {
+    if [ ! -f "$PREFIX/bin/nano" ]; then
+        clear
+        echo -e "\nnano editor is not installed; attempting to install...\n"
+        pkg i --reinstall nano
+        if [ ! -f "$PREFIX/bin/nano" ]; then
+            echo -e "Installation failed; please try again\n"
+            return 0
+        fi
+    fi
+
+    while true; do
+        echo -e "1) Edit dxvk_settings.ini ( DXVK configuration file )\n2) Edit all_var.txt ( GQE environment variable configuration file )\n3) Edit start-gqe-v0.4.bat ( GQE Wine startup script )\n4) Back"
+        read -e -p "Enter an option (1-4): " config_file
+        GQE_START="$HOME/storage/shared/.gqe-start"
+        case "$config_file" in
+            1)
+                if [ ! -f "$GQE_START/dxvk_settings.ini" ]; then
+                    touch "$GQE_START/dxvk_settings.ini"
+                fi
+                nano "$GQE_START/dxvk_settings.ini"
+                clear
+                ;;
+            2)
+                if [ ! -f "$GQE_START/all_var.txt" ]; then
+                    reinit_var
+                fi
+                nano "$GQE_START/all_var.txt"
+                clear
+                ;;
+            3)
+                if [ ! -f "$GQE_START/start-gqe-v0.4.bat" ]; then
+                    touch "$GQE_START/start-gqe-v0.4.bat"
+                fi
+                nano "$GQE_START/start-gqe-v0.4.bat"
+                clear
+                ;;
+            4)
+                return 0
+                ;;
+            *)
+                echo "Invalid selection; please try again or enter EXIT to exit"
+                ;;
+        esac
+    done
+}
+
+gqe_backend_settings() {
+    while true; do
+        echo -e "1) WineD3D backend\n2) Virgl backend\n3) Back"
+        read -e -p "Choose a number to continue...(1/2/3 or EXIT to exit) " choose_backend
+        if [ "${choose_backend^^}" = "EXIT" ]; then
+            echo "Exiting backend settings"
+            return 0
+        fi
+        case "$choose_backend" in
+            1)
+                clear
+                while true; do
+                    read -p 'choose a backend... (gl/vulkan/no3d or "exit" to cancel): ' renderer
+                    if [ "${renderer^^}" = "EXIT" ]; then
+                        echo "Exiting backend settings"
+                        break
+                    fi
+                    if [ "$renderer" = "gl" ] || [ "$renderer" = "vulkan" ] || [ "$renderer" = "no3d" ]; then
+                        cd "$HOME"
+                        echo "Windows Registry Editor Version 5.00" > dllset.reg
+                        echo "[HKEY_CURRENT_USER\\Software\\Wine\\Direct3D]" >> dllset.reg
+                        echo "\"renderer\"=\"$renderer\"" >> dllset.reg
+                        echo -e "\n[HKEY_CURRENT_USER\\WoW6432Node\\Software\\Wine\\Direct3D]" >> dllset.reg
+                        echo "\"renderer\"=\"$renderer\"" >> dllset.reg
+                        echo "regedit /s Z:\\home\\dllset.reg" > set.bat
+                        if grun "$BOX64" wine Z:\\home\\set.bat >/dev/null 2>&1; then
+                            echo "Done!"
+                        else
+                            clear
+                            echo "Failed to set the backend; please check Wine integrity"
+                        fi
+                        rm -f dllset.reg set.bat
+                        break
+                    fi
+                    clear
+                    echo -e "You selected an unavailable option; please try again"
+                done
+                ;;
+            2)
+                while true; do
+                    echo -e "1) Standard\n2) Android special edition\n3) Exit"
+                    read -e -p "Enter a number to choose...(1/2/3) " choose_virgl_backend
+                    case "$choose_virgl_backend" in
+                        1)
+                            if ! command -v virgl_test_server >/dev/null 2>&1; then
+                                read -p "This backend is not installed. Install it now? [y/n] " choose
+                                if [ "${choose^^}" != "Y" ]; then
+                                    echo "Backend installation canceled"
+                                    break
+                                fi
+                                echo "Installing..."
+                                pkg i --reinstall virglrenderer >/dev/null 2>&1
+                                if ! command -v virgl_test_server >/dev/null 2>&1; then
+                                    echo "Installation failed; could not find virgl_test_server"
+                                    break
+                                fi
+                            fi
+                            echo "virglrenderer" > "$GQE_DATA/virgl_backend.txt"
+                            echo "Switched successfully"
+                            break
+                            ;;
+                        2)
+                            if ! command -v virgl_test_server_android >/dev/null 2>&1; then
+                                read -p "This backend is not installed. Install it now? [y/n] " choose
+                                if [ "$choose" != "y" ]; then
+                                    echo "Backend installation canceled"
+                                    break
+                                fi
+                                echo "Installing..."
+                                pkg i --reinstall virglrenderer >/dev/null 2>&1
+                                if ! command -v virgl_test_server_android >/dev/null 2>&1; then
+                                    echo "Installation failed; could not find virgl_test_server_android"
+                                    break
+                                fi
+                            fi
+                            echo "virglrenderer_android" > "$GQE_DATA/virgl_backend.txt"
+                            echo "Switched successfully"
+                            break
+                            ;;
+                        3)
+                            echo "Exiting backend settings"
+                            break
+                            ;;
+                        *)
+                            echo "Invalid option; please select again."
+                            ;;
+                    esac
+                done
+                ;;
+            3)
+                return 0
+                ;;
+            *)
+                echo "Invalid option; please select again."
+                ;;
+        esac
+    done
+}
+
 # 5 Other settings
 gqe_other_settings() {
     while true; do
         echo -e "More settings\n\n1) Time zone settings\n2) Configuration settings\n3) Backend settings\n4) Wallpaper settings\n5) Back"
         read -e -p "Enter an option (1-5): " other_choice
         case $other_choice in
-        1)
-            echo_time_info
-            read -p "Enter a time zone ID: " timezone
-            if [ -z "${timezone}" ]; then
-                echo -e "\033[31mError: No time zone was entered; please try again\033[0m"
-                continue
-            else
-                echo "${timezone}" > "$GQE_DATA/timezone.txt"
-                clear
-                echo "Time zone saved as: ${timezone}"
-            fi
-            ;;
-        2)
-            local config_file
-
-            if [ ! -f "$PREFIX/bin/nano" ]; then
-                clear
-                echo -e "\nnano editor is not installed; attempting to install...\n"
-                pkg i --reinstall nano
-                if [ ! -f "$PREFIX/bin/nano" ]; then
-                    echo -e "Installation failed; please try again\n"
-                    continue
-                fi
-            fi
-            while true; do
-                echo -e "1) Edit dxvk_settings.ini ( DXVK configuration file )\n2) Edit all_var.txt ( GQE environment variable configuration file )\n3) Edit start-gqe-v0.4.bat ( GQE Wine startup script )\n4) Back"
-                read -e -p "Enter an option (1-4): " config_file
-                GQE_START="$HOME/storage/shared/.gqe-start"
-                case "$config_file" in
-                    1)
-                        if [ ! -f "$GQE_START/dxvk_settings.ini" ]; then
-                            touch "$GQE_START/dxvk_settings.ini"
-                        fi
-                        nano "$GQE_START/dxvk_settings.ini"
-
-                        clear
-                        continue
-                        ;;
-                    2)
-                        if [ ! -f "$GQE_START/all_var.txt" ]; then
-                            reinit_var
-                        fi
-                        nano "$GQE_START/all_var.txt"
-                        clear
-                        continue
-                        ;;
-                    3)
-                        if [ ! -f "$GQE_START/start-gqe-v0.4.bat" ]; then
-                            touch "$GQE_START/start-gqe-v0.4.bat"
-                        fi
-                        nano "$GQE_START/start-gqe-v0.4.bat"
-                        clear
-                        continue
-                        ;;
-                    4)
-                        break
-                        ;;
-                    *)
-                        echo "Invalid selection; please try again or enter EXIT to exit"
-                        continue
-                        ;;
-                esac
-            done
-            ;;
-        3)
-            while true; do
-                echo -e "1) WineD3D backend\n2) Virgl backend\n3) Back"
-                read -e -p "Choose a number to continue...(1/2/3 or EXIT to exit) " choose_backend
-            if [ "${choose_backend^^}" = "EXIT" ]; then
-                echo "Exiting backend settings"
-                clear
-                break
-            fi
-            case "$choose_backend" in
-                1)
+            1)
+                echo_time_info
+                read -p "Enter a time zone ID: " timezone
+                if [ -z "${timezone}" ]; then
+                    echo -e "\033[31mError: No time zone was entered; please try again\033[0m"
+                else
+                    echo "${timezone}" > "$GQE_DATA/timezone.txt"
                     clear
-                    while true; do
-                        read -p 'choose a backend... (gl/vulkan/no3d or "exit" to cancel): ' renderer
-                        if [ "${renderer^^}" = "EXIT" ]; then
-                            echo "Exiting backend settings"
-                            break
-                        fi
-                        if [ "$renderer" = "gl" ] || [ "$renderer" = "vulkan" ] || [ "$renderer" = "no3d" ]; then
-                            cd "$HOME"
-                            echo "Windows Registry Editor Version 5.00" > dllset.reg
-                            echo "[HKEY_CURRENT_USER\\Software\\Wine\\Direct3D]" >> dllset.reg
-                            echo "\"renderer\"=\"$renderer\"" >> dllset.reg
-                            echo -e "\n[HKEY_CURRENT_USER\\WoW6432Node\\Software\\Wine\\Direct3D]" >> dllset.reg
-                            echo "\"renderer\"=\"$renderer\"" >> dllset.reg
-
-                            echo "regedit /s Z:\\home\\dllset.reg" > set.bat
-
-                            if grun "$BOX64" wine64 Z:\\home\\set.bat >/dev/null 2>&1; then
-                                echo "Done!"
-                                rm -f dllset.reg set.bat
-                                break
-                            else
-                                clear
-                                echo "Failed to set the backend; please check Wine integrity"
-                                rm -f dllset.reg set.bat
-                                break
-                            fi
-                        else
-                            clear
-                            echo -e "You selected an unavailable option; please try again"
-                        fi
-                    done
-
-                    ;;
-                2)
-                    while true; do
-                        echo -e "1) Standard\n2) Android special edition\n3) Exit"
-                        read -e -p "Enter a number to choose...(1/2/3) " choose_virgl_backend
-                    if [ "$choose_virgl_backend" = "1" ]; then
-                        if ! command -v virgl_test_server >/dev/null 2>&1; then
-                            read -p "This backend is not installed. Install it now? [y/n] " choose
-                            if [ "${choose^^}" != "Y" ]; then
-                                echo "Backend installation canceled"
-                                break
-                            fi
-                            echo "Installing..."
-                            pkg i --reinstall virglrenderer >/dev/null 2>&1
-                            if ! command -v virgl_test_server >/dev/null 2>&1; then
-                                echo "Installation failed; could not find virgl_test_server"
-                                break
-                            fi
-                        fi
-                        echo "virglrenderer" > "$GQE_DATA/virgl_backend.txt"
-                        echo "Switched successfully"
-                        break
-                    elif [ "$choose_virgl_backend" = "2" ]; then
-                        if ! command -v virgl_test_server_android >/dev/null 2>&1; then
-                            read -p "This backend is not installed. Install it now? [y/n] " choose
-                            if [ "$choose" != "y" ]; then
-                                echo "Backend installation canceled"
-                                break
-                            fi
-                            echo "Installing..."
-                            pkg i --reinstall virglrenderer >/dev/null 2>&1
-                            if ! command -v virgl_test_server_android >/dev/null 2>&1; then
-                                echo "Installation failed; could not find virgl_test_server_android"
-                                break
-                            fi
-                        fi
-                        echo "virglrenderer_android" > "$GQE_DATA/virgl_backend.txt"
-                        echo "Switched successfully"
-                        break
-                    elif [ "$choose_virgl_backend" = "3" ]; then
-                        echo "Exiting backend settings"
-                        break
-                    fi
-                        echo "Invalid option; please select again."
-                    done
-                    ;;
-                3)
-                    break
-                    ;;
-                *)
-                    echo "Invalid option; please select again."
-                    ;;
-            esac
-            done
-            ;;
-        4)
-            if [ ! -f "$GQE_DATA/.wine/drive_c/wallpaper.bmp" ]; then
-                echo "No wallpaper is set"
-            else
-                if sha256sum --status -c <<< "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15  $GQE_DATA/.wine/drive_c/wallpaper.bmp" >/dev/null 2>&1; then
+                    echo "Time zone saved as: ${timezone}"
+                fi
+                ;;
+            2)
+                gqe_config_settings
+                ;;
+            3)
+                gqe_backend_settings
+                ;;
+            4)
+                if [ ! -f "$GQE_DATA/.wine/drive_c/wallpaper.bmp" ]; then
+                    echo "No wallpaper is set"
+                elif sha256sum --status -c <<< "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15  $GQE_DATA/.wine/drive_c/wallpaper.bmp" >/dev/null 2>&1; then
                     echo "The current wallpaper is the default wallpaper"
                 else
                     echo "The current wallpaper is a custom wallpaper"
                 fi
-            fi
-            while true; do
-                read -e -p "Enter the path to the wallpaper file (BMP format, or enter EXIT to exit): " wallpaper_path
-                if [ "${wallpaper_path^^}" = "EXIT" ]; then
-                    echo "Exiting wallpaper settings"
-                    break
-                fi
-                if [ -z "$wallpaper_path" ]; then
-                    echo "Error: Path is empty; please try again or enter EXIT to exit"
-                    continue
-                fi
-                if [ -f "$wallpaper_path" ]; then
-                    cp "$wallpaper_path" "$GQE_DATA/.wine/drive_c/wallpaper.bmp"
-                    echo "Wallpaper path set to: $wallpaper_path"
-                    break
-                else
-                    echo "Error: File does not exist; please try again or enter EXIT to exit"
-                    continue
-                fi
-            done
-            ;;
-        5)
-            return 1
-            ;;
-        *)
-            echo "Invalid option; please select again."
-            continue
-            ;;
-    esac
+                while true; do
+                    read -e -p "Enter the path to the wallpaper file (BMP format, or enter EXIT to exit): " wallpaper_path
+                    if [ "${wallpaper_path^^}" = "EXIT" ]; then
+                        echo "Exiting wallpaper settings"
+                        break
+                    elif [ -z "$wallpaper_path" ]; then
+                        echo "Error: Path is empty; please try again or enter EXIT to exit"
+                    elif [ -f "$wallpaper_path" ]; then
+                        cp "$wallpaper_path" "$GQE_DATA/.wine/drive_c/wallpaper.bmp"
+                        echo "Wallpaper path set to: $wallpaper_path"
+                        break
+                    else
+                        echo "Error: File does not exist; please try again or enter EXIT to exit"
+                    fi
+                done
+                ;;
+            5)
+                return 1
+                ;;
+            *)
+                echo "Invalid option; please select again."
+                ;;
+        esac
     done
 }
 
@@ -628,7 +621,7 @@ for arg in "$@"; do
                 reinit
             fi
             rm -rf "$HOME/.gqe-wine"
-            if ! env WINEPREFIX="$HOME/.gqe-wine" grun "$BOX64" wine64 wineboot -i >/dev/null 2>&1; then
+            if ! env WINEPREFIX="$HOME/.gqe-wine" grun "$BOX64" wine wineboot -i >/dev/null 2>&1; then
                 echo "Failed to initialize the Wine prefix"
                 exit 1
             fi
@@ -701,8 +694,8 @@ if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
     reinit
 fi
 
-if ps a | grep -q '[w]ine64'; then
-    grun "$BOX64" wine64 wineboot -k >/dev/null 2>&1
+if ps a | grep -q '[w]ine'; then
+    grun "$BOX64" wine wineboot -k >/dev/null 2>&1
 fi
 
 if [ "$GQE_NO_PULSE" = "1" ]; then
@@ -775,7 +768,7 @@ if [ "$GQE_ONLY_VNC" != "1" ]; then
     fi
 fi
 
-env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
+env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun "$BOX64" wine explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
 if [ "$GQE_ONLY_VNC" != "1" ]; then
     pkill -f termux-x11

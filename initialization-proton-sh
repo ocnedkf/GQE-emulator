@@ -4,7 +4,7 @@ var_all(){
   cat << 'EOF'
 # GQE-emulator environment variables
 export HOME="/data/data/com.termux/files/home"
-export GQE_DATA="$HOME/.gqe-data-v0.3"
+export GQE_DATA="$HOME/.gqe-data-v0.4"
 export WINEPREFIX="${GQE_DATA}/.wine"
 export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
 export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
@@ -187,19 +187,17 @@ pkill termux-x11
 echo -e "\nConfiguring Wine...\n"
 download_file https://github.com/radzikpwnz/tfm/releases/download/v1.0.1/TFM.exe "e0b4688675a1d09dd3ce1517fe88e5f506cb1eceadfaadd94dc2cb4b9c69c30a" "tfm.exe" "TFM"
 mv $PREFIX/tmp/tfm.exe $WINEPREFIX/drive_c/windows/tfm.exe
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3.2-beta/startmenulink.tar.xz "58687644e0bddb8a0ec8c2393fb85f34b7729c3732311e520b0f3b4dc299b2a0" "startmenulink.tar.xz" "Start Menu Link"
-echo -e "Unpacking StartMenuLink...\n"
-tar -xf $PREFIX/tmp/startmenulink.tar.xz -C $WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/"Start Menu"
-rm -f startmenulink.tar.xz
-download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.3.2-beta/startmenu-v0.3.2.tar.xz "20193fb78daeaa1eedac5e1a3e69c4a6a55bc28575d143c591cd0ea05af287dd" "startmenu-v0.3.2.tar.xz" "Start Menu"
-extract_file "Start Menu Files" "startmenu-v0.3.2.tar.xz" "$GQE_DATA/STARTMENU"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.4-beta/startmenulink.tar.xz "A22EAC3D5D964D56A6D6E5D91CBE8271E78CDFC8F7475F690666706F7611E0C6" "startmenulink.tar.xz" "Start Menu Link"
+extract_file "Start Menu Link" "startmenulink.tar.xz" "$WINEPREFIX/drive_c/users/steamuser/AppData/Roaming/Microsoft/Windows/Start Menu"
+download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.4-beta/startmenu-v0.4.tar.xz "23DE4312A335073C05C0E1FF79BF442EC46CAD4E5801FEA4575C253A475371DA" "startmenu-v0.4.tar.xz" "Start Menu"
+extract_file "Start Menu Files" "startmenu-v0.4.tar.xz" "$GQE_DATA/STARTMENU"
 
 # download and extract InputBridge
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.1-beta/inputbridge.tar.xz "93c9da74b8c9cde3e595033e73bd49f0451cb9d5621aab76a652e0aecf1819af" "inputbridge.tar.xz" "InputBridge"
 extract_file "InputBridge" "inputbridge.tar.xz" "$GQE_DATA"
 
 echo -e "\nInstalling InputBridge...\n"
-echo -e "cd Z:\\home\\.gqe-data-v0.3\\InputBridge\\ \n.\install.bat\nexit" > install-ib.bat
+echo -e "cd Z:\\home\\.gqe-data-v0.4\\InputBridge\\ \n.\install.bat\nexit" > install-ib.bat
 grun $BOX64 wine cmd /c Z:\\home\\install-ib.bat >/dev/null 2>&1
 rm install-ib.bat
 
@@ -214,10 +212,10 @@ grun $BOX64 wine regedit "$(realpath dllsetting.reg)" >/dev/null 2>&1
 rm -f dllsetting.reg
 
 echo -e "\nConfiguring startup scripts...\n"
-rm -rf $GQE_CONFIG_PATH
-mkdir -p $GQE_CONFIG_PATH
-echo 'start /min Z:\\home\\.gqe-data-v0.3\\InputBridge\\ib.exe' > $GQE_CONFIG_PATH/start-gqe-v0.3.bat
-echo 'start tfm.exe C:\' >> $GQE_CONFIG_PATH/start-gqe-v0.3.bat
+rm -rf "$GQE_CONFIG_PATH"
+mkdir -p "$GQE_CONFIG_PATH"
+echo 'start /min Z:\\home\\.gqe-data-v0.4\\InputBridge\\ib.exe' > $GQE_CONFIG_PATH/start-gqe-v0.4.bat
+echo 'start tfm.exe C:\' >> $GQE_CONFIG_PATH/start-gqe-v0.4.bat
 
 echo -e "\nInitializing visual environment...\n"
 download_file https://github.com/ocnedkf/GQE-emulator/releases/download/v0.2-beta/wallpaper.bmp "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15" "wallpaper.bmp" "Wallpaper"

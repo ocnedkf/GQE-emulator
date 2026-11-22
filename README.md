@@ -50,7 +50,7 @@ kill-gqe
 
 # GQE Settings
 
-To open the settings menu, run `start-gqe -s` or `start-gqe --settings`.
+**To open the settings menu, run `start-gqe -s` or `start-gqe --settings`.**
 
 The menu provides the following options:
 

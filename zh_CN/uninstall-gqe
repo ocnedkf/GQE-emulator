@@ -19,7 +19,7 @@ echo -e "开始卸载 GQE..."
 
 export PREFIX="/data/data/com.termux/files/usr"
 export HOME="$PREFIX/../home"
-export GQE_DATA=$HOME/.gqe-data-v0.3
+export GQE_DATA=$HOME/.gqe-data-v0.4
 
 rm -rf $PREFIX/bin/{start-gqe,kill-gqe}
 

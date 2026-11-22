@@ -1,0 +1,789 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+
+trap 'clear; echo "关闭中..."; if ps a | grep -q "[w]ine"; then /data/data/com.termux/files/usr/bin/kill-gqe; fi; exit 130' 2 3
+
+export HOME="/data/data/com.termux/files/home"
+if [ ! -d "$HOME/storage" ]; then
+    echo -e "找不到外部存储！检查你的存储权限"
+    exit 1
+fi
+
+export PREFIX="/data/data/com.termux/files/usr"
+download_file() {
+    local url="$1"
+    local hash_value="$2"
+    local file_name="$3"
+    local echo_file_name="$4"
+    echo -e "\n正在下载 $echo_file_name...\n"
+    rm -f "$PREFIX/tmp/$file_name"
+
+    if ! wget --quiet --show-progress -c -O "$PREFIX/tmp/$file_name" "$url"; then
+        echo -e "\n\033[31m错误: 无法下载 $echo_file_name, 检查网络!\033[0m\n"
+        exit 1
+    fi
+
+    sha256sum --status -c <<< "$hash_value  $PREFIX/tmp/$file_name"
+    if [ $? -ne 0 ]; then
+        echo -e "\n\033[31m错误: 检验 $file_name 哈希值失败, 请检查文件完整性\033[0m\n"
+        rm -f "$PREFIX/tmp/$file_name"
+        exit 1
+    fi
+}
+
+extract_file() {
+    local echo_file_name="$1"
+    local file_name="$2"
+    local dest_dir="$3"
+    echo -e "\n正在解压 $echo_file_name...\n"
+    mkdir -p "$dest_dir"
+    if tar -xJf "$PREFIX/tmp/$file_name" -C "$dest_dir" >/dev/null 2>&1; then
+        rm -f "$PREFIX/tmp/$file_name"
+    else
+        echo -e "\n\033[31m错误: 解压 $file_name 失败, 请再试一次\033[0m\n"
+        exit 1
+    fi
+}
+
+show_info() {
+    cat <<-EOF
+==================== 介绍 ====================
+
+GQE-emulator by ocnedkf
+
+GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
+
+详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.4-beta
+EOF
+}
+
+show_version() {
+    echo "v0.4-beta"
+    exit 0
+}
+
+show_help() {
+    cat <<'EOF'
+==================== Usage ====================
+
+usage : start-gqe [option]
+
+        start-gqe                正常启动 GQE
+        start-gqe -v/--version   打印版本信息并退出
+        start-gqe -h/--help      打印帮助与介绍信息并退出
+        start-gqe -f/--fix       尝试修复 Wine前缀
+        start-gqe -na/--no-audio 禁用音频以启动GQE
+        start-gqe -wv/--with-vnc 启动 GQE 并附带 VNC 服务
+        start-gqe -nv/--only-vnc 启动 GQE 并仅启动 VNC 服务
+        start-gqe -s/--settings  打开 GQE 设置菜单
+EOF
+    show_info
+}
+
+reinit() {
+    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "578CA490402FC1BB6B7146ECB33288BF27879E756C7258E37D55E7738B40A6F7" "initialization-sh" "初始化脚本"
+    mv "$PREFIX/tmp/initialization-sh" .
+    chmod +x initialization-sh
+    source ./initialization-sh "$1"
+    rm -f initialization-sh
+}
+
+reinit_var() {
+    echo "配置文件损坏？你想要选择哪种方式？ [1] 自动恢复 [2] 手动编辑 [EXIT] 取消 "
+    while true; do
+        read -r choice
+        if [ "${choice^^}" = "EXIT" ]; then
+            echo "退出配置编辑"
+            return 0
+        fi
+        case "$choice" in
+            1)
+                reinit var
+                return 0
+                ;;
+            2)
+                nano "$GQE_START/all_var.txt"
+                clear
+                return 0
+                ;;
+            *)
+                clear
+                echo "无效的选项, 请重试或输入 EXIT 以退出"
+                continue
+                ;;
+        esac
+    done
+}
+
+if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+    reinit_var
+fi
+
+if ! source "$GQE_CONFIG_PATH/all_var.txt"; then
+    echo "导入环境变量失败! 请检查文件 /storage/emulated/0/.gqe-start/all_var.txt 是否存在"
+    exit 1
+fi
+
+echo_gqe_settings() {
+    cat <<'EOF'
+GQE-emulator 设置
+
+1) 显示设置
+2) 音频设置
+3) Wine 设置
+4) 盘符设置
+5) 其他设置
+6) 关于
+7) 返回
+EOF
+}
+
+echo_time_info() {
+    cat <<'EOF'
+示例时区ID...
+
+Asia/Shanghai    中国大陆 (UTC 8)
+Asia/Hong_Kong   中国香港
+Asia/Taipei      中国台北
+Asia/Tokyo       日本东京 (UTC 9)
+Europe/London    伦敦
+America/New_York 纽约
+Etc/UTC          UTC标准零时区
+大陆/城市        自定义时区ID
+EOF
+}
+
+echo_about_gqe() {
+    clear
+    echo -e "GQE Emulator v0.4-beta\n"
+    echo -e "作者: ocnedkf\n"
+    echo -e "GitHub: https://github.com/ocnedkf/GQE-emulator\n"
+    echo -e "反馈问题: https://github.com/ocnedkf/GQE-emulator/issues\n"
+}
+
+# 1显示设置
+gqe_display_settings() {
+    echo -e "1) 分辨率设置\n2) DPI 设置\n3) 返回"
+    read -e -p "请输入选项 (1-3): " display_choice
+    case $display_choice in
+        1)
+            echo -e "预设分辨率:\n\n1) 320x200\n2) 320x420\n3) 352x288\n4) 400x240\n5) 640x350\n6) 640x480 (推荐)\n7) 800x480\n8) 800x600 (推荐)\n9) 1024x768 (推荐)\n10) 1280x720 (推荐)\n11) 1280x960 (推荐)\n12) 1280x1024 (推荐)\n13) 1400x1024\n14) 1600x1200 (推荐)\n15) 1366x768\n16) 1680x1050 (推荐)\n17) 1920x1080 (推荐)\n18) 1920x1200\n19) 2048x1536\n20) 2560x1600 (推荐)\n21) 2560x2048\n22) 3840x2160 (推荐)\n23) 7680x4320"
+            read -e -p "请输入分辨率: " resolution_choice
+            if [[ "$resolution_choice" =~ ^[0-9]+[xX][0-9]+$ ]]; then
+                echo "$resolution_choice" > "$GQE_DATA/config/resolution.txt"
+                echo "分辨率已保存为: $resolution_choice"
+            else
+                echo "无效的分辨率格式，请使用 '宽度x高度' 的格式，例如 1920x1080"
+            fi
+            # 在这里添加分辨率设置的代码
+            ;;
+        2)
+            read -e -p "请输入DPI值 (例如 96, 120, 144): " dpi_value
+            if [[ "$dpi_value" =~ ^[0-9]+$ ]]; then
+                echo "$dpi_value" > "$GQE_DATA/config/dpi.txt"
+                echo "DPI已保存为: $dpi_value"
+            else
+                echo "无效的DPI值，请输入一个正整数"
+            fi
+            # 在这里添加 DPI 设置的代码
+            ;;
+        3)
+            return 1
+            ;;
+        *)
+            echo "无效选项，请重新选择。"
+            ;;
+    esac
+}
+
+# 2音频设置
+gqe_audio_settings() {
+    echo -e "1) 延迟设置\n2) 返回"
+    read -e -p "请输入选项 (1-2): " audio_choice
+    case $audio_choice in
+        1)
+            read -e -p "请输入音频延迟值 (毫秒): " audio_delay
+            if [[ "$audio_delay" =~ ^[0-9]+$ ]]; then
+                echo "$audio_delay" > "$GQE_DATA/config/audio_delay.txt"
+                echo "音频延迟已保存为: $audio_delay 毫秒"
+            else
+                echo "无效的音频延迟值，请输入一个正整数"
+            fi
+            # 在这里添加音频延迟设置的代码
+            ;;
+        2)
+            return 1
+            ;;
+        *)
+            echo "无效选项，请重新选择。"
+            ;;
+    esac
+}
+
+# 3 Wine 设置
+gqe_wine_settings() {
+    echo -e "1) DLL覆盖\n2) Wine 信息\n3) 返回"
+    read -e -p "请输入选项 (1-3): " wine_choice
+    case $wine_choice in
+        1)
+            echo ""
+            while true; do
+                read -p "请输入DLL文件名字 (或输入 'exit' 以返回): " dll_name
+
+                if [ "$dll_name" = "exit" ] || [ "$dll_name" = "EXIT" ]; then
+                    echo "返回上级菜单..."
+                    return 0
+                fi
+
+                if [ -z "$dll_name" ]; then
+                    echo "错误: DLL名称不能为空，请重新输入..."
+                    continue
+                fi
+
+                read -p "请输入覆盖类型 (native/builtin/native,builtin): " dll_type
+                if [ "$dll_type" != "native" ] && [ "$dll_type" != "builtin" ] && [ "$dll_type" != "native,builtin" ]; then
+                    echo "错误: 覆盖类型无效，请输入 'native'、'builtin' 或 'native,builtin'"
+                    continue
+                fi
+
+                echo "Windows Registry Editor Version 5.00" > dllset.reg
+                echo "[HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides]" >> dllset.reg
+                echo "\"$dll_name\"=\"$dll_type\"" >> dllset.reg
+
+                echo "regedit /s Z:\\home\\dllset.reg" > set.bat
+                grun "$BOX64" wine64 Z://home//set.bat >/dev/null 2>&1
+                rm -f dllset.reg set.bat
+
+                echo "已设置 $dll_name 为 $dll_type"
+            done
+            ;;
+        2)
+            echo -e "Wine 信息\nWine 版本: 9.16-custom\nWine 前缀路径: $GQE_DATA/.wine\nWine 模式: Wow64\nWine 构建 by ocnedkf"
+            ;;
+        3)
+            return 1
+            ;;
+        *)
+            echo "无效选项，请重新选择。"
+            ;;
+    esac
+}
+
+# 4 盘符设置
+gqe_drive_settings() {
+    echo -e "1) 添加盘符\n2) 删除盘符\n3) 查看盘符\n4) 返回"
+    local DOSDIR="${GQE_DATA}/.wine/dosdevices"
+    read -e -p "请输入选项 (1-4): " drive_choice
+    case $drive_choice in
+        1)
+            while true; do
+                read -e -p "请输入盘符名称 (例如 D，或输入 EXIT 返回): " drive_letter
+                if [ "${drive_letter^^}" = "EXIT" ]; then
+                    return 0
+                fi
+                read -e -p "请输入盘符路径 (例如 /storage/emulated/0，或输入 EXIT 返回): " drive_path
+                if [ "${drive_path^^}" = "EXIT" ]; then
+                    return 0
+                fi
+                if [ -z "$drive_letter" ] || [ -z "$drive_path" ]; then
+                    echo "错误: 盘符名称和路径不能为空，请重新输入..."
+                    continue
+                fi
+
+                if ! [[ "$drive_letter" =~ ^[A-Za-z]$ ]]; then
+                    echo "错误: 盘符名称必须是单个英文字母（如 D) 请重新输入..."
+                    continue
+                fi
+
+                drive_letter=${drive_letter^^}
+                link="$DOSDIR/${drive_letter}:"
+                if [ -L "$link" ] || [ -e "$link" ]; then
+                    echo "错误: 盘符 $drive_letter 已存在，请选择其他盘符名称..."
+                    continue
+                fi
+
+                ln -s "$drive_path" "$link"
+                echo "已添加盘符 $drive_letter 映射到 $drive_path"
+                return 0
+            done
+            ;;
+        2)
+            while true; do
+                read -e -p "请输入要删除的盘符名称 (例如 D，或输入 EXIT 返回): " drive_letter
+
+                if [ "${drive_letter^^}" = "EXIT" ]; then
+                    return 0
+                fi
+                if [ -z "$drive_letter" ]; then
+                    echo "错误: 盘符名称不能为空..."
+                    continue
+                fi
+                drive_letter=${drive_letter^^}
+                link="$DOSDIR/${drive_letter}:"
+
+                if [ ! -L "$link" ]; then
+                    echo "错误: 盘符 $drive_letter 不存在..."
+                    continue
+                fi
+
+                read -e -p "确认删除盘符 $drive_letter ? (y/n): " confirm
+                if [[ "$confirm" =~ ^[Yy]$ ]]; then
+                    rm -f "$link"
+                    echo "已删除盘符 $drive_letter"
+                else
+                    echo "取消删除盘符 $drive_letter"
+                    return 0
+                fi
+                return 0
+            done
+            ;;
+        3)
+            echo "当前盘符列表:"
+            for link in "$DOSDIR"/*; do
+                if [ -L "$link" ]; then
+                    drive_letter=$(basename "$link" | sed 's/:$//')
+                    drive_path=$(readlink "$link")
+                    echo "盘符 $drive_letter 映射到 $drive_path"
+                fi
+            done
+            ;;
+        4)
+            return 1
+            ;;
+        *)
+            echo "无效选项，请重新选择。"
+            ;;
+    esac
+}
+
+# 5 其他设置
+gqe_other_settings() {
+    while true; do
+        echo -e "更多设置\n\n1) 时区设置\n2) 配置设置\n3) 后端设置\n4) 壁纸设置\n5) 返回"
+        read -e -p "请输入选项 (1-5): " other_choice
+        case $other_choice in
+        1)
+            echo_time_info
+            read -p "请输入时区ID: " timezone
+            if [ -z "${timezone}" ]; then
+                echo -e "\033[31m错误: 未输入时区，请重试\033[0m"
+                continue
+            else
+                echo "${timezone}" > "$GQE_DATA/timezone.txt"
+                clear
+                echo "时区已保存为: ${timezone}"
+            fi
+            ;;
+        2)
+            local config_file
+
+            if [ ! -f "$PREFIX/bin/nano" ]; then
+                clear
+                echo -e "\nnano编辑器未安装，尝试安装...\n"
+                pkg i --reinstall nano
+                if [ ! -f "$PREFIX/bin/nano" ]; then
+                    echo -e "安装失败，请重试\n"
+                    continue
+                fi
+            fi
+            while true; do
+                echo -e "1) 编辑 dxvk_settings.ini ( DXVK 配置文件 )\n2) 编辑 all_var.txt ( GQE 环境变量配置文件 )\n3) 编辑 start-gqe-v0.4.bat ( GQE Wine 启动脚本 )\n4) 返回"
+                read -e -p "请输入选项 (1-4): " config_file
+                GQE_START="$HOME/storage/shared/.gqe-start"
+                case "$config_file" in
+                    1)
+                        if [ ! -f "$GQE_START/dxvk_settings.ini" ]; then
+                            touch "$GQE_START/dxvk_settings.ini"
+                        fi
+                        nano "$GQE_START/dxvk_settings.ini"
+
+                        clear
+                        continue
+                        ;;
+                    2)
+                        if [ ! -f "$GQE_START/all_var.txt" ]; then
+                            reinit_var
+                        fi
+                        nano "$GQE_START/all_var.txt"
+                        clear
+                        continue
+                        ;;
+                    3)
+                        if [ ! -f "$GQE_START/start-gqe-v0.4.bat" ]; then
+                            touch "$GQE_START/start-gqe-v0.4.bat"
+                        fi
+                        nano "$GQE_START/start-gqe-v0.4.bat"
+                        clear
+                        continue
+                        ;;
+                    4)
+                        break
+                        ;;
+                    *)
+                        echo "无效的选择，请重试或输入 EXIT 以退出"
+                        continue
+                        ;;
+                esac
+            done
+            ;;
+        3)
+            while true; do
+                echo -e "1) WineD3D 后端\n2) Virgl 后端\n3) 返回"
+                read -e -p "选择数字以继续...(1/2/3 或 EXIT 以退出) " choose_backend
+            if [ "${choose_backend^^}" = "EXIT" ]; then
+                echo "退出后端设置"
+                clear
+                break
+            fi
+            case "$choose_backend" in
+                1)
+                    clear
+                    while true; do
+                        read -p 'choose a backend... (gl/vulkan/no3d or "exit" to cancel): ' renderer
+                        if [ "${renderer^^}" = "EXIT" ]; then
+                            echo "退出后端设置"
+                            break
+                        fi
+                        if [ "$renderer" = "gl" ] || [ "$renderer" = "vulkan" ] || [ "$renderer" = "no3d" ]; then
+                            cd "$HOME"
+                            echo "Windows Registry Editor Version 5.00" > dllset.reg
+                            echo "[HKEY_CURRENT_USER\\Software\\Wine\\Direct3D]" >> dllset.reg
+                            echo "\"renderer\"=\"$renderer\"" >> dllset.reg
+                            echo -e "\n[HKEY_CURRENT_USER\\WoW6432Node\\Software\\Wine\\Direct3D]" >> dllset.reg
+                            echo "\"renderer\"=\"$renderer\"" >> dllset.reg
+
+                            echo "regedit /s Z:\\home\\dllset.reg" > set.bat
+
+                            if grun "$BOX64" wine64 Z:\\home\\set.bat >/dev/null 2>&1; then
+                                echo "完成!"
+                                rm -f dllset.reg set.bat
+                                break
+                            else
+                                clear
+                                echo "设置后端失败，请检查 Wine 完整性"
+                                rm -f dllset.reg set.bat
+                                break
+                            fi
+                        else
+                            clear
+                            echo -e "你选择了不存在的选项，请重试"
+                        fi
+                    done
+
+                    ;;
+                2)
+                    while true; do
+                        echo -e "1) 标准\n2) 安卓特别版\n3) 退出"
+                        read -e -p "输入数字以选择...(1/2/3) " choose_virgl_backend
+                    if [ "$choose_virgl_backend" = "1" ]; then
+                        if ! command -v virgl_test_server >/dev/null 2>&1; then
+                            read -p "此后端尚未安装，是否现在进行安装? [y/n] " choose
+                            if [ "${choose^^}" != "Y" ]; then
+                                echo "已取消后端安装"
+                                break
+                            fi
+                            echo "正在安装..."
+                            pkg i --reinstall virglrenderer >/dev/null 2>&1
+                            if ! command -v virgl_test_server >/dev/null 2>&1; then
+                                echo "安装失败，未找到 virgl_test_server"
+                                break
+                            fi
+                        fi
+                        echo "virglrenderer" > "$GQE_DATA/virgl_backend.txt"
+                        echo "切换完成"
+                        break
+                    elif [ "$choose_virgl_backend" = "2" ]; then
+                        if ! command -v virgl_test_server_android >/dev/null 2>&1; then
+                            read -p "此后端尚未安装，是否现在进行安装? [y/n] " choose
+                            if [ "$choose" != "y" ]; then
+                                echo "已取消后端安装"
+                                break
+                            fi
+                            echo "正在安装..."
+                            pkg i --reinstall virglrenderer >/dev/null 2>&1
+                            if ! command -v virgl_test_server_android >/dev/null 2>&1; then
+                                echo "安装失败，未找到 virgl_test_server_android"
+                                break
+                            fi
+                        fi
+                        echo "virglrenderer_android" > "$GQE_DATA/virgl_backend.txt"
+                        echo "切换完成"
+                        break
+                    elif [ "$choose_virgl_backend" = "3" ]; then
+                        echo "退出后端设置"
+                        break
+                    fi
+                        echo "无效选项，请重新选择。"
+                    done
+                    ;;
+                3)
+                    break
+                    ;;
+                *)
+                    echo "无效选项，请重新选择。"
+                    ;;
+            esac
+            done
+            ;;
+        4)
+            if [ ! -f "$GQE_DATA/.wine/drive_c/wallpaper.bmp" ]; then
+                echo "未设置壁纸"
+            else
+                if sha256sum --status -c <<< "d53a15d588b5bbe6a68d737c4a3d9ca93bf7dd6b75a7d4b5c9998ecdb12baa15  $GQE_DATA/.wine/drive_c/wallpaper.bmp" >/dev/null 2>&1; then
+                    echo "目前壁纸为默认壁纸"
+                else
+                    echo "目前壁纸为自定义壁纸"
+                fi
+            fi
+            while true; do
+                read -e -p "请输入壁纸文件路径 (BMP 格式, 或输入 EXIT 以退出): " wallpaper_path
+                if [ "${wallpaper_path^^}" = "EXIT" ]; then
+                    echo "退出壁纸设置"
+                    break
+                fi
+                if [ -z "$wallpaper_path" ]; then
+                    echo "错误: 路径为空，请重试或输入 EXIT 以退出"
+                    continue
+                fi
+                if [ -f "$wallpaper_path" ]; then
+                    cp "$wallpaper_path" "$GQE_DATA/.wine/drive_c/wallpaper.bmp"
+                    echo "壁纸路径已设置为: $wallpaper_path"
+                    break
+                else
+                    echo "错误: 文件不存在，请重试或输入 EXIT 以退出"
+                    continue
+                fi
+            done
+            ;;
+        5)
+            return 1
+            ;;
+        *)
+            echo "无效选项，请重新选择。"
+            continue
+            ;;
+    esac
+    done
+}
+
+gqe_settings_menu() {
+    clear
+    while true; do
+        echo_gqe_settings
+        read -p "请输入选项 (1-7): " choice
+        case $choice in
+            1)
+                while gqe_display_settings; do :; done
+                ;;
+            2)
+                while gqe_audio_settings; do :; done
+                ;;
+            3)
+                while gqe_wine_settings; do :; done
+                ;;
+            4)
+                while gqe_drive_settings; do :; done
+                ;;
+            5)
+                gqe_other_settings
+                ;;
+            6)
+                echo_about_gqe
+                read -p "按任意键返回..." -n1 -s
+                clear
+                ;;
+            7)
+                clear
+                return 0
+                ;;
+            *)
+                echo "无效选项，请重新选择。"
+                ;;
+        esac
+    done
+}
+
+if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
+    reinit_var
+fi
+
+for arg in "$@"; do
+    case $arg in
+        -v | --version)
+            show_version
+            exit 0
+            ;;
+        -h | --help)
+            show_help
+            exit 0
+            ;;
+        -f | --fix)
+            echo "你确定要尝试修复 Wine前缀? [y/n]"
+            read -e -r response
+            if [ "$response" != "y" ]; then
+                echo "exit"
+                exit 1
+            fi
+
+            if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
+                reinit
+            fi
+            rm -rf "$HOME/.gqe-wine"
+            if ! env WINEPREFIX="$HOME/.gqe-wine" grun "$BOX64" wine64 wineboot -i >/dev/null 2>&1; then
+                echo "Wine 前缀初始化失败"
+                exit 1
+            fi
+            mkdir -p "$GQE_DATA/.wine/drive_c"
+            if ! cp -a "$HOME/.gqe-wine/drive_c/." "$GQE_DATA/.wine/drive_c/"; then
+                echo "修复文件复制失败，临时前缀已保留在 $HOME/.gqe-wine"
+                exit 1
+            fi
+            rm -rf "$HOME/.gqe-wine"
+            echo "完成"
+            exit 0
+            ;;
+        -na | --no-audio)
+            GQE_NO_PULSE=1
+            ;;
+        -wv | --with-vnc)
+            if ! command -v x11vnc >/dev/null 2>&1; then
+                echo -e "错误: x11vnc 未安装，此功能务必需要安装 x11vnc 才能正常工作\n"
+                read -p "是否现在进行安装？(y/n) " choose
+                if [ "$choose" != "y" ]; then
+                    echo "由于您选择取消，因此VNC功能将无法工作"
+                    exit 1
+                fi
+                echo "正在安装 x11vnc..."
+                pkg install x11vnc -y
+            fi
+            if ! command -v x11vnc >/dev/null 2>&1; then
+                echo "安装失败，未找到 x11vnc"
+                exit 1
+            fi
+            GQE_WITH_VNC=1
+            ;;
+        -nv | --only-vnc)
+            if ! command -v vncserver >/dev/null 2>&1; then
+                echo -e "错误: vncserver 未安装，此功能务必需要安装 vncserver 才能正常工作\n"
+                read -p "是否现在进行安装？(y/n) " choose
+                if [ "$choose" != "y" ]; then
+                    echo "由于您选择取消，因此VNC功能将无法工作"
+                    exit 1
+                fi
+                echo "正在安装 vncserver..."
+                pkg install tigervnc -y
+            fi
+            if ! command -v vncserver >/dev/null 2>&1; then
+                echo "安装失败，未找到 vncserver"
+                exit 1
+            fi
+            GQE_ONLY_VNC=1
+            ;;
+        -s | --settings)
+            gqe_settings_menu
+            exit 0
+            ;;
+    esac
+done
+
+if [ "$GQE_WITH_VNC" = "1" ] && [ "$GQE_ONLY_VNC" = "1" ]; then
+    echo "警告: 同时指定了两种 VNC 模式，将使用 --with-vnc"
+    unset GQE_ONLY_VNC
+fi
+
+FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
+if [ "$FREE_KB" -lt 1048576 ]; then
+    echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
+fi
+
+if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
+    clear
+    echo -e "Wine前缀损坏! 尝试重新初始化...\n"
+    reinit
+fi
+
+if ps a | grep -q '[w]ine64'; then
+    grun "$BOX64" wine64 wineboot -k >/dev/null 2>&1
+fi
+
+if [ "$GQE_NO_PULSE" = "1" ]; then
+    echo "警告: 音频功能已禁用"
+else
+    rm -rf "$PREFIX"/tmp/pulse-*
+    pulseaudio -k >/dev/null 2>&1
+    pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
+fi
+
+if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
+    pkill -f virgl
+    if [ "$(cat "$GQE_DATA/virgl_backend.txt")" = "virglrenderer" ]; then
+        virgl_test_server --use-gles --use-egl-surfaceless > "$GQE_START/log.txt" 2>&1 &
+    else
+        virgl_test_server_android --angle-vulkan &
+    fi
+    export LIBGL_ALWAYS_SOFTWARE=1
+fi
+
+GQE_DISPLAY_DPI_CONFIG_PATH="$GQE_DATA/config"
+GQE_DISPLAY_DPI_CONFIG="$GQE_DISPLAY_DPI_CONFIG_PATH/dpi.txt"
+if [ ! -f "$GQE_DISPLAY_DPI_CONFIG" ]; then
+    mkdir -p "$GQE_DISPLAY_DPI_CONFIG_PATH"
+    touch "$GQE_DISPLAY_DPI_CONFIG"
+fi
+GQE_DISPLAY_DPI=$(cat "$GQE_DISPLAY_DPI_CONFIG" 2>/dev/null)
+if ! [[ -n $GQE_DISPLAY_DPI && -z ${GQE_DISPLAY_DPI//[0-9]/} && $GQE_DISPLAY_DPI -ne 0 ]]; then
+    echo "不正确的 DPI 配置，将忽略 DPI 配置"
+    GQE_NO_DPI=1
+fi
+
+if [ "$GQE_WITH_VNC" = "1" ]; then
+    if ps a | grep -q '[t]ermux-x11'; then
+        pkill -f termux-x11
+    fi
+    termux-x11 :13 >/dev/null 2>&1 &
+    x11vnc -display :13 -nopw -forever -shared &
+    echo "VNC 服务已启动，可连接 localhost:5913"
+elif [ "$GQE_ONLY_VNC" = "1" ]; then
+    vncserver -SecurityTypes None -geometry 1024x768 :13 &
+    export DISPLAY=:13
+    echo "VNC 服务已启动，可连接 localhost:5913"
+else
+    if ps a | grep -q '[t]ermux-x11'; then
+        pkill -f termux-x11
+    fi
+    if [ "$GQE_NO_DPI" != 1 ]; then
+        termux-x11 :13 -dpi="$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
+    else
+        termux-x11 :13 >/dev/null 2>&1 &
+    fi
+fi
+
+resolution_file="$GQE_DATA/config/resolution.txt"
+resolution=$(cat "$resolution_file" 2>/dev/null)
+if [[ ! "$resolution" =~ ^[0-9]+[xX][0-9]+$ ]]; then
+    echo "无效或缺失的分辨率配置，将更正为默认分辨率 1024x768"
+    mkdir -p "$(dirname "$resolution_file")"
+    resolution="1024x768"
+    echo "$resolution" > "$resolution_file"
+fi
+
+if [ "$GQE_ONLY_VNC" != "1" ]; then
+    if am start -n com.termux.x11/.MainActivity; then
+        sleep 0.8
+        termux-x11-preference displayResolutionMode:exact "displayResolutionExact:${resolution}" || echo "更改分辨率失败，可能需要自行设置"
+    else
+        echo "自动跳转Termux-x11失败, 需确保已安装"
+    fi
+fi
+
+env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
+
+if [ "$GQE_ONLY_VNC" != "1" ]; then
+    pkill -f termux-x11
+fi
+if [ "$GQE_NO_PULSE" != "1" ]; then
+    pulseaudio -k >/dev/null 2>&1
+    rm -rf "$PREFIX"/tmp/pulse-*
+fi
+if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
+    pkill -f virgl
+fi

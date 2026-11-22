@@ -47,7 +47,7 @@ You can find the configuration files at the path `/storage/emulated/0/.gqe-start
 | File Name | Description |
 |---|---|
 | `all_var.txt` | GQE global environment variables |
-| `dxvk.conf` | DXVK configuration file |
+| `dxvk_settings.ini` | DXVK configuration file |
 | `mesa_var.txt` | Mesa Gallium driver selection |
 | `mesa_var_v.txt` | Mesa Vulkan driver selection |
 | `mesa_var_f.txt` | Points to the Vulkan ICD‑JSON manifest file |

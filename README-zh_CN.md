@@ -41,7 +41,7 @@ kill-gqe
 | 文件名 | 作用说明 |
 |---|---|
 | `all_var.txt` | GQE 全局环境变量 |
-| `dxvk.conf` | DXVK 配置文件 |
+| `dxvk_settings.ini` | DXVK 配置文件 |
 | `mesa_var.txt` | Mesa Gallium 驱动选择 |
 | `mesa_var_v.txt` | Mesa Vulkan 驱动选择 |
 | `mesa_var_f.txt` | 指向 Vulkan ICD‑JSON 文本清单文件 |

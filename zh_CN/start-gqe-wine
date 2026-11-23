@@ -80,7 +80,7 @@ EOF
 }
 
 reinit() {
-    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "50198f3939420ce4649c934bc8d92567e45251eefd9fca2f174b55feb15ee944" "initialization-sh" "初始化脚本"
+    download_file "https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "50198f3939420ce4649c934bc8d92567e45251eefd9fca2f174b55feb15ee944" "initialization-sh" "初始化脚本"
     mv "$PREFIX/tmp/initialization-sh" .
     chmod +x initialization-sh
     source ./initialization-sh "$1"
@@ -118,7 +118,7 @@ if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
     reinit_var
 fi
 
-if ! source "$HOME/storage/shared/.gqe-start/all_var.txt/all_var.txt"; then
+if ! source "$HOME/storage/shared/.gqe-start/all_var.txt"; then
     echo "导入环境变量失败! 请检查文件 /storage/emulated/0/.gqe-start/all_var.txt 是否存在"
     exit 1
 fi

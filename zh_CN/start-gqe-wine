@@ -602,10 +602,6 @@ gqe_settings_menu() {
     done
 }
 
-if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
-    reinit_var
-fi
-
 if  [ ! -f "$GQE_DATA/timezone.txt" ] || [ -n "$GQE_DATA/timezone.txt" ]; then
 	echo "zh_CN.UTF-8" > "$GQE_DATA/timezone.txt"
 fi

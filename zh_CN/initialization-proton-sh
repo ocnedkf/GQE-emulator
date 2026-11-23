@@ -9,7 +9,6 @@ export GQE_START="$HOME/storage/shared/.gqe-start"
 export WINEPREFIX="${GQE_DATA}/.wine"
 export GQE_CONFIG_PATH="$HOME/storage/shared/.gqe-start"
 export DXVK_CONFIG_FILE="$GQE_CONFIG_PATH/dxvk_settings.ini"
-export PULSE_LATENCY_MSEC=20
 export DXVK_ASYNC=1
 export BOX64_ASYNC=1
 export MESA_VK_DEVICE_SELECT="$(cat "$GQE_CONFIG_PATH/mesa_var_v.txt")"
@@ -232,6 +231,11 @@ touch "$GQE_CONFIG_PATH"/{mesa_var_v.txt,mesa_var_f.txt}
 var_all > $GQE_CONFIG_PATH/all_var.txt
 echo "dxvk.hud = 1" > $GQE_CONFIG_PATH/dxvk_settings.ini
 echo "virpipe" > $GQE_CONFIG_PATH/mesa_var.txt
+mkdir -p "$GQE_DATA"/config
+echo "virglrenderer" > "$GQE_DATA"/virgl_backend.txt
+echo "default" > "$GQE_DATA"/config/dpi.txt
+echo "20" > "$GQE_DATA/config/audio_delay.txt"
+echo "zh_CN.UTF-8" > "$GQE_DATA/timezone.txt"
 
 echo "配置完成"
 echo -e "\n初始化完成\n"

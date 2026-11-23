@@ -603,8 +603,8 @@ gqe_settings_menu() {
     done
 }
 
-if  [ ! -f "$GQE_DATA/timezone.txt" ] || [ -s "$GQE_DATA/timezone.txt" ]; then
-	echo "zh_CN.UTF-8" > "$GQE_DATA/timezone.txt"
+if [ ! -s "$GQE_DATA/timezone.txt" ]; then
+    echo "zh_CN.UTF-8" > "$GQE_DATA/timezone.txt"
 fi
 
 

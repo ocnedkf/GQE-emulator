@@ -30,7 +30,6 @@ EOF
 if [ "$1" = "var" ]; then
   mkdir -p "$GQE_CONFIG_PATH"
   var_all > $GQE_CONFIG_PATH/all_var.txt
-  exit 0
 fi
 
 wallpaper_reg(){

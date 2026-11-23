@@ -736,7 +736,7 @@ if [ "$GQE_WITH_VNC" = "1" ]; then
         pkill -f termux-x11
     fi
 	if ps a | grep -q '[v]ncserver'; then
-		pkill -f verserver
+		pkill -f vncserver
 	fi
     termux-x11 :13 >/dev/null 2>&1 &
     x11vnc -display :13 -nopw -forever -shared &

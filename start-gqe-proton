@@ -712,9 +712,9 @@ fi
 if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     pkill -f virgl
     if [ "$(cat "$GQE_DATA/virgl_backend.txt")" = "virglrenderer" ]; then
-        virgl_test_server --use-gles --use-egl-surfaceless > "$GQE_START/log.txt" 2>&1 &
+        virgl_test_server --use-gles --use-egl-surfaceless > "$GQE_CONFIG_PATH/log.txt" 2>&1 &
     else
-        virgl_test_server_android --angle-vulkan &
+        virgl_test_server_android --angle-vulkan "$GQE_CONFIG_PATH/log.txt" 2>&1 &
     fi
     export LIBGL_ALWAYS_SOFTWARE=1
 fi

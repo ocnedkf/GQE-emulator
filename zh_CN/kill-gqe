@@ -39,3 +39,5 @@ rm -rf $TMPDIR/pulse-*
 
 pkill -f virgl
 pkill -f termux-x11
+pkill -f x11vnc
+vncserver -kill :13

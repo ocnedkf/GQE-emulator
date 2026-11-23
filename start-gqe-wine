@@ -80,7 +80,7 @@ EOF
 }
 
 reinit() {
-    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "5BE3933470C4C5F3C0BFA87077FC74B28A89A2CC662EF72B254BE7DD7C2A694B" "initialization-sh" "initialization script"
+    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" "a096ed1e60217f5a0783174097e177eeae533674115f077e0bbaf1d49518eb97" "initialization-sh" "initialization script"
     mv "$PREFIX/tmp/initialization-sh" .
     chmod +x initialization-sh
     source ./initialization-sh "$1"

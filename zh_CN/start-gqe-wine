@@ -606,6 +606,10 @@ if [ ! -f "$HOME/storage/shared/.gqe-start/all_var.txt" ]; then
     reinit_var
 fi
 
+if  [ ! -f "$GQE_DATA/timezone.txt" ] || [ -n "$GQE_DATA/timezone.txt" ]; then
+	echo "zh_CN.UTF-8" > "$GQE_DATA/timezone.txt"
+fi
+
 for arg in "$@"; do
     case $arg in
         -v | --version)
@@ -730,7 +734,7 @@ if [ ! -f "$GQE_DISPLAY_DPI_CONFIG" ]; then
     touch "$GQE_DISPLAY_DPI_CONFIG"
 fi
 GQE_DISPLAY_DPI=$(cat "$GQE_DISPLAY_DPI_CONFIG" 2>/dev/null)
-if ! [[ -n $GQE_DISPLAY_DPI && -z ${GQE_DISPLAY_DPI//[0-9]/} && $GQE_DISPLAY_DPI -ne 0 ]]; then
+if ! [[ "$GQE_DISPLAY_DPI" != default && -n $GQE_DISPLAY_DPI && -z ${GQE_DISPLAY_DPI//[0-9]/} && $GQE_DISPLAY_DPI -ne 0 ]]; then
     echo "不正确的 DPI 配置，将忽略 DPI 配置"
     GQE_NO_DPI=1
 fi
@@ -775,7 +779,7 @@ if [ "$GQE_ONLY_VNC" != "1" ]; then
     fi
 fi
 
-env PULSE_SERVER=127.0.0.1 LC_ALL=zh_CN.UTF-8 grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
+env PULSE_SERVER=127.0.0.1 PULSE_LATENCY_MSEC="$audio_delay" LC_ALL=$(cat "$GQE_DATA/timezone.txt") grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
 if [ "$GQE_ONLY_VNC" != "1" ]; then
     pkill -f termux-x11

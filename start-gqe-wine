@@ -73,7 +73,7 @@ usage : start-gqe [option]
         start-gqe -f/--fix       Try to repair the Wine prefix
         start-gqe -na/--no-audio Disable audio when starting GQE
         start-gqe -wv/--with-vnc Start GQE with the VNC service
-        start-gqe -nv/--only-vnc Start GQE with only the VNC service
+        start-gqe -ov/--only-vnc Start GQE with only the VNC service
         start-gqe -s/--settings  Open the GQE settings menu
 EOF
     show_info
@@ -661,7 +661,7 @@ for arg in "$@"; do
             fi
             GQE_WITH_VNC=1
             ;;
-        -nv | --only-vnc)
+        -ov | --only-vnc)
             if ! command -v vncserver >/dev/null 2>&1; then
                 echo -e "Error: vncserver is not installed; it is required for this feature to work\n"
                 read -p "Install now? (y/n) " choose
@@ -713,6 +713,10 @@ else
     pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
 fi
 
+if [ ! -s "$GQE_DATA/virgl_backend.txt" ]; then
+    echo "virglrenderer" > "$GQE_DATA/virgl_backend.txt"
+fi
+
 if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     pkill -f virgl
     if [ "$(cat "$GQE_DATA/virgl_backend.txt")" = "virglrenderer" ]; then
@@ -738,6 +742,9 @@ fi
 if [ "$GQE_WITH_VNC" = "1" ]; then
     if ps a | grep -q '[t]ermux-x11'; then
         pkill -f termux-x11
+    fi
+	if ps a | grep -q '[v]ncserver'; then
+        pkill -f vncserver
     fi
     termux-x11 :13 >/dev/null 2>&1 &
     x11vnc -display :13 -nopw -forever -shared &

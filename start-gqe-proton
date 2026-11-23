@@ -162,10 +162,12 @@ echo_about_gqe() {
 
 # 1 Display settings
 gqe_display_settings() {
+	clear
     echo -e "1) Resolution settings\n2) DPI settings\n3) Back"
     read -e -p "Enter an option (1-3): " display_choice
     case $display_choice in
         1)
+			clear
             echo -e "Preset resolutions:\n\n1) 320x200\n2) 320x420\n3) 352x288\n4) 400x240\n5) 640x350\n6) 640x480 (recommended)\n7) 800x480\n8) 800x600 (recommended)\n9) 1024x768 (recommended)\n10) 1280x720 (recommended)\n11) 1280x960 (recommended)\n12) 1280x1024 (recommended)\n13) 1400x1024\n14) 1600x1200 (recommended)\n15) 1366x768\n16) 1680x1050 (recommended)\n17) 1920x1080 (recommended)\n18) 1920x1200\n19) 2048x1536\n20) 2560x1600 (recommended)\n21) 2560x2048\n22) 3840x2160 (recommended)\n23) 7680x4320"
             read -e -p "Enter a resolution: " resolution_choice
             if [[ "$resolution_choice" =~ ^[0-9]+[xX][0-9]+$ ]]; then
@@ -197,6 +199,7 @@ gqe_display_settings() {
 
 # 2 Audio settings
 gqe_audio_settings() {
+	clear
     echo -e "1) Latency settings\n2) Back"
     read -e -p "Enter an option (1-2): " audio_choice
     case $audio_choice in
@@ -221,6 +224,7 @@ gqe_audio_settings() {
 
 # 3 Wine settings
 gqe_wine_settings() {
+	clear
     echo -e "1) DLL overrides\n2) Wine information\n3) Back"
     read -e -p "Enter an option (1-3): " wine_choice
     case $wine_choice in
@@ -270,6 +274,7 @@ gqe_wine_settings() {
 
 # 4 Drive letter settings
 gqe_drive_settings() {
+	clear
     echo -e "1) Add a drive letter\n2) Remove a drive letter\n3) View drive letters\n4) Back"
     local DOSDIR="${GQE_DATA}/.wine/dosdevices"
     read -e -p "Enter an option (1-4): " drive_choice
@@ -367,6 +372,7 @@ gqe_config_settings() {
     fi
 
     while true; do
+		clear
         echo -e "1) Edit dxvk_settings.ini ( DXVK configuration file )\n2) Edit all_var.txt ( GQE environment variable configuration file )\n3) Edit start-gqe-v0.4.bat ( GQE Wine startup script )\n4) Back"
         read -e -p "Enter an option (1-4): " config_file
         GQE_START="$HOME/storage/shared/.gqe-start"
@@ -404,6 +410,7 @@ gqe_config_settings() {
 
 gqe_backend_settings() {
     while true; do
+		clear
         echo -e "1) WineD3D backend\n2) Virgl backend\n3) Back"
         read -e -p "Choose a number to continue...(1/2/3 or EXIT to exit) " choose_backend
         if [ "${choose_backend^^}" = "EXIT" ]; then
@@ -442,6 +449,7 @@ gqe_backend_settings() {
                 ;;
             2)
                 while true; do
+					clear
                     echo -e "1) Standard\n2) Android special edition\n3) Exit"
                     read -e -p "Enter a number to choose...(1/2/3) " choose_virgl_backend
                     case "$choose_virgl_backend" in
@@ -504,10 +512,12 @@ gqe_backend_settings() {
 # 5 Other settings
 gqe_other_settings() {
     while true; do
+		clear
         echo -e "More settings\n\n1) Time zone settings\n2) Configuration settings\n3) Backend settings\n4) Wallpaper settings\n5) Back"
         read -e -p "Enter an option (1-5): " other_choice
         case $other_choice in
             1)
+				clear
                 echo_time_info
                 read -p "Enter a time zone ID: " timezone
                 if [ -z "${timezone}" ]; then
@@ -559,8 +569,8 @@ gqe_other_settings() {
 }
 
 gqe_settings_menu() {
-    clear
     while true; do
+		clear
         echo_gqe_settings
         read -p "Enter an option (1-7): " choice
         case $choice in

@@ -73,7 +73,7 @@ usage : start-gqe [option]
         start-gqe -f/--fix       尝试修复 Wine前缀
         start-gqe -na/--no-audio 禁用音频以启动GQE
         start-gqe -wv/--with-vnc 启动 GQE 并附带 VNC 服务
-        start-gqe -nv/--only-vnc 启动 GQE 并仅启动 VNC 服务
+        start-gqe -ov/--only-vnc 启动 GQE 并仅启动 VNC 服务
         start-gqe -s/--settings  打开 GQE 设置菜单
 EOF
     show_info
@@ -663,7 +663,7 @@ for arg in "$@"; do
             fi
             GQE_WITH_VNC=1
             ;;
-        -nv | --only-vnc)
+        -ov | --only-vnc)
             if ! command -v vncserver >/dev/null 2>&1; then
                 echo -e "错误: vncserver 未安装，此功能务必需要安装 vncserver 才能正常工作\n"
                 read -p "是否现在进行安装？(y/n) " choose
@@ -715,6 +715,9 @@ else
     pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
 fi
 
+if [ ! -s "$GQE_DATA/virgl_backend.txt" ]; then
+    echo "virglrenderer" > "$GQE_DATA/virgl_backend.txt"
+fi
 if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     pkill -f virgl
     if [ "$(cat "$GQE_DATA/virgl_backend.txt")" = "virglrenderer" ]; then
@@ -740,6 +743,9 @@ fi
 if [ "$GQE_WITH_VNC" = "1" ]; then
     if ps a | grep -q '[t]ermux-x11'; then
         pkill -f termux-x11
+    fi
+    if ps a | grep -q '[v]ncserver'; then
+        pkill -f vncserver
     fi
     termux-x11 :13 >/dev/null 2>&1 &
     x11vnc -display :13 -nopw -forever -shared &

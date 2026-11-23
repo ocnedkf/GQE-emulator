@@ -760,7 +760,7 @@ if [ "$GQE_WITH_VNC" = "1" ]; then
     x11vnc -display :13 -nopw -forever -shared &
     echo "VNC 服务已启动，可连接 localhost:13"
 elif [ "$GQE_ONLY_VNC" = "1" ]; then
-    vncserver -SecurityTypes None -geometry 1024x768 :13 &
+    vncserver -rfbport 5913 -SecurityTypes None -geometry 1024x768 :13 &
     export DISPLAY=:13
     echo "VNC 服务已启动，可连接 localhost:13"
 else

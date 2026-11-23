@@ -730,7 +730,7 @@ if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     if [ "$(cat "$GQE_DATA/virgl_backend.txt")" = "virglrenderer" ]; then
         virgl_test_server --use-gles --use-egl-surfaceless > "$GQE_CONFIG_PATH/log.txt" 2>&1 &
     else
-        virgl_test_server_android --angle-vulkan "$GQE_CONFIG_PATH/log.txt" 2>&1 &
+        virgl_test_server_android --angle-vulkan > "$GQE_CONFIG_PATH/log.txt" 2>&1 &
     fi
     export LIBGL_ALWAYS_SOFTWARE=1
 fi
@@ -790,10 +790,25 @@ if [ "$GQE_ONLY_VNC" != "1" ]; then
     fi
 fi
 
-env PULSE_SERVER=127.0.0.1 PULSE_LATENCY_MSEC="$(cat "$GQE_DATA/config/audio_delay.txt")" LC_ALL=$(cat "$GQE_DATA/timezone.txt") grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
+if [[ -s $GQE_DATA/config/audio_delay.txt ]]; then
+    mkdir -p "$GQE_DATA/config"
+    echo "20" > "$GQE_DATA/config/audio_delay.txt"
+fi
 
-vncserver -kill :13 >/dev/null 2>&1
-if [ "$GQE_ONLY_VNC" != "1" ]; then
+env \
+DISPLAY=:13 \
+PULSE_SERVER=127.0.0.1 \
+PULSE_LATENCY_MSEC="$(cat $GQE_DATA/config/audio_delay.txt)" \
+TZ=$(cat "$GQE_DATA/timezone.txt") \
+LC_ALL=zh_CN.UTF-8 \
+grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
+
+if [ "$GQE_ONLY_VNC" = "1" ]; then
+    pkill -f vncserver
+elif [ "$GQE_WITH_VNC" = "1" ]; then
+    pkill -f x11vnc
+    pkill -f termux-x11
+else
     pkill -f termux-x11
 fi
 if [ "$GQE_NO_PULSE" != "1" ]; then

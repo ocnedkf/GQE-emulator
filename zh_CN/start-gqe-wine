@@ -162,10 +162,12 @@ echo_about_gqe() {
 
 # 1显示设置
 gqe_display_settings() {
+    clear
     echo -e "1) 分辨率设置\n2) DPI 设置\n3) 返回"
     read -e -p "请输入选项 (1-3): " display_choice
     case $display_choice in
         1)
+            clear
             echo -e "预设分辨率:\n\n1) 320x200\n2) 320x420\n3) 352x288\n4) 400x240\n5) 640x350\n6) 640x480 (推荐)\n7) 800x480\n8) 800x600 (推荐)\n9) 1024x768 (推荐)\n10) 1280x720 (推荐)\n11) 1280x960 (推荐)\n12) 1280x1024 (推荐)\n13) 1400x1024\n14) 1600x1200 (推荐)\n15) 1366x768\n16) 1680x1050 (推荐)\n17) 1920x1080 (推荐)\n18) 1920x1200\n19) 2048x1536\n20) 2560x1600 (推荐)\n21) 2560x2048\n22) 3840x2160 (推荐)\n23) 7680x4320"
             read -e -p "请输入分辨率: " resolution_choice
             if [[ "$resolution_choice" =~ ^[0-9]+[xX][0-9]+$ ]]; then
@@ -197,6 +199,7 @@ gqe_display_settings() {
 
 # 2音频设置
 gqe_audio_settings() {
+    clear
     echo -e "1) 延迟设置\n2) 返回"
     read -e -p "请输入选项 (1-2): " audio_choice
     case $audio_choice in
@@ -221,6 +224,7 @@ gqe_audio_settings() {
 
 # 3 Wine 设置
 gqe_wine_settings() {
+    clear
     echo -e "1) DLL覆盖\n2) Wine 信息\n3) 返回"
     read -e -p "请输入选项 (1-3): " wine_choice
     case $wine_choice in
@@ -270,6 +274,7 @@ gqe_wine_settings() {
 
 # 4 盘符设置
 gqe_drive_settings() {
+    clear
     echo -e "1) 添加盘符\n2) 删除盘符\n3) 查看盘符\n4) 返回"
     local DOSDIR="${GQE_DATA}/.wine/dosdevices"
     read -e -p "请输入选项 (1-4): " drive_choice
@@ -358,10 +363,12 @@ gqe_drive_settings() {
 # 5 其他设置
 gqe_other_settings() {
     while true; do
+        clear
         echo -e "更多设置\n\n1) 时区设置\n2) 配置设置\n3) 后端设置\n4) 壁纸设置\n5) 返回"
         read -e -p "请输入选项 (1-5): " other_choice
         case $other_choice in
         1)
+            clear
             echo_time_info
             read -p "请输入时区ID: " timezone
             if [ -z "${timezone}" ]; then
@@ -386,6 +393,7 @@ gqe_other_settings() {
                 fi
             fi
             while true; do
+                clear
                 echo -e "1) 编辑 dxvk_settings.ini ( DXVK 配置文件 )\n2) 编辑 all_var.txt ( GQE 环境变量配置文件 )\n3) 编辑 start-gqe-v0.4.bat ( GQE Wine 启动脚本 )\n4) 返回"
                 read -e -p "请输入选项 (1-4): " config_file
                 GQE_START="$HOME/storage/shared/.gqe-start"

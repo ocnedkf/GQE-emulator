@@ -619,8 +619,9 @@ gqe_settings_menu() {
     done
 }
 
-if [ ! -s "$GQE_DATA/config/timezone.txt" ]; then
-    echo "zh_CN.UTF-8" > "$GQE_DATA/config/timezone.txt"
+if [ ! -f "$GQE_DATA/config/timezone.txt" ]; then
+    mkdir -p "$GQE_DATA/config"
+    echo "Asia/Shanghai" > "$GQE_DATA/config/timezone.txt"
 fi
 
 
@@ -799,7 +800,7 @@ if [ "$GQE_ONLY_VNC" != "1" ]; then
     fi
 fi
 
-if [[ -s $GQE_DATA/config/audio_delay.txt ]]; then
+if [[ ! -f $GQE_DATA/config/audio_delay.txt ]]; then
     mkdir -p "$GQE_DATA/config"
     echo "20" > "$GQE_DATA/config/audio_delay.txt"
 fi

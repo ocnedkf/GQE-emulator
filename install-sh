@@ -136,7 +136,7 @@ while true; do
         judge_init_error
     
         # download and set up GQE startup script
-        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-wine "CE0D68ABB544AABE41A08E082ADC056755F25A798BDED418C52C5E81525D240F" "start-gqe" "GQE Startup Script"
+        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-wine "4C4823B95CFE68599C3EEA6C5F33EB29C4825E62662B0A940C94CFAA2C5B87C4" "start-gqe" "GQE Startup Script"
         mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
         chmod +x $PREFIX/bin/start-gqe
         break
@@ -154,7 +154,7 @@ while true; do
         judge_init_error
     
         # download and set up GQE startup script
-        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-proton "ED4516A5858A731A6C0F05DBD09A99C87895ABE68FD9B1AB5D4A1CB97005CA8F" "start-gqe" "GQE Startup Script"
+        download_file https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-proton "1270B9FC23934AE1359270799A9F0F73EEB77044895CEAE85B91A50AA056DD81" "start-gqe" "GQE Startup Script"
         mv $PREFIX/tmp/start-gqe $PREFIX/bin/start-gqe
         chmod +x $PREFIX/bin/start-gqe
         break

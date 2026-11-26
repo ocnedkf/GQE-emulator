@@ -52,12 +52,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator is an emulator for running Windows x86_64 programs
 
-For details, see: https://github.com/ocnedkf/GQE-emulator/tree/v0.4-beta
+For details, see: https://github.com/ocnedkf/GQE-emulator/tree/v0.4.1-beta
 EOF
 }
 
 show_version() {
-    echo "v0.4-beta"
+    echo "v0.4.1-beta"
     exit 0
 }
 
@@ -80,7 +80,7 @@ EOF
 }
 
 reinit() {
-    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-proton-sh" "2ede767336d966a3595e3a5cbf91a50def75ef1dc4551773abc0969e9ad4aab7" "initialization-sh" "initialization script"
+    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/initialization-proton-sh" "2ede767336d966a3595e3a5cbf91a50def75ef1dc4551773abc0969e9ad4aab7" "initialization-sh" "initialization script"
     mv "$PREFIX/tmp/initialization-sh" .
     chmod +x initialization-sh
     source ./initialization-sh "$1"
@@ -154,7 +154,7 @@ EOF
 
 echo_about_gqe() {
         clear
-    echo -e "GQE Emulator v0.4-beta\n"
+    echo -e "GQE Emulator v0.4.1-beta\n"
     echo -e "Author: ocnedkf\n"
     echo -e "GitHub: https://github.com/ocnedkf/GQE-emulator\n"
     echo -e "Report issues: https://github.com/ocnedkf/GQE-emulator/issues\n"

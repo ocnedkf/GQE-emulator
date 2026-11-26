@@ -719,14 +719,12 @@ check_config_files() {
     fi
 }
 
-
-
 # Refactored pre-check section: misc, prefix, X11, audio, backend, config (done)
 
 # Misc
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 1048576 ]; then
-    echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
+    echo "Low available storage detected — GQE may experience lag or failures"
 fi
 
 if ps a | grep -q '[w]ine64'; then
@@ -736,7 +734,7 @@ fi
 # Wine prefix
 if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
     clear
-    echo -e "Wine前缀损坏! 尝试重新初始化...\n"
+    echo -e "Wine prefix corrupted! Attempting to reinitialize...\n"
     reinit
 fi
 
@@ -755,7 +753,7 @@ kill_if_running() {
 
 # ========== 1. Mode normalization: when both flags are set, WITH_VNC wins ==========
 if [ "$GQE_WITH_VNC" = "1" ] && [ "$GQE_ONLY_VNC" = "1" ]; then
-    echo "警告: 同时指定了两种 VNC 模式，将使用 --with-vnc"
+    echo "Warning: both VNC modes specified; --with-vnc will be used"
     unset GQE_ONLY_VNC
 fi
 
@@ -771,12 +769,14 @@ start_termux_x11() {
 }
 
 change_resolution() {
-if am start -n com.termux.x11/.MainActivity; then
-    sleep 0.8
-    termux-x11-preference displayResolutionMode:exact displayResolutionExact:${resolution} || echo "更改分辨率失败，可能需要自行设置"
-else
-    echo "自动跳转Termux-x11失败, 需确保已安装"
-fi
+    local resolution="$(cat "$GQE_DATA/config/resolution.txt")"
+
+    if am start -n com.termux.x11/.MainActivity; then
+        sleep 0.8
+        termux-x11-preference displayResolutionMode:exact displayResolutionExact:${resolution} >/dev/null 2>&1 || echo "Failed to change resolution; you may need to set it manually"
+    else
+        echo "Failed to launch Termux-x11 automatically; make sure it is installed"
+    fi
 }
 
 # x11vnc forwarding: wait for X to be ready before attaching, so the process does not exit on an unready display
@@ -784,8 +784,8 @@ start_x11vnc() {
     sleep 1
     export DISPLAY="$DISPLAY"
     x11vnc -display "$DISPLAY" -R stop >/dev/null 2>&1
-    x11vnc -display "$DISPLAY" -N -forever -shared &
-    echo "VNC 服务已启动，可连接 localhost:0"
+    x11vnc -display "$DISPLAY" -N -forever -shared >/dev/null 2>&1 &
+    echo "VNC service started; connect to localhost${DISPLAY}"
 }
 
 # Pure vncserver: do not launch termux-x11
@@ -793,7 +793,7 @@ start_tiger_vnc() {
     vncserver -kill :13 2>/dev/null || true
     rm -f "$TMPDIR"/{.X11-unix/X13,.X13-lock} 2>/dev/null || true
     vncserver -rfbport "$VNC_PORT" -SecurityTypes None -geometry "$VNC_GEOMETRY" "$DISPLAY" >/dev/null 2>&1 &
-    echo "VNC 服务已启动，可连接 localhost:0"
+    echo "VNC service started; connect to localhost${DISPLAY}"
 }
 
 # ========== 3. Start according to the selected mode ==========
@@ -811,7 +811,7 @@ fi
 
 # Audio
 if [ "$GQE_NO_PULSE" = "1" ]; then
-    echo "警告: 音频功能已禁用"
+    echo "Warning: audio has been disabled"
 else
     rm -rf "$PREFIX"/tmp/pulse-*
     pulseaudio -k >/dev/null 2>&1

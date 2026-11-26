@@ -20,7 +20,7 @@ GQE 是一款用于在 Android ARM64 设备上运行 Windows x86_64 程序的模
 在 Termux 中执行以下命令，并确保使用 64 位版本。
 
 ```bash
-curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/install-sh && chmod +x g && ./g
+curl -s -o g https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/install-sh && chmod +x g && ./g
 ```
 
 # 启动 GQE
@@ -90,7 +90,7 @@ kill-gqe
 执行：
 
 ```bash
-curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/uninstall-gqe && chmod +x u && ./u
+curl -s -o u https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/uninstall-gqe && chmod +x u && ./u
 ```
 
 > [!WARNING]

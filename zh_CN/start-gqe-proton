@@ -792,12 +792,14 @@ start_termux_x11() {
 }
 
 change_resolution() {
-if am start -n com.termux.x11/.MainActivity; then
-    sleep 0.8
-    termux-x11-preference displayResolutionMode:exact displayResolutionExact:${resolution} || echo "更改分辨率失败，可能需要自行设置"
-else
-    echo "自动跳转Termux-x11失败, 需确保已安装"
-fi
+    local resolution=$(cat "$GQE_DATA/config/resolution.txt")
+
+    if am start -n com.termux.x11/.MainActivity; then
+        sleep 0.8
+        termux-x11-preference displayResolutionMode:exact displayResolutionExact:${resolution} || echo "更改分辨率失败，可能需要自行设置"
+    else
+        echo "自动跳转Termux-x11失败, 需确保已安装"
+    fi
 }
 
 # x11vnc 转发：等 X 就绪再挂，避免 display 未就绪导致进程退出
@@ -805,8 +807,8 @@ start_x11vnc() {
     sleep 1
     export DISPLAY="$DISPLAY"
     x11vnc -display "$DISPLAY" -R stop >/dev/null 2>&1
-    x11vnc -display "$DISPLAY" -N -forever -shared &
-    echo "VNC 服务已启动，可连接 localhost:0"
+    x11vnc -display "$DISPLAY" -N -forever -shared >/dev/null 2>&1 & &
+    echo "VNC 服务已启动，可连接 localhost${DISPLAY}"
 }
 
 # 纯 vncserver：不拉起 termux-x11
@@ -814,7 +816,7 @@ start_tiger_vnc() {
     vncserver -kill :13 2>/dev/null || true
     rm -f "$TMPDIR"/{.X11-unix/X13,.X13-lock} 2>/dev/null || true
     vncserver -rfbport "$VNC_PORT" -SecurityTypes None -geometry "$VNC_GEOMETRY" "$DISPLAY" >/dev/null 2>&1 &
-    echo "VNC 服务已启动，可连接 localhost:0"
+    echo "VNC 服务已启动，可连接 localhost${DISPLAY}"
 }
 
 # ========== 3. 按模式启动 ==========

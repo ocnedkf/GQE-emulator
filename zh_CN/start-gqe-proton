@@ -52,12 +52,12 @@ GQE-emulator by ocnedkf
 
 GQE-emulator 是一个可用于运行windows x86_64程序的模拟器
 
-详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.4-beta
+详情请见: https://github.com/ocnedkf/GQE-emulator/tree/v0.4.1-beta
 EOF
 }
 
 show_version() {
-    echo "v0.4-beta"
+    echo "v0.4.1-beta"
     exit 0
 }
 
@@ -80,7 +80,7 @@ EOF
 }
 
 reinit() {
-    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-proton-sh" "a12ac7eaa21593cbc6e68f7f88265d2afec8822f6e884d476812bcc20aa72f47" "initialization-sh" "初始化脚本"
+    download_file "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/initialization-proton-sh" "a12ac7eaa21593cbc6e68f7f88265d2afec8822f6e884d476812bcc20aa72f47" "initialization-sh" "初始化脚本"
     mv "$PREFIX/tmp/initialization-sh" .
     chmod +x initialization-sh
     source ./initialization-sh "$1"
@@ -154,7 +154,7 @@ EOF
 
 echo_about_gqe() {
     clear
-    echo -e "GQE Emulator v0.4-beta\n"
+    echo -e "GQE Emulator v0.4.1-beta\n"
     echo -e "作者: ocnedkf\n"
     echo -e "GitHub: https://github.com/ocnedkf/GQE-emulator\n"
     echo -e "反馈问题: https://github.com/ocnedkf/GQE-emulator/issues\n"

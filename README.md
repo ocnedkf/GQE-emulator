@@ -1,11 +1,11 @@
 <!-- markdownlint-disable -->
 <!-- cspell:disable -->
 
-[![中文](https://img.shields.io/badge/lang-中文-red.svg)](https://github.com/ocnedkf/GQE-emulator/blob/v0.4-beta/README-zh_CN.md)
+[![中文](https://img.shields.io/badge/lang-中文-red.svg)](https://github.com/ocnedkf/GQE-emulator/blob/v0.4.1-beta/README-zh_CN.md)
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](README.md)
 
 > [!NOTE]
-> You are currently in the v0.4-beta channel.
+> You are currently in the v0.4.1-beta channel.
 
 > [!WARNING]
 > This emulator is currently in beta and may contain undiscovered bugs. We apologize for any inconvenience and appreciate your understanding.
@@ -23,7 +23,7 @@ Have an improvement? Submit a pull request—we welcome constructive contributio
 Run the following command in Termux. Make sure to use the 64-bit version.
 
 ```bash
-curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/install-sh && chmod +x g && ./g
+curl -s -o g https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/install-sh && chmod +x g && ./g
 ```
 
 # Launch GQE
@@ -93,7 +93,7 @@ Run `start-gqe -f` to repair or reinitialize the Wine prefix.
 Run the following command:
 
 ```bash
-curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/uninstall-gqe && chmod +x u && ./u
+curl -s -o u https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/uninstall-gqe && chmod +x u && ./u
 ```
 
 > [!WARNING]

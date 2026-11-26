@@ -82,8 +82,10 @@ Configuration files are located at:
 Run `start-gqe -f` to repair or reinitialize the Wine prefix.
 
 > [!TIP]
-> If you want to reinitialize the Wine prefix, delete it before running the repair command:
+> If you want to reinitialize the Wine prefix, delete it before running the repair command
 >
+> Wine prefix directories are as follows:
+> 
 > ```text
 > $HOME/.gqe-data-v0.4/.wine
 > ```

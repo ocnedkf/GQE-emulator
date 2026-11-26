@@ -616,11 +616,6 @@ gqe_settings_menu() {
     done
 }
 
-if [ ! -f "$GQE_DATA/config/timezone.txt" ]; then
-    mkdir -p "$GQE_DATA/config"
-    echo "Europe/London" > "$GQE_DATA/config/timezone.txt"
-fi
-
 for arg in "$@"; do
     case $arg in
         -v | --version)
@@ -700,40 +695,150 @@ for arg in "$@"; do
     esac
 done
 
-if [ "$GQE_WITH_VNC" = "1" ] && [ "$GQE_ONLY_VNC" = "1" ]; then
-    echo "Warning: Both VNC modes were specified; --with-vnc will be used"
-    unset GQE_ONLY_VNC
+check_config_files() {
+    # DPI file
+    if [ ! -s "$GQE_DATA/config/dpi.txt" ]; then
+        echo "default" > "$GQE_DATA/config/dpi.txt"
+    fi
+    if [ "$(cat "$GQE_DATA/config/dpi.txt")" = "default" ]; then
+        GQE_NO_DPI=1
+    else
+        GQE_DISPLAY_DPI=$(cat "$GQE_DATA/config/dpi.txt")
+    fi
+
+    # Audio delay file
+    if [ ! -s "$GQE_DATA/config/audio_delay.txt" ]; then
+        echo "20" > "$GQE_DATA/config/audio_delay.txt"
+    fi
+
+    # Backend file
+    if [ ! -s "$GQE_DATA/config/virgl_backend.txt" ]; then
+        echo "virglrenderer" > "$GQE_DATA/config/virgl_backend.txt"
+    fi
+
+    # Resolution file
+    if [ ! -s "$GQE_DATA/config/resolution.txt" ]; then
+        echo "1024x768" > "$GQE_DATA/config/resolution.txt"
+    fi
+    
+    # Timezone file
+    if [ ! -s "$GQE_DATA/config/timezone.txt" ]; then
+        echo "Asia/Shanghai" > "$GQE_DATA/config/timezone.txt"
+    fi
+}
+
+if [ ! -d "$GQE_DATA/config" ]; then
+    echo -e "\033[31mError: Configuration folder is corrupted!\nAll settings will be reset to default\033[0m"
+    mkdir -p "$GQE_DATA/config"
+    echo "default" > "$GQE_DATA/config/dpi.txt"
+    echo "20" > "$GQE_DATA/config/audio_delay.txt"
+    echo "virglrenderer" > "$GQE_DATA/config/virgl_backend.txt"
+    echo "1024x768" > "$GQE_DATA/config/resolution.txt"
+    echo "Asia/Shanghai" > "$GQE_DATA/config/timezone.txt"
+else
+    check_config_files
 fi
 
+# Refactored pre-check section: misc, prefix, X11, audio, backend, config (done)
+
+# Misc
 FREE_KB=$(df "$HOME" | awk 'NR==2 {print $4}')
 if [ "$FREE_KB" -lt 1048576 ]; then
-    echo "Low available storage detected — GQE may cause lag or malfunction"
-fi
-
-if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
-    clear
-    echo -e "Wine prefix is corrupted! Attempting to reinitialize...\n"
-    reinit
+    echo "检测到可用存储空间低 — GQE 可能会出现延迟或故障"
 fi
 
 if ps a | grep -q '[w]ine64'; then
     grun "$BOX64" wine64 wineboot -k >/dev/null 2>&1
 fi
 
+# Wine prefix
+if [ ! -d "$WINEPREFIX/drive_c/windows" ]; then
+    clear
+    echo -e "Wine前缀损坏! 尝试重新初始化...\n"
+    reinit
+fi
+
+# X11
+# ========== Config section: display number / port / resolution, edit here ==========
+DISPLAY_NUM=13
+DISPLAY=":${DISPLAY_NUM}"
+VNC_PORT=5913
+VNC_GEOMETRY=${resolution}
+
+# ========== Helper functions ==========
+# Kill old processes matching the given name; silently skip if none match
+kill_if_running() {
+    pkill -f "$1" 2>/dev/null || true
+}
+
+# ========== 1. Mode normalization: when both flags are set, WITH_VNC wins ==========
+if [ "$GQE_WITH_VNC" = "1" ] && [ "$GQE_ONLY_VNC" = "1" ]; then
+    echo "警告: 同时指定了两种 VNC 模式，将使用 --with-vnc"
+    unset GQE_ONLY_VNC
+fi
+
+# ========== 2. Per-mode startup actions (details kept inside functions) ==========
+# Local termux-x11: clean old processes first; pass -dpi only when DPI is set
+start_termux_x11() {
+    kill_if_running termux-x11
+    if [ "$GQE_NO_DPI" != 1 ] && [ -n "$GQE_DISPLAY_DPI" ]; then
+        termux-x11 "$DISPLAY" -dpi="$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
+    else
+        termux-x11 "$DISPLAY" >/dev/null 2>&1 &
+    fi
+}
+
+change_resolution() {
+if am start -n com.termux.x11/.MainActivity; then
+    sleep 0.8
+    termux-x11-preference displayResolutionMode:exact displayResolutionExact:${resolution} || echo "更改分辨率失败，可能需要自行设置"
+else
+    echo "自动跳转Termux-x11失败, 需确保已安装"
+fi
+}
+
+# x11vnc forwarding: wait for X to be ready before attaching, so the process does not exit on an unready display
+start_x11vnc() {
+    sleep 1
+    export DISPLAY="$DISPLAY"
+    x11vnc -display "$DISPLAY" -R stop >/dev/null 2>&1
+    x11vnc -display "$DISPLAY" -N -forever -shared &
+    echo "VNC 服务已启动，可连接 localhost:0"
+}
+
+# Pure vncserver: do not launch termux-x11
+start_tiger_vnc() {
+    vncserver -kill :13 2>/dev/null || true
+    rm -f "$TMPDIR"/{.X11-unix/X13,.X13-lock} 2>/dev/null || true
+    vncserver -rfbport "$VNC_PORT" -SecurityTypes None -geometry "$VNC_GEOMETRY" "$DISPLAY" >/dev/null 2>&1 &
+    echo "VNC 服务已启动，可连接 localhost:0"
+}
+
+# ========== 3. Start according to the selected mode ==========
+if [ "$GQE_WITH_VNC" = "1" ]; then
+    kill_if_running vncserver
+    start_termux_x11
+    start_x11vnc
+elif [ "$GQE_ONLY_VNC" = "1" ]; then
+    start_tiger_vnc
+else
+    start_termux_x11
+    change_resolution
+fi
+
+
+# Audio
 if [ "$GQE_NO_PULSE" = "1" ]; then
-    echo "Warning: Audio is disabled"
+    echo "警告: 音频功能已禁用"
 else
     rm -rf "$PREFIX"/tmp/pulse-*
     pulseaudio -k >/dev/null 2>&1
     pulseaudio --start --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" --exit-idle-time=-1 >/dev/null 2>&1
 fi
 
-if [ ! -s "$GQE_DATA/config/virgl_backend.txt" ]; then
-    echo "virglrenderer" > "$GQE_DATA/config/virgl_backend.txt"
-fi
-
+# Backend
 if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
-    pkill -f virgl
+    kill_if_running virgl
     if [ "$(cat "$GQE_DATA/config/virgl_backend.txt")" = "virglrenderer" ]; then
         virgl_test_server --use-gles --use-egl-surfaceless > "$GQE_CONFIG_PATH/log.txt" 2>&1 &
     else
@@ -742,66 +847,7 @@ if [ "$(cat "$GQE_CONFIG_PATH/mesa_var.txt")" = virpipe ]; then
     export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
-GQE_DISPLAY_DPI_CONFIG_PATH="$GQE_DATA/config"
-GQE_DISPLAY_DPI_CONFIG="$GQE_DISPLAY_DPI_CONFIG_PATH/dpi.txt"
-if [ ! -f "$GQE_DISPLAY_DPI_CONFIG" ]; then
-    mkdir -p "$GQE_DISPLAY_DPI_CONFIG_PATH"
-    touch "$GQE_DISPLAY_DPI_CONFIG"
-fi
-GQE_DISPLAY_DPI=$(cat "$GQE_DISPLAY_DPI_CONFIG" 2>/dev/null)
-if ! [[ "$GQE_DISPLAY_DPI" != default && -n $GQE_DISPLAY_DPI && -z ${GQE_DISPLAY_DPI//[0-9]/} && $GQE_DISPLAY_DPI -ne 0 ]]; then
-    echo "Invalid DPI configuration; ignoring DPI settings"
-    GQE_NO_DPI=1
-fi
-
-if [ "$GQE_WITH_VNC" = "1" ]; then
-    if ps a | grep -q '[t]ermux-x11'; then
-        pkill -f termux-x11
-    fi
-    if ps a | grep -q '[v]ncserver'; then
-        pkill -f vncserver
-    fi
-    termux-x11 :13 >/dev/null 2>&1 &
-    x11vnc -display :13 -nopw -forever -shared &
-    echo "VNC service started; connect to localhost:13"
-elif [ "$GQE_ONLY_VNC" = "1" ]; then
-    vncserver -rfbport 5913 -SecurityTypes None -geometry 1024x768 :13 &
-    export DISPLAY=:13
-    echo "VNC service started; connect to localhost:13"
-else
-    if ps a | grep -q '[t]ermux-x11'; then
-        pkill -f termux-x11
-    fi
-    if [ "$GQE_NO_DPI" != 1 ]; then
-        termux-x11 :13 -dpi="$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
-    else
-        termux-x11 :13 >/dev/null 2>&1 &
-    fi
-fi
-
-resolution_file="$GQE_DATA/config/resolution.txt"
-resolution=$(cat "$resolution_file" 2>/dev/null)
-if [[ ! "$resolution" =~ ^[0-9]+[xX][0-9]+$ ]]; then
-    echo "Invalid or missing resolution configuration; resetting to the default resolution 1024x768"
-    mkdir -p "$(dirname "$resolution_file")"
-    resolution="1024x768"
-    echo "$resolution" > "$resolution_file"
-fi
-
-if [ "$GQE_ONLY_VNC" != "1" ]; then
-    if am start -n com.termux.x11/.MainActivity; then
-        sleep 0.8
-        termux-x11-preference displayResolutionMode:exact "displayResolutionExact:${resolution}" || echo "Failed to change the resolution; you may need to set it manually"
-    else
-        echo "Failed to launch Termux-x11 automatically; make sure it is installed"
-    fi
-fi
-
-if [[ ! -f $GQE_DATA/config/audio_delay.txt ]]; then
-    mkdir -p "$GQE_DATA/config"
-    echo "20" > "$GQE_DATA/config/audio_delay.txt"
-fi
-
+# Start Wine Desktop
 env \
 DISPLAY=:13 \
 PULSE_SERVER=127.0.0.1 \
@@ -810,6 +856,7 @@ TZ=$(cat "$GQE_DATA/config/timezone.txt") \
 LC_ALL=zh_CN.UTF-8 \
 grun "$BOX64" wine64 explorer "/desktop=shell,$resolution" Z:\\home\\storage\\shared\\.gqe-start\\start-gqe-v0.4.bat > "$GQE_CONFIG_PATH/log.txt" 2>&1
 
+# Cleanup
 if [ "$GQE_ONLY_VNC" = "1" ]; then
     pkill -f vncserver
 elif [ "$GQE_WITH_VNC" = "1" ]; then

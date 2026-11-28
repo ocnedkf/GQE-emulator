@@ -149,9 +149,9 @@ while true; do
         extract_file "Wine" "winewow64.tar.xz" "$GQE_DATA/wine"
     
         setup_gqe_scripts \
-            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-wine-sh" \
+            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/initialization-wine-sh" \
             "a12ac7eaa21593cbc6e68f7f88265d2afec8822f6e884d476812bcc20aa72f47" \
-            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-wine" \
+            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/start-gqe-wine" \
             "A25536E7371A473B1A92B6422947B33CC77541A976F437B0B8E7ADB4E39967BD"
         break
     elif [ "$gqe" = "2" ]; then
@@ -160,9 +160,9 @@ while true; do
         extract_file "Proton-Wine" "proton-wine-11.0-wow64.tar.xz" "$GQE_DATA/wine"
         
         setup_gqe_scripts \
-            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/initialization-proton-sh" \
+            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/initialization-proton-sh" \
             "a12ac7eaa21593cbc6e68f7f88265d2afec8822f6e884d476812bcc20aa72f47" \
-            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4-beta/start-gqe-proton" \
+            "https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/start-gqe-proton" \
             "ECB6ECCE476E67468650DFF5E760039D4D76CF5092785542BE727024EEADF2DA"
         break
     else

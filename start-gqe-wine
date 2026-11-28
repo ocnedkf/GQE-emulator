@@ -791,7 +791,7 @@ fi
 start_termux_x11() {
     kill_if_running termux-x11
     if [ "$GQE_NO_DPI" != 1 ] && [ -n "$GQE_DISPLAY_DPI" ]; then
-        termux-x11 "$DISPLAY" -dpi="$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
+        termux-x11 "$DISPLAY" -dpi "$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
     else
         termux-x11 "$DISPLAY" >/dev/null 2>&1 &
     fi

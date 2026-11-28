@@ -182,7 +182,7 @@ gqe_display_settings() {
             if [[ "$dpi_value" =~ ^[0-9]{2,3}$ ]] && (( dpi_value >= 96 && dpi_value <= 240 )); then
                 echo "$dpi_value" > "$GQE_DATA/config/dpi.txt"
 
-                DPI_HEX=$(printf 'dword:%08x\n' "$DPI_NUMBER")
+                DPI_HEX=$(printf 'dword:%08x\n' "$dpi_value")
                 echo "Windows Registry Editor Version 5.00" > dpiset.reg
                 echo "[HKEY_CURRENT_USER\Software\Wine\Fonts]" >> dpiset.reg
                 echo "\"LogPixels\"=dword:$DPI_HEX" >> dpiset.reg
@@ -776,7 +776,7 @@ fi
 DISPLAY_NUM=13
 DISPLAY=":${DISPLAY_NUM}"
 VNC_PORT=5913
-VNC_GEOMETRY=${resolution}
+VNC_GEOMETRY=$(cat "$GQE_DATA/config/resolution.txt")
 
 # ========== 工具函数 ==========
 # 杀掉指定名字的旧进程，没有匹配就静默跳过

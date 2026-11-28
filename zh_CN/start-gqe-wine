@@ -80,7 +80,7 @@ EOF
 }
 
 reinit() {
-    download_file "https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/initialization-wine-sh" "50198f3939420ce4649c934bc8d92567e45251eefd9fca2f174b55feb15ee944" "initialization-sh" "初始化脚本"
+    download_file "https://v6.gh-proxy.org/https://raw.githubusercontent.com/ocnedkf/GQE-emulator/refs/heads/v0.4.1-beta/initialization-wine-sh" "4EB5CE4DD76E8F2D7D958056A1AA9A13374590AE9424848AE0EF6EA5D6E4B145" "initialization-sh" "初始化脚本"
     mv "$PREFIX/tmp/initialization-sh" .
     chmod +x initialization-sh
     source ./initialization-sh "$1"
@@ -795,7 +795,7 @@ fi
 start_termux_x11() {
     kill_if_running termux-x11
     if [ "$GQE_NO_DPI" != 1 ] && [ -n "$GQE_DISPLAY_DPI" ]; then
-        termux-x11 "$DISPLAY" -dpi="$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
+        termux-x11 "$DISPLAY" -dpi "$GQE_DISPLAY_DPI" >/dev/null 2>&1 &
     else
         termux-x11 "$DISPLAY" >/dev/null 2>&1 &
     fi
